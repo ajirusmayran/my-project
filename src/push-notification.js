@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import { usePouchDB } from './components/PouchDB/PouchDBProvider';
 
 export const initializeFirebase = () => {
 	const config = {
@@ -22,10 +23,10 @@ export const askForPermissionToReceiveNotifications = async () => {
 		const messaging = firebase.messaging();
 		await messaging.requestPermission();
 		// const token = await messaging.getToken();
-		// localStorage.setItem("notification-token", token);
 		messaging.getToken().then(async (currentToken) => {
 			if (currentToken) {
-				localStorage.setItem("notification-token", currentToken);
+				const { user: { metadata } } = usePouchDB();
+				// let Id = metada.name;
 				let Id = 2;
 				let Token = currentToken;
 				console.log(Id);
@@ -42,7 +43,7 @@ export const askForPermissionToReceiveNotifications = async () => {
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)
-						localStorage.getItem('notification-token', currentToken)
+						localStorage.setItem('notification-token', currentToken);
 					})
 					.catch(e => console.log(e))
 			} else {
@@ -53,6 +54,9 @@ export const askForPermissionToReceiveNotifications = async () => {
 		}).catch((err) => {
 			console.log('An error occured while retrieving token. ', err);
 		});
+
+		
+
 	} catch (error) {
 		console.error(error);
 	}
