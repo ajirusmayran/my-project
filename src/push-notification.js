@@ -42,6 +42,7 @@ export const askForPermissionToReceiveNotifications = async () => {
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)
+						localStorage.getItem('notification-token', currentToken)
 					})
 					.catch(e => console.log(e))
 			} else {
