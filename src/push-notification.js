@@ -39,7 +39,7 @@ export const askForPermissionToReceiveNotifications = async () => {
 						registrationToken: Token,
 					})
 				})
- 
+  
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)
