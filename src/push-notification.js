@@ -23,7 +23,7 @@ export const askForPermissionToReceiveNotifications = async () => {
 		const messaging = firebase.messaging();
 		await messaging.requestPermission();
 		// const token = await messaging.getToken();
-		messaging.getToken().then(async (currentToken) => {
+		await messaging.getToken().then(async (currentToken) => {
 			if (currentToken) {
 				const { user: { metadata } } = usePouchDB();
 				// let Id = metada.name;
