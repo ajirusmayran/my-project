@@ -33,7 +33,6 @@ import * as firebase from 'firebase';
 
 import { askForPermissionToReceiveNotifications } from '../../../push-notification';
 
-
 function Home({ history }) {
 
     const classes = useStyles();
@@ -50,7 +49,7 @@ function Home({ history }) {
     }
 
 
-    
+
     useEffect(() => {
         //  if (!isSyncing.syncKK) {
         if (!localStorage.getItem('notification-token')) {
