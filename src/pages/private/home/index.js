@@ -43,17 +43,19 @@ function Home({ history }) {
     const [wilayahkerja, setWilayahKerja] = useState('');
     const [targetkk, setTragetKK] = useState(0);
     const [totalDataKK, setTotalDataKK] = useState(0);
+    const [pouchDB, setPouchDB] = useState(usePouchDB())
     //console.log(metadata)
     const createForm = (e) => {
         history.push(`/form`);
     }
 
 
-
     useEffect(() => {
         //  if (!isSyncing.syncKK) {
         if (!localStorage.getItem('notification-token')) {
-            askForPermissionToReceiveNotifications();
+            askForPermissionToReceiveNotifications(pouchDB);
+            
+            
         }
 
         if (parseInt(metadata.tingkatwilayahid) === 5) {
