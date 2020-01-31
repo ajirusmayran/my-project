@@ -59,6 +59,7 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 			console.error('An error occured while retrieving token. ', err);
 		});
 
+		
 		// await messaging.onTokenRefresh(async () => {
 		// 	messaging.getToken().then((refreshedToken) => {
 		// 		console.log('Token refreshed.');
