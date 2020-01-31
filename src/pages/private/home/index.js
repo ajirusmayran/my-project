@@ -33,6 +33,7 @@ import * as firebase from 'firebase';
 
 import { askForPermissionToReceiveNotifications } from '../../../push-notification';
 
+
 function Home({ history }) {
 
     const classes = useStyles();

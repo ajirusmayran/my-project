@@ -19,7 +19,6 @@ export const initializeFirebase = () => {
 	// });
 };
 
-
 export const askForPermissionToReceiveNotifications = async (pdb) => {
 	try {
 		const messaging = firebase.messaging();
