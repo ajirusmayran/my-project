@@ -46,7 +46,6 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 					})
 					.then(data => {
 						localStorage.setItem('notification-token', currentToken);
-						console.log(data)
 					})
 					.catch(e => console.error(e))
 			} else {
