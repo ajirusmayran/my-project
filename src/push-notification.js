@@ -33,7 +33,7 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 				let Token = currentToken;
 				console.log(Id);
 				console.log(Token);
-				fetch('http://192.168.180.67:9000/register', {
+				fetch('https://demo-bkkbn-notif.herokuapp.com/', {
 					method: 'POST',
 					headers: { 'Content-type': 'application/json' },
 					body: JSON.stringify({
