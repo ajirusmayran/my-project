@@ -4,14 +4,14 @@ import { usePouchDB } from './components/PouchDB/PouchDBProvider';
 
 export const initializeFirebase = () => {
 	const config = {
-		apiKey: "AIzaSyCS6s1M8v2sTTLw9R4o3XNUUo1PGENvRdE",
-		authDomain: "firstproject-b67bf.firebaseapp.com",
-		databaseURL: "https://firstproject-b67bf.firebaseio.com",
-		projectId: "firstproject-b67bf",
-		storageBucket: "firstproject-b67bf.appspot.com",
-		messagingSenderId: "657590055033",
-		appId: "1:657590055033:web:08ec48725779731d60a4a8",
-		measurementId: "G-3E7NXBNBZ2"
+		apiKey: "AIzaSyCoZQsfuMIf6M8GOBqDC3aExvDtiMvhMfc",
+		authDomain: "web-push-notification-7ca2b.firebaseapp.com",
+		databaseURL: "https://web-push-notification-7ca2b.firebaseio.com",
+		projectId: "web-push-notification-7ca2b",
+		storageBucket: "web-push-notification-7ca2b.appspot.com",
+		messagingSenderId: "204164476841",
+		appId: "1:204164476841:web:f89fc19db348fabb0b1eb8",
+		measurementId: "G-CPRNNER1V7"
 	};
 	firebase.initializeApp(config);
 	// navigator.serviceWorker.register("./firebase-messages-ws.js").then(registration => {
@@ -33,11 +33,11 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 				let Token = currentToken;
 				console.log(Id);
 				console.log(Token);
-				fetch('https://demo-bkkbn-notif.herokuapp.com/', {
+				fetch('https://demo-bkkbn-notif.herokuapp.com/register', {
 					method: 'POST',
 					headers: { 'Content-type': 'application/json' },
 					body: JSON.stringify({
-						userName: Id,
+						username: Id,
 						registrationToken: Token,
 					})
 				})
@@ -58,7 +58,6 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 		}).catch((err) => {
 			console.error('An error occured while retrieving token. ', err);
 		});
-
 
 		// await messaging.onTokenRefresh(async () => {
 		// 	messaging.getToken().then((refreshedToken) => {
