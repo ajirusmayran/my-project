@@ -22,17 +22,17 @@ export const initializeFirebase = () => {
 export const askForPermissionToReceiveNotifications = async (pdb) => {
 	try {
 		const messaging = firebase.messaging();
-		await messaging.requestPermission();
-		// const token = await messaging.getToken();
-		// localStorage.getItem('notification-token', token);
-		await messaging.getToken().then(async (currentToken) => {
-			if (currentToken) {
-				const { user: { metadata } } = pdb;
+		await messaging.requestPermission()
+		.then(() => {
+			console.log('Have Permission');
+			return messaging.getToken();
+		})
+		.then(token => {
+			console.log('FCM Token: ', token);
+			const { user: { metadata } } = pdb;
 				let Id = metadata.name;
 				// let Id = 2;
-				let Token = currentToken;
-				console.log(Id);
-				console.log(Token);
+				let Token = token;
 				fetch('https://demo-bkkbn-notif.herokuapp.com/register', {
 					method: 'POST',
 					headers: { 'Content-type': 'application/json' },
@@ -45,50 +45,20 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 						response.json()
 					})
 					.then(data => {
-						localStorage.setItem('notification-token', currentToken);
+						localStorage.setItem('notification-token', token);
 					})
 					.catch(e => console.error(e))
+		})
+		.catch(error => {
+			if (error.code === 'messaging/permission-blocked') {
+				console.log('Please Unblock Notification Request Manually');
 			} else {
-				// Show permission request
-				console.log('No Instance ID token available. Request permission to generate one.');
-				// Show permission UI
+				console.log(error);
 			}
-		}).catch((err) => {
-			console.error('An error occured while retrieving token. ', err);
 		});
-
-		// await messaging.onTokenRefresh(async () => {
-		// 	messaging.getToken().then((refreshedToken) => {
-		// 		console.log('Token refreshed.');
-		// 		localStorage.setItem("notification-token", refreshedToken);
-		// 		const { user: { metadata } } = usePouchDB();
-		// 		let Id = metadata.name;
-		// 		// let Id = 2;
-		// 		let Token = refreshedToken;
-		// 		console.log(Id);
-		// 		console.log(Token);
-		// 		fetch('http://192.168.180.67:9000/register', {
-		// 			method: 'POST',
-		// 			headers: { 'Content-type': 'application/json' },
-		// 			body: JSON.stringify({
-		// 				userName: Id,
-		// 				registrationToken: refreshedToken,
-
-		// 			})
-
-		// 		})
-		// 			.then(response => response.json())
-		// 			.then(data => {
-		// 				console.log(data)
-		// 			})
-		// 			.catch(e => console.log(e))
-		// 	}).catch((err) => {
-		// 		console.log('Unable to retrieve refreshed token ', err);
-
-		// 	});
-		// });
 
 	} catch (error) {
 		console.error(error);
 	}
+
 };

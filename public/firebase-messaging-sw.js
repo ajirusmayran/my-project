@@ -2,29 +2,30 @@ importScripts('https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/7.7.0/firebase-messaging.js');
 
 firebase.initializeApp({
-    apiKey: "AIzaSyCS6s1M8v2sTTLw9R4o3XNUUo1PGENvRdE",
-    authDomain: "firstproject-b67bf.firebaseapp.com",
-    databaseURL: "https://firstproject-b67bf.firebaseio.com",
-    projectId: "firstproject-b67bf",
-    storageBucket: "firstproject-b67bf.appspot.com",
-    messagingSenderId: "657590055033",
-    appId: "1:657590055033:web:08ec48725779731d60a4a8",
-    measurementId: "G-3E7NXBNBZ2"
+    apiKey: "AIzaSyCoZQsfuMIf6M8GOBqDC3aExvDtiMvhMfc",
+    authDomain: "web-push-notification-7ca2b.firebaseapp.com",
+    databaseURL: "https://web-push-notification-7ca2b.firebaseio.com",
+    projectId: "web-push-notification-7ca2b",
+    storageBucket: "web-push-notification-7ca2b.appspot.com",
+    messagingSenderId: "204164476841",
+    appId: "1:204164476841:web:f89fc19db348fabb0b1eb8",
+    measurementId: "G-CPRNNER1V7"
 });
 
-const messaging = firebase.messaging(); messaging.setBackgroundMessageHandler(function (payload) {
-    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+const messaging = firebase.messaging();
+messaging.setBackgroundMessageHandler(function (payload) {
+    console.log('Handling background message ', payload);
     // Customize notification here
-    const notificationTitle = 'Background Message Title';
-    const notificationOptions = {
-        body: 'Background Message body.',
-        icon: './logo.png'
-    };
-
-    return self.registration.showNotification(notificationTitle,
-        notificationOptions);
+    return self.registration.showNotification(
+        payload.data.title, {
+        body: payload.data.body,
+        icon: payload.data.icon,
+        tag: payload.data.tag,
+        data: payload.data.link
+    });
 });
+
 self.addEventListener('notificationclick', function (event) {
-    // do what you want
-    // ...
+    event.notification.close();
+    event.waitUntil(self.clients.openWindow(event.notification.data));
 });

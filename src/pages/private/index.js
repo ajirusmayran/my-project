@@ -17,8 +17,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import Popover from '@material-ui/core/Popover';
 import CircularProgress from '@material-ui/core/CircularProgress';
-// material ui icons
 
+// material ui icons
 import SignOutIcon from '@material-ui/icons/ExitToApp';
 import HomeIcon from '@material-ui/icons/Home';
 import UserIcon from '@material-ui/icons/Person';
@@ -98,6 +98,7 @@ export default function Private({ history, match, location }) {
 
     const handleCloseNotification = () => {
         setOpenNotification(null);
+        history.push("/form")
     };
 
     return (
@@ -206,7 +207,7 @@ export default function Private({ history, match, location }) {
                         onClose={handleCloseNotification}
                         getContentAnchorEl={null}
                     >
-                        {isSyncing.statusNotif.message.length <= 0 && <MenuItem>Belum ada notifikasi</MenuItem>}
+                        {isSyncing.statusNotif.message.length <= 0 && <MenuItem  onClick={handleCloseNotification}>Belum ada notifikasi</MenuItem>}
                         {isSyncing.statusNotif.message.length > 0 && isSyncing.statusNotif.message.map((item, index) => (
                             <MenuItem
                                 key={item}
