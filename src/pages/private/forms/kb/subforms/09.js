@@ -23,7 +23,7 @@ function SubForm01({ id, setValue, saveValue, value, kb, handleNextSub, navigati
     useEffect(() => {
         setError({})
 
-        if (kb["0106"].jenis_kontrasepsi !== "9") {
+        if (kb["0107"].jenis_kontrasepsi !== "9" || (kb["0104"].menggunakan_kontrasepsi !== "2" && kb["0105"].pernah_menggunakan_kontrasepsi !== "2"  )) {
             setUseModernContrasep(true);
         } else {
             if (navigationMode === 'back') {

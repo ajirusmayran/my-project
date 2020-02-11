@@ -2,12 +2,6 @@
 export default {
 
     "0101": (normalize) => {
-
-        return {
-            jumlah_anak: normalize.Jawaban_H1
-        }
-    },
-    "0102": (normalize) => {
         const answer1 = normalize.answer[0];
         const answer2 = normalize.answer[1];
         return {
@@ -17,6 +11,11 @@ export default {
             masih_hidup_laki_laki: answer2.Jawaban_D1.toString(),
             masih_hidup_perempuan: answer2.Jawaban_D2.toString()
 
+        }
+    },
+    "0102": (normalize) => {
+        return {
+            jumlah_anak: normalize.Jawaban_H1
         }
     },
 
@@ -39,11 +38,13 @@ export default {
         const answer1 = normalize.answer[0];
 
         return {
-            menggunakan_kontrasepsi: answer1.No_Jawaban
+            menggunakan_kontrasepsi: answer1.No_Jawaban,
+            bulan_pakai: answer1.Jawaban_D1 ? answer1.Jawaban_D1 : '',
+            tahun_pakai: answer1.Jawaban_D2 ? answer1.Jawaban_D2 : '',
         }
     },
     "0105": (normalize) => {
-        const answer1 = normalize.answer[0];
+        const answer1 = 'answer' in normalize ? normalize.answer[0] : {};
 
         return {
             pernah_menggunakan_kontrasepsi: answer1.No_Jawaban,
@@ -53,22 +54,32 @@ export default {
             tahun_berhenti: answer1.Jawab_D4 ? answer1.Jawab_D4 : ''
         }
     },
-
     "0106": (normalize) => {
+
+        const answer1 = normalize.answer[0];
+
+        return {
+            alasan_tidak_kb: answer1.No_Jawaban,
+            alasan_tidak_kb_lainnya: answer1.Lainnya
+        }
+
+
+    },
+    "0107": (normalize) => {
         const answer1 = normalize.answer[0];
 
         return {
             jenis_kontrasepsi: answer1.No_Jawaban
         }
     },
-    "0107": (normalize) => {
+    // "0107a": (normalize) => {
 
 
-        return {
-            bulan_mulai_menggunakan_modern: normalize.Jawaban_H1,
-            tahun_mulai_menggunakan_modern: normalize.Jawaban_H2
-        }
-    },
+    //     return {
+    //         bulan_mulai_menggunakan_modern: normalize.Jawaban_H1,
+    //         tahun_mulai_menggunakan_modern: normalize.Jawaban_H2
+    //     }
+    // },
     "0108": (normalize) => {
 
         const answer1 = normalize.answer[0];
@@ -91,18 +102,5 @@ export default {
             info_efek_samping_kb: answer2.pilihankb,
             info_jika_mengalami_efek: answer3.pilihankb
         }
-
-
-    },
-    "0110": (normalize) => {
-
-        const answer1 = normalize.answer[0];
-
-        return {
-            alasan_tidak_kb: answer1.No_Jawaban,
-            alasan_tidak_kb_lainnya: answer1.Lainnya
-        }
-
-
     }
 }

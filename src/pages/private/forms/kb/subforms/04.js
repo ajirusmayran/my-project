@@ -9,7 +9,15 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import { generateYears, generateMonths } from '../../../../../utils/generator';
+
 import useStyles from './styles';
+
+const years = generateYears(2019 - 30);
+const months = generateMonths();
+
 
 function SubForm04({ id, setValue, saveValue, value, kb, handleNextSub, no_kk, navigationMode, handleBackSub }) {
 
@@ -35,7 +43,7 @@ function SubForm04({ id, setValue, saveValue, value, kb, handleNextSub, no_kk, n
         return null
     }
 
-    const pertanyaan = "Apakah saat ini menggunakan alat/obat/cara KB (Kontrasepsi)";
+    const pertanyaan = "Apakah saat ini Ibu atau Suami menggunakan alat/obat/cara KB (Kontrasepsi)";
     const handleChange = (e) => {
 
         setValue(e)
@@ -53,6 +61,16 @@ function SubForm04({ id, setValue, saveValue, value, kb, handleNextSub, no_kk, n
 
         if (!value.menggunakan_kontrasepsi) {
             newError.menggunakan_kontrasepsi = "Wajib diisi";
+        }
+
+        if (value.menggunakan_kontrasepsi === "1") {
+            if (!value.bulan_pakai) {
+                newError.bulan_pakai = "Bulan wajib diisi";
+            }
+
+            if (!value.tahun_pakai) {
+                newError.tahun_pakai = "Tahun wajib diisi";
+            }
         }
 
 
@@ -75,6 +93,9 @@ function SubForm04({ id, setValue, saveValue, value, kb, handleNextSub, no_kk, n
 
             // }
 
+            let Jawaban_D1 = value.bulan_pakai || 0;
+            let Jawaban_D2 = value.tahun_pakai || 0;
+
             let normalizeValue = {
                 _id: `${no_kk}${id}`,
                 Pertanyaan: pertanyaan,
@@ -89,8 +110,8 @@ function SubForm04({ id, setValue, saveValue, value, kb, handleNextSub, no_kk, n
                     {
                         _id: `${no_kk}${id}01`,
                         No_Jawaban: value.menggunakan_kontrasepsi,
-                        Jawaban_D1: 0,
-                        Jawaban_D2: 0,
+                        Jawaban_D1,
+                        Jawaban_D2,
                         Jawab_D3: 0,
                         Jawab_D4: 0,
                         pilihankb: 0,
@@ -134,7 +155,55 @@ function SubForm04({ id, setValue, saveValue, value, kb, handleNextSub, no_kk, n
                             <FormHelperText>{error.menggunakan_kontrasepsi}</FormHelperText>
                         </FormControl>
                     </Grid>
+                    {value.menggunakan_kontrasepsi === '1' &&
+                        <>
+                            <Grid item xs={12}>
+                                <Typography>Kapan mulai menggunakan alat/obat KB (Kontrasepsi) yang dipakai saat ini?</Typography>
+                            </Grid>
+                            <Grid item xs={6} md={3}>
 
+                                <FormControl
+
+                                    variant="outlined"
+                                    fullWidth
+                                    error={error.bulan_pakai ? true : false}>
+
+                                    <Select
+                                        id="bulan_pakai"
+                                        value={value.bulan_pakai || ''}
+                                        onChange={handleChange}
+                                        name="bulan_pakai"
+                                        displayEmpty
+                                    >
+                                        <MenuItem value="">Bulan</MenuItem>
+                                        {months.map(month => <MenuItem key={month} value={month}>{month}</MenuItem>)}
+                                    </Select>
+                                    <FormHelperText>{error.bulan_pakai}</FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6} md={3}>
+
+                                <FormControl
+
+                                    variant="outlined"
+                                    fullWidth
+                                    error={error.tahun_pakai ? true : false}>
+
+                                    <Select
+                                        id="tahun_mulai"
+                                        value={value.tahun_pakai || ''}
+                                        onChange={handleChange}
+                                        name="tahun_pakai"
+                                        displayEmpty
+                                    >
+                                        <MenuItem value="">Tahun</MenuItem>
+                                        {years.map(year => <MenuItem key={year} value={year}>{year}</MenuItem>)}
+                                    </Select>
+                                    <FormHelperText>{error.tahun_mulai}</FormHelperText>
+                                </FormControl>
+                            </Grid>
+                        </>
+                    }
 
 
                 </Grid>

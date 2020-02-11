@@ -50,10 +50,10 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
 
     const [isSubmitting, setSubmitting] = useState(false);
 
-    useEffect(() => {
-        if (Object.keys(keluarga.data).length > 0)
-        return history.push('/form')
-    });
+    // useEffect(() => {
+    //     if (Object.keys(keluarga.data).length > 0)
+    //     return history.push('/form')
+    // }, [keluarga]);
 
 
     const handleChange = (e) => {
@@ -90,10 +90,10 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
         if (!wilayah.id_rt) {
             newError.id_rt = "RT wajib diisi";
         }
-        if (!wilayah.no_urutrmh) {
-            newError.no_urutrmh = "No. Urut Rumah Tangga wajib diisi";
-        } else if (!isInt(wilayah.no_urutrmh) || parseInt(wilayah.no_urutrmh) <= 0) {
-            newError.no_urutrmh = "No. Urut Rumah tidak valid";
+        if (!wilayah.no_rmh) {
+            newError.no_rmh = "No. Rumah wajib diisi";
+        } else if (!isInt(wilayah.no_rmh) || parseInt(wilayah.no_rmh) <= 0) {
+            newError.no_rmh = "No. Rumah tidak valid";
         }
 
         if (!wilayah.no_urutkel) {
@@ -265,18 +265,18 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             disabled={isSubmitting}
                             fullWidth
                             variant="outlined"
-                            placeholder="No. Urut Rumah Tangga"
-                            value={wilayah.no_urutrmh || ''}
-                            name="no_urutrmh"
-                            id="no_urutrmh"
+                            placeholder="No. Rumah"
+                            value={wilayah.no_rmh || ''}
+                            name="no_rmh"
+                            id="no_rmh"
                             type="number"
                             inputProps={{
 
                                 min: 0
                             }}
                             onChange={handleChange}
-                            error={error.no_urutrmh ? true : false}
-                            helperText={error.no_urutrmh}
+                            error={error.no_rmh ? true : false}
+                            helperText={error.no_rmh}
                         />
 
                     </Grid>

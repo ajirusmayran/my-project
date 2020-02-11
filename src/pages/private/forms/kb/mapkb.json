@@ -1,9 +1,5 @@
 {
     "0101": {
-        "beauty": "jumlah_anak",
-        "normalize": "Jawaban_H1"
-    },
-    "0102": {
         "beauty": "kelahiran",
         "normalize": "Jawaban_H1",
         "answer": [
@@ -28,6 +24,10 @@
                 "normalize": "Jawaban_D2"
             }
         ]
+    },
+    "0102": {
+        "beauty": "jumlah_anak",
+        "normalize": "Jawaban_H1"
     },
     "0103": {
         "answer": [

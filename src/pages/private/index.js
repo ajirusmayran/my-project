@@ -207,7 +207,7 @@ export default function Private({ history, match, location }) {
                         onClose={handleCloseNotification}
                         getContentAnchorEl={null}
                     >
-                        {isSyncing.statusNotif.message.length <= 0 && <MenuItem  onClick={handleCloseNotification}>Belum ada notifikasi</MenuItem>}
+                        {isSyncing.statusNotif.message.length <= 0 && <MenuItem onClick={handleCloseNotification}>Belum ada notifikasi</MenuItem>}
                         {isSyncing.statusNotif.message.length > 0 && isSyncing.statusNotif.message.map((item, index) => (
                             <MenuItem
                                 key={item}

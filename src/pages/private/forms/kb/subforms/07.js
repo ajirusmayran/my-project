@@ -3,28 +3,26 @@ import React, { useState, useEffect } from 'react';
 // material ui
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import useStyles from './styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
 
-import { generateYears, generateMonths } from '../../../../../utils/generator';
-const years = generateYears(2019 - 30);
-const months = generateMonths();
+import useStyles from './styles';
+
 
 function SubForm07({ id, setValue, saveValue, value, kb, handleNextSub, navigationMode, handleBackSub, no_kk }) {
 
     const classes = useStyles();
     const [error, setError] = useState({});
-    const [useModernContrasep, setUseModernContrasep] = useState(false);
+
+    const [useContrasep, setUseContrasep] = useState(false);
     useEffect(() => {
         setError({})
-
-        if (kb["0106"].jenis_kontrasepsi !== "9") {
-            setUseModernContrasep(true);
+        //console.log(kb)
+        if (kb["0104"].menggunakan_kontrasepsi === "1" || kb["0105"].pernah_menggunakan_kontrasepsi === "1" || kb["0104"].menggunakan_kontrasepsi !== "2" && kb["0105"].pernah_menggunakan_kontrasepsi !== "2" ) {
+            setUseContrasep(true);
         } else {
             if (navigationMode === 'back') {
                 handleBackSub();
@@ -35,11 +33,32 @@ function SubForm07({ id, setValue, saveValue, value, kb, handleNextSub, navigati
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    if (!useModernContrasep) {
+    if (!useContrasep) {
         return null
     }
 
-    const pertanyaan = "KHUSUS IBU YANG SAAT INI SEDANG MENGGUNAKAN ALAT/OBT KB MODERN. Kapan mulai menggunakan alat/obat KB (Kontrasepsi) yang dipakai saat ini?";
+
+    // const [useContrasep, setUseContrasep] = useState(false);
+    // useEffect(() => {
+    //     setError({})
+
+        // if (kb["0104"].menggunakan_kontrasepsi === "1" || kb["0105"].pernah_menggunakan_kontrasepsi === "1") {
+        //     setUseContrasep(true);
+        // } else {
+        //     if (navigationMode === 'back') {
+        //         handleBackSub();
+        //     } else {
+        //         handleNextSub()
+        //     }
+        // }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
+
+    // if (!useContrasep) {
+    //     return null
+    // }
+
+    const pertanyaan = "Jenis alat/obat/cara KB (Kontrasepsi) yang dipakai saat ini atau terakhir dipakai?";
     const handleChange = (e) => {
 
         setValue(e)
@@ -55,12 +74,8 @@ function SubForm07({ id, setValue, saveValue, value, kb, handleNextSub, navigati
     const validate = () => {
         let newError = {};
 
-        if (!value.bulan_mulai_menggunakan_modern) {
-            newError.bulan_mulai_menggunakan_modern = "Wajib diisi";
-        }
-
-        if (!value.tahun_mulai_menggunakan_modern) {
-            newError.tahun_mulai_menggunakan_modern = "Wajib diisi";
+        if (!value.jenis_kontrasepsi) {
+            newError.jenis_kontrasepsi = "Wajib diisi";
         }
 
 
@@ -80,20 +95,33 @@ function SubForm07({ id, setValue, saveValue, value, kb, handleNextSub, navigati
 
             // const normalizeValue = {
             //     pertanyaan,
-            //     jawaban_1: value.mulai_menggunakan_modern
+            //     jawaban_1: value.jenis_kontrasepsi
 
             // }
+
             let normalizeValue = {
                 _id: `${no_kk}${id}`,
                 Pertanyaan: pertanyaan,
-                Jawaban_H1: value.bulan_mulai_menggunakan_modern,
-                Jawaban_H2: value.tahun_mulai_menggunakan_modern,
-                Jawaban_HDate1: '',
-                Jawaban_HDate2: '',
+                Jawaban_H1: 0,
+                Jawaban_H2: 0,
+                Jawaban_HDate1: "",
+                Jawaban_HDate2: "",
                 No_Pertanyaan: 7,
                 No_KK: no_kk,
                 Periode_Sensus: "2020",
+                answer: [
+                    {
+                        _id: `${no_kk}${id}01`,
+                        No_Jawaban: value.jenis_kontrasepsi,
+                        Jawaban_D1: 0,
+                        Jawaban_D2: 0,
+                        Jawab_D3: 0,
+                        Jawab_D4: 0,
+                        pilihankb: 0,
+                        Lainnya: ""
+                    },
 
+                ]
 
             }
 
@@ -113,46 +141,46 @@ function SubForm07({ id, setValue, saveValue, value, kb, handleNextSub, navigati
             </div>
             <div className={classes.cardBody}>
                 <Grid container spacing={1}>
-                    <Grid item xs={6} md={3}>
-
-                        <FormControl
-
-                            variant="outlined"
-                            fullWidth
-                            error={error.bulan_mulai_menggunakan_modern ? true : false}>
-
-                            <Select
-                                id="bulan_mulai_menggunakan_modern"
-                                value={value.bulan_mulai_menggunakan_modern || ''}
+                    <Grid item xs={12} >
+                        <FormControl error={error.jenis_kontrasepsi ? true : false} component="fieldset" fullWidth>
+                            <RadioGroup value={value.jenis_kontrasepsi || ''}
                                 onChange={handleChange}
-                                name="bulan_mulai_menggunakan_modern"
-                                displayEmpty
+                                aria-label="jenis_kontrasepsi" name="jenis_kontrasepsi"
+                                className={classes.radioGroup}
                             >
-                                <MenuItem value="">Bulan</MenuItem>
-                                {months.map(month => <MenuItem key={month} value={month}>{month}</MenuItem>)}
-                            </Select>
-                            <FormHelperText>{error.bulan_mulai_menggunakan_modern}</FormHelperText>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
-
-                        <FormControl
-
-                            variant="outlined"
-                            fullWidth
-                            error={error.tahun_mulai_menggunakan_modern ? true : false}>
-
-                            <Select
-                                id="tahun_mulai_menggunakan_modern"
-                                value={value.tahun_mulai_menggunakan_modern || ''}
-                                onChange={handleChange}
-                                name="tahun_mulai_menggunakan_modern"
-                                displayEmpty
-                            >
-                                <MenuItem value="">Tahun</MenuItem>
-                                {years.map(year => <MenuItem key={year} value={year}>{year}</MenuItem>)}
-                            </Select>
-                            <FormHelperText>{error.tahun_mulai_menggunakan_modern}</FormHelperText>
+                                <div className={classes.radioSection}>
+                                    <FormControlLabel control={<Radio />}
+                                        value="1"
+                                        label="MOW/Steril Wanita" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="2"
+                                        label="MOP/Steril Pria" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="3"
+                                        label="IUD/Spiral/AKDR" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="4"
+                                        label="Implant/Susuk" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="5"
+                                        label="Suntik" />
+                                </div>
+                                <div className={classes.radioSection}>
+                                    <FormControlLabel control={<Radio />}
+                                        value="6"
+                                        label="Pil" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="7"
+                                        label="Kondom" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="8"
+                                        label="Asi Eksklusif/MAL" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="9"
+                                        label="Tradisional" />
+                                </div>
+                            </RadioGroup>
+                            <FormHelperText>{error.jenis_kontrasepsi}</FormHelperText>
                         </FormControl>
                     </Grid>
 

@@ -24,6 +24,7 @@ import subforms from './questions.json';
 import SubFormRadio from './subforms/radio';
 import SubFormNumber from './subforms/number';
 import SubformCheckbox from './subforms/checkbox';
+import SubFormRadio2 from './subforms/subformradio';
 
 function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBack, setNormalizePK, mode, no_kk }) {
 
@@ -135,12 +136,23 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
     }
 
     const saveValue = async (normalizeValue) => {
+        const id = `${wilayah.no_kk}${no}`;
         if (!isSomethingChange) {
+            setNormalizePK(normalizePK => ({
+                ...normalizePK,
+                [no]: {
+                    ...normalizeValue,
+                    _id: id,
+                    No_KK: wilayah.no_kk,
+                    Periode_Sensus: "2020",
+                    user_name: metadata.name
+                }
+            }));
             return handleNextSub();
         }
         //simpan ke db local
         setSubmitting(true);
-        const id = `${wilayah.no_kk}${no}`;
+
         try {
             // const existing = await dataPK.local.get(id)
 
@@ -269,6 +281,23 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
                                             form={form}
                                             keluarga={keluarga}
                                             pk={pk}
+
+                                        />
+                                    }
+
+                                    {form.tipe === 'subformradio' &&
+                                        <SubFormRadio2
+                                            id={no}
+                                            value={value}
+                                            setValue={setValue}
+                                            saveValue={saveValue}
+                                            kb={kb}
+                                            handleNextSub={handleNextSub}
+                                            handleBackSub={handleBackSub}
+                                            navigationMode={navigationMode}
+                                            subformIndex={subformIndex}
+                                            form={form}
+                                            keluarga={keluarga}
 
                                         />
                                     }

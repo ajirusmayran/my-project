@@ -31,7 +31,7 @@ import SubForm06 from './subforms/06';
 import SubForm07 from './subforms/07';
 import SubForm08 from './subforms/08';
 import SubForm09 from './subforms/09';
-import SubForm10 from './subforms/10';
+// import SubForm10 from './subforms/10';
 const subforms = {
     "0101": {
         component: SubForm01
@@ -39,13 +39,10 @@ const subforms = {
         component: SubForm02
     }, "0103": {
         component: SubForm03
-
     }, "0104": {
         component: SubForm04
-
     }, "0105": {
         component: SubForm05
-
     }, "0106": {
         component: SubForm06
     }, "0107": {
@@ -54,8 +51,8 @@ const subforms = {
         component: SubForm08
     }, "0109": {
         component: SubForm09
-    }, "0110": {
-        component: SubForm10
+    // }, "0110": {
+    //     component: SubForm10
     }
 };
 
@@ -121,7 +118,7 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, s
                 setSubFormIndex(0);
             } else {
                 setNavigationMode('back')
-                setSubFormIndex(9);
+                setSubFormIndex(8);
             }
 
         } else {
@@ -142,7 +139,7 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, s
     }
 
     const handleNextSub = () => {
-        if (subformIndex >= 9) {
+        if (subformIndex >= 8) {
             return handleNext()
         }
         setNavigationMode('next')
@@ -202,6 +199,13 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, s
 
     const saveValue = (normalizeValue) => {
         if (!isSomethingChange) {
+            setNormalizeKB(normalizeKB => ({
+                ...normalizeKB,
+                [no]: {
+                    ...normalizeValue,
+                    user_name: metadata.name
+                }
+            }))
             return handleNextSub();
         }
         //simpan ke db local

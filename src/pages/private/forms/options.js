@@ -12,12 +12,12 @@ export const sts_hubungan = {
     "4": "Lain-lain"
 }
 
-export const sts_hubanak_ibu = {
-    "1": "Ibu Kandung",
-    "2": "Ibu Angkat",
-    "3": "Ibu Tiri",
-    "4": "Lainnya"
-}
+// export const sts_hubanak_ibu = {
+//     "1": "Ibu Kandung",
+//     "2": "Ibu Angkat",
+//     "3": "Ibu Tiri",
+//     "4": "Lainnya"
+// }
 
 export const sts_akta = {
     "1": "Ya",
@@ -81,16 +81,23 @@ export const id_pekerjaan = {
     "10": "Lainnya"
 }
 
+export const keberadaan = {
+    "1": "Di Dalam Rumah",
+    "2": "Di Luar Rumah",
+    "3": "Di Luar Negeri"
+}
+
 
 export default {
     jenis_kelamin,
     sts_hubungan,
-    sts_hubanak_ibu,
+    // sts_hubanak_ibu,
     sts_akta,
     sts_kawin,
     jns_pendidikan,
     jns_asuransi,
     id_agama,
-    id_pekerjaan
+    id_pekerjaan,
+    keberadaan
 }
 

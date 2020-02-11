@@ -1,7 +1,7 @@
 {
     "0201": {
         "no": "01",
-        "pertanyaan": "Setiap anggota keluarga (usia 10 tahun ke atas) menjalankan ibadah sesuai dengan tuntunan agama atau kepercayaan yang dianut",
+        "pertanyaan": "Selama 6 (enam) bulan terakhir, setiap anggota keluarga (usia 10 tahun ke atas) menjalankan ibadah sesuai dengan tuntunan agama atau kepercayaan yang dianut",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -28,19 +28,29 @@
     },
     "0203": {
         "no": "03",
-        "pertanyaan": "Terdapat konflik (tanpa tegur sapa, pisah ranjang antara suami dan istri, anggota keluarga pergi dari rumah/minggat, kekerasan dalam rumah tangga) antara anggota keluarga dalam 6 (enam) bulan terakhir",
-        "tipe": "radio",
+        "pertanyaan": "Selama 6 (enam) bulan terakhir, terdapat konflik diantara anggota keluarga",
+        "tipe": "subformradio",
         "options": [
             "Ya",
             "Tidak"
         ],
-        "dependencies": [],
+        "options2": [
+            "Ya","Tidak","Tidak Berlaku"
+        ],
+        "dependencies": [
+            "haveMarriedMember"
+        ],
         "unit": "",
-        "lain": false
+        "lain": false,
+        "subform": true,
+        "pertanyaanA" : "a. Tanpa tegur sapa(selama 7 hari berturut-turut)",
+        "pertanyaanB" : "b. Pisah ranjang antara suami dan istri(selama 3 hari berturut-turut)",
+        "pertanyaanC" : "c. Pergi dari rumah/minggat (selama 2 hari berturut-turut)",
+        "pertanyaanD" : "d. Kekerasan dalam rumah tangga"
     },
     "0204": {
         "no": "04",
-        "pertanyaan": "Setiap anggota keluarga makan \"makanan beragam\" (makanan pokok, sayur/buah dan lauk) paling sedikit 2 (dua) kali sehari",
+        "pertanyaan": "Selama 6 (enam) bulan terakhir, terdapat paling sedikit 1 (satu) anggota keluarga memiliki sumber penghasilan untuk memenuhi kebutuhan pokok per bulan",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -52,7 +62,7 @@
     },
     "0205": {
         "no": "05",
-        "pertanyaan": "keluarga memiliki simpanan/tabungan yang dapat digunakan sewaktu-waktu untuk memenuhi kebutuhan pokok dalam kehidupan 3 (tiga) bulan kedepan",
+        "pertanyaan": "Selama 6 (enam) bulan terakhir, setiap anggota keluarga makan “makanan beragam” (makanan pokok, sayur/buah dan lauk) paling sedikit 2 (dua) kali sehari",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -64,7 +74,7 @@
     },
     "0206": {
         "no": "06",
-        "pertanyaan": "Terdapat anggota keluarga yang sakit sehingga meninggalkan aktifitas dalam 1 (satu) bulan terakhir",
+        "pertanyaan": "Keluarga memiliki tabungan/ simpanan (uang kontan, perhiasan, hewan ternak, hasil kebun, dll) yang dapat digunakan sewaktu-waktu untuk memenuhi kebutuhan pokok dalam 3 (tiga) bulan ke depan",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -76,7 +86,7 @@
     },
     "0207": {
         "no": "07",
-        "pertanyaan": "Keluarga memiliki akses informasi dari media cetak, media elektronik atau media online",
+        "pertanyaan": "Selama 1 (satu) bulan terakhir, terdapat anggota keluarga yang sakit (empat hari berturut-turut) sehingga meninggalkan aktifitas, atau ada anggota keluarga yang disabilitas",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -88,7 +98,7 @@
     },
     "0208": {
         "no": "08",
-        "pertanyaan": "Setiap anggota keluarga memiliki waktu untuk berinteraksi setiap hari",
+        "pertanyaan": "Selama 6 (enam) bulan terakhir, terdapat paling sedikit 1 (satu) anggota keluarga mengakses informasi dari media online (internet)",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -100,7 +110,19 @@
     },
     "0209": {
         "no": "09",
-        "pertanyaan": "Pengasuhan anak dilakukan bersama oleh suami dan istri",
+        "pertanyaan": "Selama 6 (enam) bulan terakhir, setiap anggota keluarga memiliki waktu untuk berinteraksi setiap hari",
+        "tipe": "radio",
+        "options": [
+            "Ya",
+            "Tidak"
+        ],
+        "dependencies": [],
+        "unit": "",
+        "lain": false
+    },
+    "0210": {
+        "no": "10",
+        "pertanyaan": "Selama 6 (enam) bulan terakhir, pengasuhan anak dilakukan bersama antara suami dan istri",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -113,21 +135,9 @@
         "unit": "",
         "lain": false
     },
-    "0210": {
-        "no": "10",
-        "pertanyaan": "Setiap anggota keluarga berekreasi bersama di luar rumah minimal 6 (enam) bulan sekali",
-        "tipe": "radio",
-        "options": [
-            "Ya",
-            "Tidak"
-        ],
-        "dependencies": [],
-        "unit": "",
-        "lain": false
-    },
     "0211": {
         "no": "11",
-        "pertanyaan": "Keluarga ikut serta dalam kegiatan sosial dilingkunan RT dalam waktu 1 tahun terakhir",
+        "pertanyaan": "Selama 6 (enam) bulan terakhir, keluarga pernah berekreasi bersama di luar rumah",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -139,7 +149,7 @@
     },
     "0212": {
         "no": "12",
-        "pertanyaan": "Keluarga memiliki tempat pembuangan sampah",
+        "pertanyaan": "6 (enam) bulan terakhir, terdapat paling sedikit 1 (satu) anggota keluarga pernah ikut serta dalam kegiatan sosial/gotong royong di lingkungan RT",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -211,7 +221,7 @@
     },
     "0217": {
         "no": "17",
-        "pertanyaan": "Keluarga lansia atau mempunyai lansia (> 60 thn) ikut kegiatan Bina Keluarga Lansisa (BKL)",
+        "pertanyaan": "Keluarga yang memiliki lansia dan atau lansia (umur ≥60 tahun) ikut kegiatan Bina Keluarga Lansia (BKL)",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -226,24 +236,35 @@
     },
     "0218": {
         "no": "18",
-        "pertanyaan": "Keluarga mengikuti kegiatan Usaha Peningkatan Pendapatan Keluarga Sejahtera (UPPKS)",
-        "tipe": "radio",
+        "pertanyaan": "Keluarga mengikuti kegiatan usaha ekonomi seperti : ",
+        "tipe": "subformradio",
         "options": [
             "Ya",
             "Tidak"
         ],
+        "options2": [
+            "Ya","Tidak"
+        ],
         "dependencies": [],
         "unit": "",
-        "lain": false
+        "lain": false,
+        "subform": true,
+        "pertanyaanA" : "a. Usaha Peningkatan Pendapatan Keluarga Sejahtera (UPPKS)",
+        "pertanyaanB" : "b. Instansi pemerintah lain",
+        "pertanyaanC" : "c. BUMN/BUMD",
+        "pertanyaanD" : "d. Swasta"
     },
     "0219": {
         "no": "19",
         "pertanyaan": "Jenis atap rumah terluas?",
         "tipe": "radio",
         "options": [
-            "Daun/Rumbia",
-            "Seng/Asbes",
-            "Genteng/Sirap",
+            "Beton",
+            "Genteng",
+            "Asbes/Seng",
+            "Kayu/Sirap",
+            "Bambu",
+            "Jerami/ijuk/Rumbia/Daun-daunan",
             "Lainnya"
         ],
         "dependencies": [],
@@ -256,9 +277,10 @@
         "pertanyaan": "Jenis dinding rumah terluas?",
         "tipe": "radio",
         "options": [
-            "Bambu",
-            "Kayu/Seng",
             "Tembok",
+            "Kayu/Papan",
+            "Seng",
+            "Bambu",
             "Lainnya"
         ],
         "dependencies": [],
@@ -271,10 +293,9 @@
         "pertanyaan": "Jenis lantai rumah terluas?",
         "tipe": "radio",
         "options": [
-            "Keramik/Marmer/Granit",
-            "Ubin/Tegel/Teraso",
+            "Keramik/Granit/Marmer/Ubin/Tegel/Teraso",
             "Semen",
-            "Kayu/Papan",
+            "Kayu",
             "Bambu",
             "Tanah",
             "Lainnya"
@@ -289,12 +310,11 @@
         "pertanyaan": "Sumber penerangan utama?",
         "tipe": "radio",
         "options": [
-            "Listrik, daya 450 watt",
-            "Listrik, daya 900 watt bersubsidi",
-            "Listrik, daya 900 watt non bersubsidi",
-            "Listrik, daya diatas  900 watt",
-            "Lampu minyak",
-            "Lainnya"
+            "Listrik Pribadi 900 Wat",
+            "Listrik Pribadi < 900 Wat",
+            "Genset/solar cell",
+            "Listrik Bersama",
+            "Non Listrik"
         ],
         "dependencies": [],
         "unit": "",
@@ -306,11 +326,11 @@
         "tipe": "radio",
         "options": [
             "Air kemasan/Isi Ulang",
-            "Ledeng",
-            "Pompa/Sumur Pantek",
-            "Sumur",
-            "Mata Air",
-            "Sungai/Danau",
+            "Ledeng/PAM",
+            "Sumur Bor",
+            "Sumur Terlindung",
+            "Sumur Tidak Terlindung",
+            "Air Permukaan (Sungai, Danau, dll)",
             "Air Hujan",
             "Lainnya"
         ],
@@ -320,20 +340,6 @@
     },
     "0224": {
         "no": "24",
-        "pertanyaan": "Bahan bakar utama untuk memasak?",
-        "tipe": "radio",
-        "options": [
-            "Listrik/Gas",
-            "Minyak Tanah",
-            "Arang/Kayu",
-            "Lainnya"
-        ],
-        "dependencies": [],
-        "unit": "",
-        "lain": true
-    },
-    "0225": {
-        "no": "25",
         "pertanyaan": "Memiliki fasilitas tempat buang air besar?",
         "tipe": "radio",
         "options": [
@@ -346,23 +352,8 @@
         "unit": "",
         "lain": true
     },
-    "0226": {
-        "no": "26",
-        "pertanyaan": "Kepemilikan rumah/bangunan tempat tinggal?",
-        "tipe": "radio",
-        "options": [
-            "Milik sendiri",
-            "Kontrak/Sewa",
-            "Bebas Sewa",
-            "Dinas",
-            "Lainnya"
-        ],
-        "dependencies": [],
-        "unit": "",
-        "lain": true
-    },
-    "0227": {
-        "no": "27",
+    "0225": {
+        "no": "25",
         "pertanyaan": "Luas rumah/bangunan keseluruhan (m2)?",
         "tipe": "number",
         "options": [],
@@ -370,14 +361,44 @@
         "unit": "m2",
         "lain": false
     },
-    "0228": {
-        "no": "28",
+    "0226": {
+        "no": "26",
         "pertanyaan": "Orang yang tinggal dan menetap di rumah/bangunan ini?",
         "tipe": "number",
         "options": [],
         "dependencies": [],
         "unit": "Orang",
         "lain": false
+    },
+    "0227": {
+        "no": "27",
+        "pertanyaan": "Bahan bakar utama untuk memasak?",
+        "tipe": "radio",
+        "options": [
+            "Listrik/Gas",
+            "Minyak Tanah",
+            "Arang/Kayu",
+            "Lainnya"
+        ],
+        "dependencies": [],
+        "unit": "",
+        "lain": true
+    },
+    "0228": {
+        "no": "28",
+        "pertanyaan": "Kepemilikan rumah/bangunan tempat tinggal?",
+        "tipe": "radio",
+        "options": [
+            "Milik sendiri",
+            "Kontrak/Sewa",
+            "Bebas Sewa",
+            "Menumpang",
+            "Dinas",
+            "Lainnya"
+        ],
+        "dependencies": [],
+        "unit": "",
+        "lain": true
     },
     "0229": {
         "no": "29",
@@ -426,7 +447,7 @@
     },
     "0231": {
         "no": "31",
-        "pertanyaan": "Keluarga pernah memperoleh/mendengar/melihat pesan/informasi program kependudukan, Keluarga Berencana dan Pembangunan Keluarga dari petugas?",
+        "pertanyaan": "Apakah keluarga pernah memperoleh/mendengar/melihat pesan/informasi program kependudukan, Keluarga Berencana dan Pembangunan Keluarga dari petugas?",
         "tipe": "radio",
         "options": [
             "Ya",

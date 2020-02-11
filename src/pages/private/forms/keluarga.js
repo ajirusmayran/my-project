@@ -130,11 +130,11 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
             }
         }
 
-        if (selectedKeluarga.sts_hubungan === "3" && !selectedKeluarga.sts_hubanak_ibu) {
-            newError.sts_hubanak_ibu = "Hubungan Anak dengan Ibu wajib diisi";
-        }
+        // if (selectedKeluarga.sts_hubungan === "3" && !selectedKeluarga.sts_hubanak_ibu) {
+        //     newError.sts_hubanak_ibu = "Hubungan Anak dengan Ibu wajib diisi";
+        // }
 
-        if (selectedKeluarga.sts_hubanak_ibu === "1") {
+        if (selectedKeluarga.sts_hubungan === "3") {
             if (!selectedKeluarga.kd_ibukandung) {
                 newError.kd_ibukandung = "Kode Ibu Kandung wajib diisi";
             } else {
@@ -194,11 +194,9 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
             newError.id_pekerjaan = "Pekerjaan wajib diisi";
         }
 
-
-
-        // if (!selectedKeluarga.keberadaan) {
-        //     newError.keberadaan = "Keberadaan Anggota Keluarga wajib diisi";
-        // }
+        if (!selectedKeluarga.keberadaan) {
+            newError.keberadaan = "Keberadaan Anggota Keluarga wajib diisi";
+        }
 
         return newError;
 
@@ -458,7 +456,7 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                         </FormControl>
 
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    {/* <Grid item xs={12} md={4}>
                         <FormControl
                             disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
                             variant="outlined" fullWidth error={error.sts_hubanak_ibu ? true : false}>
@@ -481,14 +479,14 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                             <FormHelperText>{error.sts_hubanak_ibu}</FormHelperText>
                         </FormControl>
 
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} md={4}>
                         <FormControl
-                            disabled={isSubmitting || selectedKeluarga.sts_hubanak_ibu !== "1"}
+                            disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
                             variant="outlined" fullWidth error={error.kd_ibukandung ? true : false}>
 
                             <Select
-                                disabled={isSubmitting || selectedKeluarga.sts_hubanak_ibu !== "1"}
+                                disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
                                 id="kd_ibukandung"
                                 value={selectedKeluarga.kd_ibukandung || ''}
                                 onChange={handleChange}
@@ -520,7 +518,7 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                                 name="id_agama"
                                 displayEmpty
                             >
-                                <MenuItem value="">Agama yang dianut</MenuItem>
+                                <MenuItem value="">Agama</MenuItem>
                                 <MenuItem value="1">Islam</MenuItem>
                                 <MenuItem value="2">Kristen</MenuItem>
                                 <MenuItem value="3">Katolik</MenuItem>
@@ -546,17 +544,17 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                                 name="id_pekerjaan"
                                 displayEmpty
                             >
-                                <MenuItem value="">Pekerjaan Utama</MenuItem>
+                                <MenuItem value="">Status Pekerjaan</MenuItem>
                                 <MenuItem value="1">Tidak/Belum Bekerja</MenuItem>
                                 <MenuItem value="2">Petani</MenuItem>
                                 <MenuItem value="3">Nelayan</MenuItem>
                                 <MenuItem value="4">Pedagang</MenuItem>
-                                <MenuItem value="5">PNS/TNI/POLRI</MenuItem>
-                                <MenuItem value="6">Pegawai Swasta</MenuItem>
-                                <MenuItem value="7">Wiraswasta</MenuItem>
-                                <MenuItem value="8">Pensiunan</MenuItem>
-                                <MenuItem value="9">Pekerja Lepas</MenuItem>
-                                <MenuItem value="10">Lainnya</MenuItem>
+                                <MenuItem value="5">Pejabat Negara</MenuItem>
+                                <MenuItem value="6">PNS/TNI/POLRI</MenuItem>
+                                <MenuItem value="7">Pegawai Swasta</MenuItem>
+                                <MenuItem value="8">Wiraswasta</MenuItem>
+                                <MenuItem value="9">Pensiunan</MenuItem>
+                                <MenuItem value="10">Pekerja Lepas</MenuItem>
                             </Select>
                             <FormHelperText>{error.id_pekerjaan}</FormHelperText>
                         </FormControl>
@@ -612,6 +610,30 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                             </Select>
                             <FormHelperText>{error.jns_asuransi}</FormHelperText>
                         </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} md={4}>
+                        <FormControl
+                            disabled={isSubmitting}
+                            variant="outlined" fullWidth error={error.keberadaan ? true : false}>
+
+                            <Select
+                                id="keberadaan"
+                                value={selectedKeluarga.keberadaan || ''}
+                                onChange={handleChange}
+                                name="keberadaan"
+                                displayEmpty
+                            >
+                                <MenuItem value="">Keberadaan anggota keluarga</MenuItem>
+                                <MenuItem value="1">Di Dalam Rumah</MenuItem>
+                                <MenuItem value="2">Di Luar Rumah</MenuItem>
+                                <MenuItem value="3">Di Luar Negeri</MenuItem>
+
+
+                            </Select>
+                            <FormHelperText>{error.keberadaan}</FormHelperText>
+                        </FormControl>
+
                     </Grid>
 
                     <Grid item xs>

@@ -37,7 +37,7 @@ export const renderDataKK = (metadata, wilayah) => {
 
             </Grid>
             <Grid item xs={12} md={4}>
-                <Typography>No. Urut Rumah: {wilayah.no_urutrmh}</Typography>
+                <Typography>No. Rumah: {wilayah.no_rmh}</Typography>
 
 
             </Grid>
@@ -97,12 +97,12 @@ export const renderDataNIK = item => {
 
 
         </Grid>
-        <Grid item xs={12} md={4}>
+        {/* <Grid item xs={12} md={4}>
 
             <Typography> Hubungan Anak Dengan Ibu: {options.sts_hubanak_ibu[item.sts_hubanak_ibu]} </Typography>
 
 
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={4}>
 
             <Typography> Kode Ibu Kandung: {item.kd_ibukandung} </Typography>
@@ -136,6 +136,12 @@ export const renderDataNIK = item => {
         </Grid>
         <Grid item xs={12} md={4}>
             <Typography> Kepesertaan JKN/Asurasnsi: {options.jns_asuransi[item.jns_asuransi]} </Typography>
+
+
+        </Grid>
+
+        <Grid item xs={12} md={4}>
+            <Typography> Keberadaa anggota keluarga: {options.keberadaan[item.keberadaan]} </Typography>
 
 
         </Grid>

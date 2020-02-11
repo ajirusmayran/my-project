@@ -77,7 +77,7 @@ function Finish({ wilayah, keluarga, normalizePK,
                 id_agama: parseInt(keluarga[_id].id_agama),
                 id_pekerjaan: parseInt(keluarga[_id].id_pekerjaan),
                 usia_kawin: parseInt(lodashGet(keluarga[_id], 'usia_kawin', 0)),
-                sts_hubanak_ibu: parseInt(lodashGet(keluarga[_id], 'sts_hubanak_ibu', 0)),
+                // sts_hubanak_ibu: parseInt(lodashGet(keluarga[_id], 'sts_hubanak_ibu', 0)),
                 kd_ibukandung: parseInt(lodashGet(keluarga[_id], 'kd_ibukandung', 0)),
                 umur: countAge(keluarga[_id].tgl_lahir)
             }
@@ -85,24 +85,24 @@ function Finish({ wilayah, keluarga, normalizePK,
         //simpan ke db local
         setSubmitting(curr => ({ ...curr, [target]: true }));
         try {
-            const dataKKAll = {
-                ...dataKKUtama,
-                periode_sensus: 2020,
-                status_sensus: "",
-                data_nik,
-            }
+            // const dataKKAll = {
+            //     ...dataKKUtama,
+            //     periode_sensus: 2020,
+            //     status_sensus: "",
+            //     data_nik,
+            // }
 
-            const dataKBAll = Object.values(normalizeKB);
-            const dataPKAll = Object.values(normalizePK);
+            // const dataKBAll = Object.values(normalizeKB);
+            // const dataPKAll = Object.values(normalizePK);
 
-            await dataKK[target].put(dataKKAll);
-            if (dataKBAll.length > 0) {
-                await dataKB[target].bulkDocs(dataKBAll);
-            }
+            // await dataKK[target].put(dataKKAll);
+            // if (dataKBAll.length > 0) {
+            //     await dataKB[target].bulkDocs(dataKBAll);
+            // }
 
-            if (dataPKAll.length > 0) {
-                await dataPK[target].bulkDocs(dataPKAll);
-            }
+            // if (dataPKAll.length > 0) {
+            //     await dataPK[target].bulkDocs(dataPKAll);
+            // }
 
             const data_kb = Object.values(normalizeKB);
             const data_pk = Object.values(normalizePK);

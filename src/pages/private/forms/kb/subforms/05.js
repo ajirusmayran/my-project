@@ -40,7 +40,7 @@ function SubForm05({ id, setValue, saveValue, value, kb, handleNextSub, navigati
         return null
     }
 
-    const pertanyaan = "Apa dalam 12 bulan terakhir, Ibu pernah menggunakan alat/obat KB (Kontrasepsi)?";
+    const pertanyaan = "Apa dalam 12 bulan terakhir, Ibu atau Suami \"pernah\" menggunakan alat/obat KB (Kontrasepsi)?";
     const handleChange = (e) => {
 
         setValue(e)

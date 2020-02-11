@@ -8,6 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
+import TextField from '@material-ui/core/TextField';
 
 import useStyles from './styles';
 
@@ -16,27 +17,48 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
 
     const classes = useStyles();
     const [error, setError] = useState({});
-    // const [useContrasep, setUseContrasep] = useState(false);
+
+    const [dontUseContrasep, setDontUseContrasep] = useState(false);
     useEffect(() => {
         setError({})
-
-        // if (kb["0104"].menggunakan_kontrasepsi === "1" || kb["0105"].pernah_menggunakan_kontrasepsi === "1") {
-        //     setUseContrasep(true);
-        // } else {
-        //     if (navigationMode === 'back') {
-        //         handleBackSub();
-        //     } else {
-        //         handleNextSub()
-        //     }
-        // }
+        //console.log(kb)
+        if (kb["0104"].menggunakan_kontrasepsi === "2" && kb["0105"].pernah_menggunakan_kontrasepsi === "2" || kb["0105"].pernah_menggunakan_kontrasepsi === "1" ) {
+            setDontUseContrasep(true);
+        } else {
+            if (navigationMode === 'back') {
+                handleBackSub();
+            } else {
+                handleNextSub()
+            }
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    // if (!useContrasep) {
+    if (!dontUseContrasep) {
+        return null
+    }
+
+    // const [dontUseContrasep, setDontUseContrasep] = useState(false);
+    // useEffect(() => {
+    //     setError({})
+
+    //     if (kb["0106"].jenis_kontrasepsi !== "9") {
+    //         setDontUseContrasep(true);
+    //     } else {
+    //         if (navigationMode === 'back') {
+    //             handleBackSub();
+    //         } else {
+    //             handleNextSub()
+    //         }
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
+
+    // if (!dontUseContrasep) {
     //     return null
     // }
 
-    const pertanyaan = "Jenis alat/obat/cara KB (Kontrasepsi) yang dipakai saat ini atau terakhir dipakai?";
+    const pertanyaan = "Alasan utama tidak pakai KB atau putus pakai KB (PILIH HANYA SATU JAWABAN!)";
     const handleChange = (e) => {
 
         setValue(e)
@@ -52,11 +74,17 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
     const validate = () => {
         let newError = {};
 
-        if (!value.jenis_kontrasepsi) {
-            newError.jenis_kontrasepsi = "Wajib diisi";
+        if (!value.alasan_tidak_kb) {
+            newError.alasan_tidak_kb = "Wajib diisi";
         }
 
+        if (value.alasan_tidak_kb === "13") {
+            if (!value.alasan_tidak_kb_lainnya) {
+                newError.alasan_tidak_kb_lainnya = "Lainnya wajib diisi";
+            }
 
+
+        }
 
 
         return newError;
@@ -73,10 +101,11 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
 
             // const normalizeValue = {
             //     pertanyaan,
-            //     jawaban_1: value.jenis_kontrasepsi
+            //     jawaban_1: value.alasan_tidak_kb,
+            //     jawaban_2: value.alasan_tidak_kb_lainnya
 
             // }
-
+            // saveValue(normalizeValue)
             let normalizeValue = {
                 _id: `${no_kk}${id}`,
                 Pertanyaan: pertanyaan,
@@ -90,23 +119,21 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                 answer: [
                     {
                         _id: `${no_kk}${id}01`,
-                        No_Jawaban: value.jenis_kontrasepsi,
+                        No_Jawaban: value.alasan_tidak_kb,
                         Jawaban_D1: 0,
                         Jawaban_D2: 0,
                         Jawab_D3: 0,
                         Jawab_D4: 0,
                         pilihankb: 0,
-                        Lainnya: ""
+                        Lainnya: value.alasan_tidak_kb_lainnya ? value.alasan_tidak_kb_lainnya : ""
                     },
 
                 ]
 
             }
-
             if (value._rev) {
                 normalizeValue._rev = value._rev
             }
-
 
             saveValue(normalizeValue)
         }
@@ -120,47 +147,80 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
             <div className={classes.cardBody}>
                 <Grid container spacing={1}>
                     <Grid item xs={12} >
-                        <FormControl error={error.jenis_kontrasepsi ? true : false} component="fieldset" fullWidth>
-                            <RadioGroup value={value.jenis_kontrasepsi || ''}
+                        <FormControl error={error.alasan_tidak_kb ? true : false} component="fieldset" fullWidth>
+                            <RadioGroup value={value.alasan_tidak_kb || ''}
                                 onChange={handleChange}
-                                aria-label="jenis_kontrasepsi" name="jenis_kontrasepsi"
+                                aria-label="alasan_tidak_kb" name="alasan_tidak_kb"
                                 className={classes.radioGroup}
                             >
                                 <div className={classes.radioSection}>
                                     <FormControlLabel control={<Radio />}
                                         value="1"
-                                        label="MOW/Steril Wanita" />
+                                        label="Ingin hamil/anak" />
                                     <FormControlLabel control={<Radio />}
                                         value="2"
-                                        label="MOP/Steril Pria" />
+                                        label="Tidak tahu tentang KB" />
                                     <FormControlLabel control={<Radio />}
                                         value="3"
-                                        label="IUD/Spiral/AKDR" />
+                                        label="Alasan kesehatan" />
                                     <FormControlLabel control={<Radio />}
                                         value="4"
-                                        label="Implant/Susuk" />
+                                        label="Efek samping" />
                                     <FormControlLabel control={<Radio />}
                                         value="5"
-                                        label="Suntik" />
+                                        label="Tempat pelayanan jauh" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="6"
+                                        label="Alat/Obat/Cara KB tidak tersedia" />
+
+                                    <FormControlLabel control={<Radio />}
+                                        value="7"
+                                        label="Biaya mahal" />
                                 </div>
                                 <div className={classes.radioSection}>
                                     <FormControlLabel control={<Radio />}
-                                        value="6"
-                                        label="Pil" />
-                                    <FormControlLabel control={<Radio />}
-                                        value="7"
-                                        label="Kondom" />
-                                    <FormControlLabel control={<Radio />}
                                         value="8"
-                                        label="Asi Eksklusif/MAL" />
+                                        label="Tidak ada alat/obat/cara KB yang cocok" />
                                     <FormControlLabel control={<Radio />}
                                         value="9"
-                                        label="Tradisional" />
+                                        label="Suami/keluarga menolak" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="10"
+                                        label="Alasan agama" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="11"
+                                        label="Suami tinggal jauh/jarang berhubungan" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="12"
+                                        label="Tidak ada petugas pelayanan KB" />
+                                    <FormControlLabel control={<Radio />}
+                                        value="13"
+                                        label="Lainnya" />
+                                    {value.alasan_tidak_kb === "13" &&
+
+                                        <TextField
+                                            fullWidth
+
+                                            placeholder="Tulisakan"
+                                            variant="outlined"
+                                            id="alasan_tidak_kb_lainnya"
+                                            name="alasan_tidak_kb_lainnya"
+                                            value={value.alasan_tidak_kb_lainnya || ''}
+                                            onChange={handleChange}
+                                            error={error.alasan_tidak_kb_lainnya ? true : false}
+                                            helperText={error.alasan_tidak_kb_lainnya}
+                                            inputProps={{
+                                                className: classes.inputMini
+                                            }}
+
+                                        />}
                                 </div>
                             </RadioGroup>
-                            <FormHelperText>{error.jenis_kontrasepsi}</FormHelperText>
+
+                            <FormHelperText>{error.alasan_tidak_kb}</FormHelperText>
                         </FormControl>
                     </Grid>
+
 
 
 
