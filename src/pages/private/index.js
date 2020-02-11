@@ -98,7 +98,7 @@ export default function Private({ history, match, location }) {
 
     const handleCloseNotification = () => {
         setOpenNotification(null);
-        history.push("/form")
+        // history.push("/form")
     };
 
     return (
