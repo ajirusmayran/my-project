@@ -79,7 +79,8 @@ function Finish({ wilayah, keluarga, normalizePK,
                 usia_kawin: parseInt(lodashGet(keluarga[_id], 'usia_kawin', 0)),
                 // sts_hubanak_ibu: parseInt(lodashGet(keluarga[_id], 'sts_hubanak_ibu', 0)),
                 kd_ibukandung: parseInt(lodashGet(keluarga[_id], 'kd_ibukandung', 0)),
-                umur: countAge(keluarga[_id].tgl_lahir)
+                umur: countAge(keluarga[_id].tgl_lahir),
+                keberadaan: parseInt(keluarga[_id].keberadaan)
             }
         })
         //simpan ke db local

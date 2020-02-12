@@ -105,7 +105,8 @@ export default function EditForm() {
                             id_pekerjaan: currKeluarga.id_pekerjaan.toString(),
                             usia_kawin: currKeluarga.usia_kawin ? lodashGet(currKeluarga, 'usia_kawin', '').toString() : '',
                             // sts_hubanak_ibu: currKeluarga.sts_hubanak_ibu ? lodashGet(currKeluarga, 'sts_hubanak_ibu', '').toString() : '',
-                            kd_ibukandung: currKeluarga.kd_ibukandung ? lodashGet(currKeluarga, 'kd_ibukandung', '').toString() : ''
+                            kd_ibukandung: currKeluarga.kd_ibukandung ? lodashGet(currKeluarga, 'kd_ibukandung', '').toString() : '',
+                            keberadaan: currKeluarga.keberadaan.toString()
                         }
 
 
