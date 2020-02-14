@@ -31,6 +31,10 @@ export default function DataSyncProvider(props) {
         let syncBkkbn;
         let count = 0;
         let messages = [];
+        let tanggal = new Date().getDate();
+        let bulan = new Date().getMonth();
+        let tahun = new Date().getFullYear();
+        let dateTime = tanggal + "/" + bulan + "/" + tahun;
 
         dataBkkbn.local.replicate.from(dataBkkbn.remote, {
             filter: 'app/by_user_name',
@@ -47,7 +51,7 @@ export default function DataSyncProvider(props) {
                 // handle change
               
                     if (!didCancel) {
-                        messages = [...messages, { 'content': 'Tanggal: , update status ' + info.change.docs[0].status_sensus + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
+                        messages = [...messages, { 'content': 'Tanggal: ' + dateTime + ', update status ' + info.change.docs[0].status_sensus + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
                         count = count + 1;
                         setSyncing(isSyncing => ({ ...isSyncing, syncBkkbn: true, infoBkkbn: info, statusNotif: { count: count, message: messages } }));
                     }

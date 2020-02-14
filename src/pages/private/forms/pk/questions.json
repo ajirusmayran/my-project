@@ -35,7 +35,9 @@
             "Tidak"
         ],
         "options2": [
-            "Ya","Tidak","Tidak Berlaku"
+            "Ya",
+            "Tidak",
+            "Tidak Berlaku"
         ],
         "dependencies": [
             "haveMarriedMember"
@@ -43,10 +45,10 @@
         "unit": "",
         "lain": false,
         "subform": true,
-        "pertanyaanA" : "a. Tanpa tegur sapa(selama 7 hari berturut-turut)",
-        "pertanyaanB" : "b. Pisah ranjang antara suami dan istri(selama 3 hari berturut-turut)",
-        "pertanyaanC" : "c. Pergi dari rumah/minggat (selama 2 hari berturut-turut)",
-        "pertanyaanD" : "d. Kekerasan dalam rumah tangga"
+        "pertanyaanA": "a. Tanpa tegur sapa(selama 7 hari berturut-turut)",
+        "pertanyaanB": "b. Pisah ranjang antara suami dan istri(selama 3 hari berturut-turut)",
+        "pertanyaanC": "c. Pergi dari rumah/minggat (selama 2 hari berturut-turut)",
+        "pertanyaanD": "d. Kekerasan dalam rumah tangga"
     },
     "0204": {
         "no": "04",
@@ -66,9 +68,13 @@
         "tipe": "radio",
         "options": [
             "Ya",
-            "Tidak"
+            "Tidak",
+            "Tidak Berlaku"
         ],
-        "dependencies": [],
+        "dependencies": [
+            "haveMarriedMember",
+            "haveChildren"
+        ],
         "unit": "",
         "lain": false
     },
@@ -243,16 +249,17 @@
             "Tidak"
         ],
         "options2": [
-            "Ya","Tidak"
+            "Ya",
+            "Tidak"
         ],
         "dependencies": [],
         "unit": "",
         "lain": false,
         "subform": true,
-        "pertanyaanA" : "a. Usaha Peningkatan Pendapatan Keluarga Sejahtera (UPPKS)",
-        "pertanyaanB" : "b. Instansi pemerintah lain",
-        "pertanyaanC" : "c. BUMN/BUMD",
-        "pertanyaanD" : "d. Swasta"
+        "pertanyaanA": "a. Usaha Peningkatan Pendapatan Keluarga Sejahtera (UPPKS)",
+        "pertanyaanB": "b. Instansi pemerintah lain",
+        "pertanyaanC": "c. BUMN/BUMD",
+        "pertanyaanD": "d. Swasta"
     },
     "0219": {
         "no": "19",

@@ -93,13 +93,18 @@ export default function Private({ history, match, location }) {
         } else {
             setOpenNotification(event.currentTarget);
         }
-        //isSyncing.statusNotif.count = 0;
+        isSyncing.statusNotif.count = 0;
+
     };
 
     const handleCloseNotification = () => {
         setOpenNotification(null);
-        // history.push("/form")
     };
+
+    const handleClick = (e) => {
+        handleCloseNotification();
+        history.push("/list")
+    }
 
     return (
         <div className={classes.root}>
@@ -207,11 +212,11 @@ export default function Private({ history, match, location }) {
                         onClose={handleCloseNotification}
                         getContentAnchorEl={null}
                     >
-                        {isSyncing.statusNotif.message.length <= 0 && <MenuItem onClick={handleCloseNotification}>Belum ada notifikasi</MenuItem>}
+                        {isSyncing.statusNotif.message.length <= 0 && <MenuItem>Belum ada notifikasi</MenuItem>}
                         {isSyncing.statusNotif.message.length > 0 && isSyncing.statusNotif.message.map((item, index) => (
                             <MenuItem
                                 key={item}
-                                onClick={handleCloseNotification}
+                                onClick={handleClick}
                                 className={classes.notifItem}
                             >
                                 {item.content}

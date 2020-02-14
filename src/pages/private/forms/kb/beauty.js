@@ -1,15 +1,14 @@
-
 export default {
 
     "0101": (normalize) => {
-        const answer1 = normalize.answer[0];
-        const answer2 = normalize.answer[1];
+        const answer1 = 'answer' in normalize ? normalize.answer[0] : {};
+        const answer2 = 'answer' in normalize ? normalize.answer[1] : {};
         return {
-            kelahiran: normalize.Jawaban_H1,
-            lahir_hidup_laki_laki: answer1.Jawaban_D1.toString(),
-            lahir_hidup_perempuan: answer1.Jawaban_D2.toString(),
-            masih_hidup_laki_laki: answer2.Jawaban_D1.toString(),
-            masih_hidup_perempuan: answer2.Jawaban_D2.toString()
+            kelahiran: 'Jawaban_H1' in normalize ? normalize.Jawaban_H1 : {},
+            lahir_hidup_laki_laki: 'Jawaban_D1' in answer1 ? answer1.Jawaban_D1.toString() : {},
+            lahir_hidup_perempuan: 'Jawaban_D2' in answer1 ? answer1.Jawaban_D2.toString() : {},
+            masih_hidup_laki_laki: 'Jawaban_D1' in answer2 ? answer2.Jawaban_D1.toString() : {},
+            masih_hidup_perempuan: 'Jawaban_D2' in answer2 ? answer2.Jawaban_D2.toString() : {}
 
         }
     },
@@ -20,7 +19,7 @@ export default {
     },
 
     "0103": (normalize) => {
-        const answer1 = normalize.answer[0];
+        const answer1 = 'answer' in normalize ? normalize.answer[0] : {};
         const sedang_hamil = answer1.No_Jawaban;
         let beauty = {
             sedang_hamil
@@ -35,7 +34,7 @@ export default {
         return beauty;
     },
     "0104": (normalize) => {
-        const answer1 = normalize.answer[0];
+        const answer1 = 'answer' in normalize ? normalize.answer[0] : {};
 
         return {
             menggunakan_kontrasepsi: answer1.No_Jawaban,
@@ -56,8 +55,7 @@ export default {
     },
     "0106": (normalize) => {
 
-        const answer1 = normalize.answer[0];
-
+        const answer1 = 'answer' in normalize ? normalize.answer[0] : {};
         return {
             alasan_tidak_kb: answer1.No_Jawaban,
             alasan_tidak_kb_lainnya: answer1.Lainnya
@@ -66,7 +64,7 @@ export default {
 
     },
     "0107": (normalize) => {
-        const answer1 = normalize.answer[0];
+        const answer1 = 'answer' in normalize ? normalize.answer[0] : {};
 
         return {
             jenis_kontrasepsi: answer1.No_Jawaban
@@ -82,7 +80,7 @@ export default {
     // },
     "0108": (normalize) => {
 
-        const answer1 = normalize.answer[0];
+        const answer1 = 'answer' in normalize ? normalize.answer[0] : {};
 
         return {
             tempat_pelayanan: answer1.No_Jawaban,
@@ -93,9 +91,9 @@ export default {
     },
     "0109": (normalize) => {
 
-        const answer1 = normalize.answer[0];
-        const answer2 = normalize.answer[1];
-        const answer3 = normalize.answer[2];
+        const answer1 = 'answer' in normalize ? normalize.answer[0] : {};
+        const answer2 = 'answer' in normalize ? normalize.answer[1] : {};
+        const answer3 = 'answer' in normalize ? normalize.answer[2] : {};
 
         return {
             info_jenis_kb: answer1.pilihankb,

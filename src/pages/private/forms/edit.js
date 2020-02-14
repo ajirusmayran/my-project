@@ -80,7 +80,7 @@ export default function EditForm() {
                 }
             })
 
-             console.log(kkDoc)
+            console.log(kkDoc)
 
             if (!didCancel) {
 
@@ -116,24 +116,25 @@ export default function EditForm() {
 
                 }
 
-               
+
 
                 if (kkDoc) {
 
                     const { data_kb, ...data_bkkbn } = kkDoc;
 
-                    setKB(data_bkkbn); 
+                    setKB(data_bkkbn);
                     let newkb = {};
                     for (let i = 0; i < data_kb.length; i++) {
                         let no_tes = 16
-                        let qid=''
-                        
-                        if(Object.keys(data_kb[i]).length ===0){
-                            qid=`010`+i+1
-                        }else{ 
+                        let qid = ''
+
+                        if (Object.keys(data_kb[i]).length === 0) {
+                            let newIndex = i + 1
+                            qid = `010${newIndex}`
+                        } else {
                             qid = (`${data_kb[i]._id}`).slice(no_tes);
                         }
-                        
+
                         //const qid = '0101'
 
                         const beauty = beautyKB[qid](data_kb[i]);
@@ -145,10 +146,10 @@ export default function EditForm() {
                     }
 
                     setKB(newkb);
-                       console.log(newkb)
+                    console.log(newkb)
                 }
 
-               
+
 
                 if (kkDoc) {
 
@@ -158,14 +159,15 @@ export default function EditForm() {
                     let newpk = {};
                     for (let i = 0; i < data_pk.length; i++) {
                         let no_tes = 16
-                        let qid=''
-                        
-                        if(Object.keys(data_pk[i]).length ===0){
-                            qid=`020`+i+1
-                        }else{ 
+                        let qid = ''
+
+                        if (Object.keys(data_pk[i]).length === 0) {
+                            let newIndex = i + 1
+                            qid = `02${newIndex}`
+                        } else {
                             qid = (`${data_pk[i]._id}`).slice(no_tes);
                         }
-                         
+
 
                         const beauty = beautyPK(qid, data_pk[i]);
 
@@ -176,7 +178,7 @@ export default function EditForm() {
                     }
 
                     setPK(newpk);
-                       console.log(newpk)
+                    console.log(newpk)
                 }
 
                 setFetching(false);
