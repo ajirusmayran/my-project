@@ -26,14 +26,30 @@ function SubForm04({ id, setValue, saveValue, value, kb, handleNextSub, no_kk, n
     const [notPregnant, setNotPregnant] = useState(false);
     useEffect(() => {
         setError({})
-        //console.log(kb)
-        if (kb["0103"].sedang_hamil === "2") {
+        
+        // if (kb["0103"].sedang_hamil === "2") {
+        //     setNotPregnant(true);
+        // } else {
+        //     if (navigationMode === 'back') {
+        //         handleBackSub();
+        //     } else {
+        //         handleNextSub()
+        //     }
+        // }
+        /* cek kondisi untuk semua form */
+        if(kb["0103"].sedang_hamil==="2" && kb["0104"].menggunakan_kontrasepsi==="2" && kb["0105"].pernah_menggunakan_kontrasepsi ==="1"){
             setNotPregnant(true);
-        } else {
-            if (navigationMode === 'back') {
-                handleBackSub();
-            } else {
-                handleNextSub()
+        }else{
+            if(kb["0103"].sedang_hamil==="1"){
+                if (navigationMode === 'back') {
+                    handleBackSub();
+                } else {
+                    handleNextSub()
+                }
+            
+
+            }else{
+                setNotPregnant(true);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

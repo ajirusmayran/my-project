@@ -395,7 +395,7 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                     </Grid>
                     <Grid item xs={12} sm={6} md={4}>
                         <TextField
-                            disabled={isSubmitting || !['2', '3'].includes(selectedKeluarga.sts_kawin)}
+                            disabled={isSubmitting || !['2', '3', '4'].includes(selectedKeluarga.sts_kawin)}
                             fullWidth
                             variant="outlined"
                             placeholder="Usia Kawin"

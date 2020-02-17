@@ -20,14 +20,32 @@ function SubForm07({ id, setValue, saveValue, value, kb, handleNextSub, navigati
     const [useContrasep, setUseContrasep] = useState(false);
     useEffect(() => {
         setError({})
-        //console.log(kb)
-        if (kb["0104"].menggunakan_kontrasepsi === "1" || kb["0105"].pernah_menggunakan_kontrasepsi === "1" || kb["0104"].menggunakan_kontrasepsi !== "2" && kb["0105"].pernah_menggunakan_kontrasepsi !== "2" ) {
+        
+        // if (kb["0104"].menggunakan_kontrasepsi === "1" || kb["0105"].pernah_menggunakan_kontrasepsi === "1" || (kb["0103"].sedang_hamil === "1" && kb["0105"].pernah_menggunakan_kontrasepsi === "2") ) {
+        
+        //     setUseContrasep(true);
+        // } else {
+        //     if (navigationMode === 'back') {
+        //         handleBackSub();
+        //     } else {
+        //         handleNextSub()
+        //     }
+        // }
+
+        /* cek kondisi untuk semua form */
+        if(kb["0103"].sedang_hamil==="2" && kb["0104"].menggunakan_kontrasepsi==="2" && kb["0105"].pernah_menggunakan_kontrasepsi ==="1"){
             setUseContrasep(true);
-        } else {
-            if (navigationMode === 'back') {
-                handleBackSub();
-            } else {
-                handleNextSub()
+        }else{
+            if(kb["0103"].sedang_hamil==="2"  && kb["0104"].menggunakan_kontrasepsi==="2" && kb["0105"].pernah_menggunakan_kontrasepsi ==="2"){
+                if (navigationMode === 'back') {
+                    handleBackSub();
+                } else {
+                    handleNextSub()
+                }
+            
+
+            }else{
+                setUseContrasep(true);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

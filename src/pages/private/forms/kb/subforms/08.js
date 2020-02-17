@@ -21,13 +21,53 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
     useEffect(() => {
         setError({})
 
-        if (kb["0107"].jenis_kontrasepsi !== "9" || (kb["0104"].menggunakan_kontrasepsi !== "2" && kb["0105"].pernah_menggunakan_kontrasepsi !== "2" )) {
-            setUseModernContrasep(true);
-        } else {
-            if (navigationMode === 'back') {
-                handleBackSub();
-            } else {
-                handleNextSub()
+        // if ((kb["0107"].jenis_kontrasepsi !== "9") || (kb["0104"].menggunakan_kontrasepsi === "1" && kb["0105"].pernah_menggunakan_kontrasepsi === "1")) {
+        // // if (kb["0103"].sedang_hamil === "1"  && kb["0104"].menggunakan_kontrasepsi === "1" && kb["0105"].pernah_menggunakan_kontrasepsi === "1"  ) {
+        //     setUseModernContrasep(true);
+        // } else {
+        //     if (navigationMode === 'back') {
+        //         handleBackSub();
+        //     } else {
+        //         handleNextSub()
+        //     }
+        // }
+
+         /* cek kondisi untuk semua form */
+         if(kb["0103"].sedang_hamil==="2" && kb["0104"].menggunakan_kontrasepsi==="2" && kb["0105"].pernah_menggunakan_kontrasepsi ==="1"){
+            if (kb["0107"].jenis_kontrasepsi === "9"){
+                // skip
+                if (navigationMode === 'back') {
+                    handleBackSub();
+                } else {
+                    handleNextSub()
+                }
+            }else{
+                // jalan
+                setUseModernContrasep(true);
+            }
+            
+        }else{
+            if(kb["0103"].sedang_hamil==="2"  && kb["0104"].menggunakan_kontrasepsi==="2" && kb["0105"].pernah_menggunakan_kontrasepsi ==="2"){
+                if (navigationMode === 'back') {
+                    handleBackSub();
+                } else {
+                    handleNextSub()
+                }
+            
+
+            }else{
+                if (kb["0107"].jenis_kontrasepsi === "9"){
+                    // skip
+                    if (navigationMode === 'back') {
+                        handleBackSub();
+                    } else {
+                        handleNextSub()
+                    }
+                }else{
+                    // jalan
+                    setUseModernContrasep(true);
+                }
+    
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
