@@ -124,6 +124,7 @@ function Home({ history }) {
                         <Typography variant="subtitle1" >{totalDataKK} dari {targetkk} Keluarga</Typography>
                     </Paper>
                 </Grid>
+                
                 <Grid item xs={12} sm={6}>
                     <Paper className={classes.wilayahKerja} elevation={0}>
                         <div className={classes.floatRightIcon}>

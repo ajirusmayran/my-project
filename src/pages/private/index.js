@@ -104,6 +104,7 @@ export default function Private({ history, match, location }) {
     const handleClick = (e) => {
         handleCloseNotification();
         history.push("/list")
+        
     }
 
     return (
