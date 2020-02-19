@@ -14,7 +14,10 @@ import Container from '@material-ui/core/Container';
 
 import useStyles from './styles/index';
 
-export default function Form() {
+// implementasi router
+import {withRouter} from 'react-router';
+
+function Form(props) {
 
     const classes = useStyles();
     const [forms, setForms] = useState([{ type: 'wilayah' }]);
@@ -45,9 +48,35 @@ export default function Form() {
     })
 
     const [normalizePK, setNormalizePK] = useState({});
+    let currentPathname = null
+    let currentSearch = null
 
     useEffect(() => {
-        if (wilayah.no_kk && wilayah.jumlah_keluarga) {
+        // if (wilayah.no_kk && wilayah.jumlah_keluarga) {
+        const { history } = props;
+        history.listen((newLocation,action) =>{
+            if(action ==="PUSH"){
+                if(
+                    newLocation.pathname !==currentPathname
+                ){
+                    // simpan new location
+                    currentPathname = newLocation.pathname
+                    currentSearch = newLocation.search
+
+                    // clone location object and push it to history
+                    history.push({
+                        pathname:newLocation.pathname,
+                        search:newLocation.search
+                    })
+                
+                }
+            }else{
+                // send user back  if they try  to navigate back
+                history.go(1)
+            }
+        })
+
+        if (wilayah.jumlah_keluarga) {
             const jumlah_keluarga = parseInt(wilayah.jumlah_keluarga);
 
             setKeluarga(keluarga => {
@@ -70,7 +99,8 @@ export default function Form() {
             })
 
         }
-    }, [wilayah.jumlah_keluarga, wilayah.no_kk])
+    // }, [wilayah.jumlah_keluarga, wilayah.no_kk])
+    }, [wilayah.jumlah_keluarga])
 
     const resetForm = () => {
         setSlide({
@@ -158,9 +188,6 @@ export default function Form() {
 
     const f = forms[formIndex];
 
-    //console.log(slide, formIndex, wilayah, keluarga, kb, pk)
-    // console.log(normalizeKB);
-    // console.log(normalizePK)
     return <Container maxWidth="md" className={classes.container}>
         <Slide direction={slide.direction} in={slide.in}>
             <div>
@@ -224,35 +251,7 @@ export default function Form() {
                 }
             </div>
         </Slide>
-
-        {/* formNodes.length > 0 && <Carousel
-            autoplay={false}
-            enableKeyboardControls={false}
-            withoutControls
-            swiping={false}
-            dragging={false}
-            slideIndex={formIndex}
-            heightMode="current"
-
-        >
-            {formNodes}
-
-            <Wilayah
-            wilayah={wilayah}
-            setWilayah={setWilayah}
-            setFormIndex={setFormIndex}
-        />
-        {
-            Object.keys(keluarga).map((key) => {
-
-                return <Keluarga
-                    key={key}
-                    id={key}
-                    setFormIndex={setFormIndex}
-                    keluarga={keluarga}
-                    setKeluarga={setKeluarga}
-                />
-            })
-        }  </Carousel>} */}
     </Container>
 }
+
+export default withRouter(Form)
