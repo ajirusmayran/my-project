@@ -49,9 +49,32 @@ function Home({ history }) {
         history.push(`/form`);
     }
 
-
+    let currentPathname = null
+    let currentSearch = null
 
     useEffect(() => {
+        history.listen((newLocation,action) =>{
+            if(action ==="PUSH"){
+                if(
+                    newLocation.pathname !==currentPathname
+                ){
+                    // simpan new location
+                    currentPathname = newLocation.pathname
+                    currentSearch = newLocation.search
+
+                    // clone location object and push it to history
+                    history.push({
+                        pathname:newLocation.pathname,
+                        search:newLocation.search
+                    })
+                
+                }
+            }else{
+                // send user back  if they try  to navigate back
+                history.go(1)
+            }
+        })
+        
         //  if (!isSyncing.syncKK) {
         if (!localStorage.getItem('notification-token')) {
             askForPermissionToReceiveNotifications(pouchDB);

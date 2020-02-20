@@ -31,6 +31,7 @@ export default function DataSyncProvider(props) {
         let syncBkkbn;
         let count = 0;
         let messages = [];
+
         let tanggal = new Date().getDate();
         let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         let now = new Date();
