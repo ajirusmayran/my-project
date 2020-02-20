@@ -50,10 +50,15 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
 
     const [isSubmitting, setSubmitting] = useState(false);
 
-    // useEffect(() => {
-    //     if (Object.keys(keluarga.data).length > 0)
-    //     return history.push('/form')
-    // }, [keluarga]);
+    useEffect(() => {
+        if(!wilayah.hasOwnProperty('no_kk')){
+            setWilayah({
+                ...wilayah,
+                ['no_kk'] : Date.now().toString()
+            })
+        }
+        
+    }, []);
 
 
     const handleChange = (e) => {
@@ -62,16 +67,15 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
             if (parseInt(e.target.value) < 0)
                 return false;
 
-            if (e.target.name === "no_kk" && e.target.value.length > 16) {
-                return false;
-            }
+            // if (e.target.name === "no_kk" && e.target.value.length > 16) {
+            //     return false;
+            // }
         }
 
         setWilayah({
             ...wilayah,
             [e.target.name]: e.target.value
         })
-
         setError({
             ...error,
             [e.target.name]: ""
@@ -92,20 +96,21 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
         }
         if (!wilayah.no_rmh) {
             newError.no_rmh = "No. Rumah wajib diisi";
-        } else if (!isInt(wilayah.no_rmh) || parseInt(wilayah.no_rmh) <= 0) {
-            newError.no_rmh = "No. Rumah tidak valid";
-        }
+        } 
+        // else if (!isInt(wilayah.no_rmh) || parseInt(wilayah.no_rmh) <= 0) {
+        //     newError.no_rmh = "No. Rumah tidak valid";
+        // }
 
         if (!wilayah.no_urutkel) {
             newError.no_urutkel = "No. Urut Keluarga wajib diisi";
         } else if (!isInt(wilayah.no_urutkel) || parseInt(wilayah.no_urutkel) <= 0) {
             newError.no_urutkel = "No. Urut Keluarga tidak valid";
         }
-        if (!wilayah.no_kk) {
-            newError.no_kk = "No. Kartu Keluarga (KK) wajib diisi";
-        } else if (wilayah.no_kk.length !== 16) {
-            newError.no_kk = "No. Kartu Keluarga (KK) harus 16 digit";
-        }
+        // if (!wilayah.no_kk) {
+        //     newError.no_kk = "No. Kartu Keluarga (KK) wajib diisi";
+        // } else if (wilayah.no_kk.length !== 16) {
+        //     newError.no_kk = "No. Kartu Keluarga (KK) harus 16 digit";
+        // }
 
         if (!wilayah.jumlah_keluarga) {
             newError.jumlah_keluarga = "Jumlah Anggota Keluarga wajib diisi";
@@ -197,7 +202,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
 
                     <Grid item xs={12} className={classes.textCenter}>
                         <Typography variant="h5" component="h1">{mode === 'edit' ? `Edit Form Data Kependudukan` : 'Form Data Kependudukan Mandiri'}</Typography>
-                        {mode === 'edit' && <Typography>No KK: {wilayah.no_kk}</Typography>}
+                        {/* {mode === 'edit' && <Typography>No KK: {wilayah.no_kk}</Typography>} */}
 
                     </Grid>
                     <Grid item xs={12}>
@@ -216,6 +221,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                     <Grid item xs={12} md={6}>
                         <Typography>Desa/Kel: {metadata.wil_kelurahan.nama_kelurahan}</Typography>
                     </Grid>
+                    
                     <Grid item xs={12}>
                         <Divider />
                     </Grid>
@@ -269,10 +275,12 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             value={wilayah.no_rmh || ''}
                             name="no_rmh"
                             id="no_rmh"
-                            type="number"
+                            // type="number"
+                            type="text"
                             inputProps={{
 
-                                min: 0
+                                min: 0,
+                                maxLength: 3
                             }}
                             onChange={handleChange}
                             error={error.no_rmh ? true : false}
@@ -280,7 +288,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                         />
 
                     </Grid>
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
 
                         <TextField
                             disabled={isSubmitting}
@@ -301,7 +309,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                         />
 
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    {/* <Grid item xs={12} md={6}>
                         <TextField
                             disabled={isSubmitting || mode === 'edit'}
                             fullWidth
@@ -321,8 +329,8 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             error={error.no_kk ? true : false}
                             helperText={error.no_kk}
                         />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
+                    </Grid> */}
+                    <Grid item xs={12} md={6}>
                         <TextField
                             disabled={isSubmitting}
                             fullWidth

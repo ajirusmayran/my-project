@@ -47,6 +47,7 @@ function Home({ history, match, location }) {
     const [isFetching, setFetching] = useState(true);
     const [isDeleting, setDeleting] = useState(false);
     const [kepalaKels, setKepalaKels] = useState([])
+    const [status, setStatus] = useState([])
     const { enqueueSnackbar } = useSnackbar()
 
     useEffect(() => {
@@ -91,7 +92,8 @@ function Home({ history, match, location }) {
             }
             return {
                 ...findKepala,
-                no_kk: kkDoc.no_kk
+                no_kk: kkDoc.no_kk,
+                status_sensus: kkDoc.status_sensus
             }
         })
         if (queryParams.query) {
@@ -204,7 +206,14 @@ function Home({ history, match, location }) {
                             return <ListItem divider key={kepala.no_kk}>
                                 <ListItemText
                                     primary={kepala.nama_anggotakel}
-                                    secondary={`NIK.${kepala.nik}`}
+                                    // secondary={`NIK.${kepala.nik}
+                                    // Status Sensus.${kepala.status_sensus}`}
+                                    secondary={
+                                        <div>
+                                            <div>{`NIK:${kepala.nik}`}</div>
+                                            <div>{`Status: ${kepala.status_sensus}`}</div>
+                                        </div>
+                                    }
                                 />
                                 <ListItemSecondaryAction>
                                     <IconButton

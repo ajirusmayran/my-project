@@ -50,6 +50,8 @@ function Finish({ wilayah, keluarga, normalizePK,
         getLocationUser()
     })
 
+    const tanggal = new Date();
+    const timestamp = tanggal.getTime();
 
     const saveTo = target => async (e) => {
         // put data utama to KK
@@ -64,7 +66,9 @@ function Finish({ wilayah, keluarga, normalizePK,
             ...wilayah,
             id_rw: parseInt(wilayah.id_rw),
             id_rt: parseInt(wilayah.id_rt),
-            location: { locationUser }
+            location: { locationUser },
+            // _id :`${metadata.wil_provinsi.id_provinsi}${metadata.wil_kabupaten.id_kabupaten}${metadata.wil_kecamatan.id_kecamatan}${metadata.wil_kelurahan.id_kelurahan}${wilayah.id_rw}${wilayah.id_rt}${timestamp}`,
+            // no_kk :`${metadata.wil_provinsi.id_provinsi}${metadata.wil_kabupaten.id_kabupaten}${metadata.wil_kecamatan.id_kecamatan}${metadata.wil_kelurahan.id_kelurahan}${wilayah.id_rw}${wilayah.id_rt}${timestamp}`
         };
         const data_nik = Object.keys(keluarga).map(_id => {
 
@@ -173,7 +177,7 @@ function Finish({ wilayah, keluarga, normalizePK,
     return <Grid container spacing={2}>
         <Grid item xs={12} className={classes.textCenter}>
             <Typography variant="h5" component="h1">{mode === 'edit' ? `Preview Edit Data` : 'Preview Data'}</Typography>
-            {mode === 'edit' && <Typography>No KK: {no_kk}</Typography>}
+            {/* {mode === 'edit' && <Typography>No KK: {no_kk}</Typography>} */}
 
         </Grid>
         <Grid item xs={12}>

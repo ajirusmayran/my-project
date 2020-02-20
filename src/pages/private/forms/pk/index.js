@@ -25,6 +25,8 @@ import SubFormRadio from './subforms/radio';
 import SubFormNumber from './subforms/number';
 import SubformCheckbox from './subforms/checkbox';
 import SubFormRadio2 from './subforms/subformradio';
+import SubFormRadio18 from './subforms/subformradio_18';
+import SubFormRadio5 from './subforms/subformradio_5';
 
 function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBack, setNormalizePK, mode, no_kk }) {
 
@@ -224,7 +226,7 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
                 <Grid item xs={12} className={classes.textCenter}>
 
                     <Typography variant="h5" component="h1">{mode === 'edit' ? `Edit Form Pembangunan Keluarga` : 'Form Pembangunan Keluarga'}</Typography>
-                    {mode === 'edit' && <Typography>No KK: {no_kk}</Typography>}
+                    {/* {mode === 'edit' && <Typography>No KK: {no_kk}</Typography>} */}
 
                 </Grid>
                 <Grid item xs={12}>
@@ -287,6 +289,40 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
 
                                     {form.tipe === 'subformradio' &&
                                         <SubFormRadio2
+                                            id={no}
+                                            value={value}
+                                            setValue={setValue}
+                                            saveValue={saveValue}
+                                            kb={kb}
+                                            handleNextSub={handleNextSub}
+                                            handleBackSub={handleBackSub}
+                                            navigationMode={navigationMode}
+                                            subformIndex={subformIndex}
+                                            form={form}
+                                            keluarga={keluarga}
+
+                                        />
+                                    }
+
+                                    {form.tipe === 'subformradio_18' &&
+                                        <SubFormRadio18
+                                            id={no}
+                                            value={value}
+                                            setValue={setValue}
+                                            saveValue={saveValue}
+                                            kb={kb}
+                                            handleNextSub={handleNextSub}
+                                            handleBackSub={handleBackSub}
+                                            navigationMode={navigationMode}
+                                            subformIndex={subformIndex}
+                                            form={form}
+                                            keluarga={keluarga}
+
+                                        />
+                                    }
+
+                                    {form.tipe === 'subformradio_5' &&
+                                        <SubFormRadio5
                                             id={no}
                                             value={value}
                                             setValue={setValue}

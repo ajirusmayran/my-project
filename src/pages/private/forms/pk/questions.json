@@ -31,17 +31,9 @@
         "pertanyaan": "Selama 6 (enam) bulan terakhir, terdapat konflik diantara anggota keluarga",
         "tipe": "subformradio",
         "options": [
-            "Ya",
-            "Tidak"
+           
         ],
-        "options2": [
-            "Ya",
-            "Tidak",
-            "Tidak Berlaku"
-        ],
-        "dependencies": [
-            "haveMarriedMember"
-        ],
+        "dependencies": [],
         "unit": "",
         "lain": false,
         "subform": true,
@@ -65,16 +57,13 @@
     "0205": {
         "no": "05",
         "pertanyaan": "Selama 6 (enam) bulan terakhir, setiap anggota keluarga makan “makanan beragam” (makanan pokok, sayur/buah dan lauk) paling sedikit 2 (dua) kali sehari",
-        "tipe": "radio",
+        "tipe": "subformradio_5",
         "options": [
             "Ya",
             "Tidak",
             "Tidak Berlaku"
         ],
-        "dependencies": [
-            "haveMarriedMember",
-            "haveChildren"
-        ],
+        "dependencies": [],
         "unit": "",
         "lain": false
     },
@@ -243,14 +232,9 @@
     "0218": {
         "no": "18",
         "pertanyaan": "Keluarga mengikuti kegiatan usaha ekonomi seperti : ",
-        "tipe": "subformradio",
+        "tipe": "subformradio_18",
         "options": [
-            "Ya",
-            "Tidak"
-        ],
-        "options2": [
-            "Ya",
-            "Tidak"
+          
         ],
         "dependencies": [],
         "unit": "",

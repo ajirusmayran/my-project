@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import { usePouchDB } from './PouchDBProvider';
+import { addHours } from 'date-fns';
 
 const DataSyncContext = React.createContext();
 
@@ -33,11 +34,15 @@ export default function DataSyncProvider(props) {
         let messages = [];
 
         let tanggal = new Date().getDate();
-        let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        let bulan = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
         let now = new Date();
         let thisBulan = bulan[now.getMonth()];
         let tahun = new Date().getFullYear();
-        let dateTime = tanggal + "/" + thisBulan + "/" + tahun;
+        let date = tanggal + "/" + thisBulan + "/" + tahun;
+
+        let jam = new Date().getHours();
+        let menit = new Date().getMinutes();
+        let time = jam + ':' + menit;
 
         dataBkkbn.local.replicate.from(dataBkkbn.remote, {
             filter: 'app/by_user_name',
@@ -54,7 +59,7 @@ export default function DataSyncProvider(props) {
                 // handle change
 
                 if (!didCancel) {
-                    messages = [...messages, { 'content': 'Tanggal: ' + dateTime + ', update status ' + info.change.docs[0].status_sensus + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
+                    messages = [...messages, { 'content': 'Tanggal: ' + date + ' ' + time + ', update status ' + info.change.docs[0].status_sensus + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
                     count = count + 1;
                     setSyncing(isSyncing => ({ ...isSyncing, syncBkkbn: true, infoBkkbn: info, statusNotif: { count: count, message: messages } }));
                 }

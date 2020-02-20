@@ -109,10 +109,6 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
             newError.nik = "NIK harus 16 digit";
         }
 
-        if (!selectedKeluarga.jenis_kelamin) {
-            newError.jenis_kelamin = "Jenis Kelamin wajib diisi";
-        }
-
         if (!selectedKeluarga.sts_hubungan) {
             newError.sts_hubungan = "Hubungan dengan Kepala Keluarga wajib diisi";
         }
@@ -130,17 +126,27 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
             }
         }
 
-        // if (selectedKeluarga.sts_hubungan === "3" && !selectedKeluarga.sts_hubanak_ibu) {
-        //     newError.sts_hubanak_ibu = "Hubungan Anak dengan Ibu wajib diisi";
-        // }
+        if (!selectedKeluarga.jenis_kelamin) {
+            newError.jenis_kelamin = "Jenis Kelamin wajib diisi";
+        }
+        else if (selectedKeluarga.jenis_kelamin !== "2" && selectedKeluarga.sts_hubungan === "2") {
+            newError.jenis_kelamin = "Istri harus berjenis kelamin perempuan";
+        }
 
+        // form kode ibu kandung
         if (selectedKeluarga.sts_hubungan === "3") {
             if (!selectedKeluarga.kd_ibukandung) {
                 newError.kd_ibukandung = "Kode Ibu Kandung wajib diisi";
             } else {
 
                 const cekIstri = Object.values(keluarga).find(kel => kel.no_urutnik === selectedKeluarga.kd_ibukandung);
-                if (cekIstri && cekIstri.sts_hubungan !== "2") {
+                // if (cekIstri && cekIstri.sts_hubungan !== "2") {
+                //     newError.kd_ibukandung = "Kode Ibu Kandung harus istri dari kepala keluarga atau wanita dengan status kepala keluarga";
+                // }
+                if (cekIstri && ['1', '3', '4'].includes(cekIstri.sts_hubungan) && cekIstri.jenis_kelamin === "1") {
+                    newError.kd_ibukandung = "Kode Ibu Kandung harus istri dari kepala keluarga";
+                }
+                else if (cekIstri && ['3', '4'].includes(cekIstri.sts_hubungan) && cekIstri.jenis_kelamin === "2") {
                     newError.kd_ibukandung = "Kode Ibu Kandung harus istri dari kepala keluarga";
                 }
 
@@ -160,8 +166,11 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
         else if (selectedKeluarga.sts_hubungan === "2" && selectedKeluarga.sts_kawin !== "2") {
             newError.sts_kawin = "Istri harus berstatus Kawin";
         }
-        else if (selectedKeluarga.sts_hubungan === "3" && selectedKeluarga.sts_kawin === "2") {
-            newError.sts_kawin = "Anak tidak boleh berstatus Kawin";
+        else if (selectedKeluarga.sts_hubungan === "3" && selectedKeluarga.sts_kawin !== "1") {
+            newError.sts_kawin = "Anak tidak boleh berstatus Kawin/Cerai";
+        }
+        else if (selectedKeluarga.sts_hubungan === "4" && selectedKeluarga.sts_kawin !== "1") {
+            newError.sts_kawin = "Anggota keluarga lainnya tidak boleh berstatus Kawin/Cerai";
         }
 
         if (['2', '3', '4'].includes(selectedKeluarga.sts_kawin)) {
@@ -180,6 +189,8 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
 
         if (!selectedKeluarga.jns_pendidikan) {
             newError.jns_pendidikan = "Pendidikan wajib diisi";
+        } else if ((countAge(selectedKeluarga.tgl_lahir) <= 7) && ['4', '5', '6', '7', '8', '9', '10'].includes(selectedKeluarga.jns_pendidikan)) {
+            newError.jns_pendidikan = "usia harus > 7 tahun";
         }
 
         if (!selectedKeluarga.jns_asuransi) {
@@ -277,7 +288,7 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
 
                     <Grid item xs={12} className={classes.textCenter}>
                         <Typography variant="h5" component="h1">{mode === 'edit' ? `Edit Form Data Kependudukan` : 'Form Data Kependudukan'}</Typography>
-                        {mode === 'edit' && <Typography>No KK: {no_kk}</Typography>}
+                        {/* {mode === 'edit' && <Typography>No KK: {no_kk}</Typography>} */}
 
                     </Grid>
                     <Grid item xs={12}>
@@ -352,6 +363,7 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                             helperText={error.tgl_lahir}
                         /> */}
                         <DatePicker
+                            autoOk
                             fullWidth
                             variant="inline"
                             format={formatString}
@@ -398,7 +410,7 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                             disabled={isSubmitting || !['2', '3', '4'].includes(selectedKeluarga.sts_kawin)}
                             fullWidth
                             variant="outlined"
-                            placeholder="Usia Kawin"
+                            placeholder="Usia Kawin Pertama"
                             value={selectedKeluarga.usia_kawin || ''}
                             name="usia_kawin"
                             id="usia_kawin"

@@ -277,7 +277,7 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, s
                 <Grid item xs={12} className={classes.textCenter}>
 
                     <Typography variant="h5" component="h1">{mode === 'edit' ? `Edit Form Keluarga Berencana` : 'Form Keluarga Berencana'}</Typography>
-                    {mode === 'edit' && <Typography>No KK: {no_kk}</Typography>}
+                    {/* {mode === 'edit' && <Typography>No KK: {no_kk}</Typography>} */}
 
                 </Grid>
                 <Grid item xs={12}>

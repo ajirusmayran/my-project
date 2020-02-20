@@ -36,7 +36,7 @@ function SubForm01({ id, setValue, saveValue, value, kb, handleNextSub, navigati
 
         /* cek kondisi untuk semua form */
         if(kb["0103"].sedang_hamil==="2" && kb["0104"].menggunakan_kontrasepsi==="2" && kb["0105"].pernah_menggunakan_kontrasepsi ==="1"){
-            if (kb["0107"].jenis_kontrasepsi === "9"){
+            if (kb["0107"].jenis_kontrasepsi === "9" || kb["0107"].jenis_kontrasepsi === "8"){
                 // skip
                 if (navigationMode === 'back') {
                     handleBackSub();
@@ -58,7 +58,7 @@ function SubForm01({ id, setValue, saveValue, value, kb, handleNextSub, navigati
             
 
             }else{
-                if (kb["0107"].jenis_kontrasepsi === "9"){
+                if (kb["0107"].jenis_kontrasepsi === "9" || kb["0107"].jenis_kontrasepsi === "8"){
                     // skip
                     if (navigationMode === 'back') {
                         handleBackSub();

@@ -125,7 +125,7 @@ export default function EditForm() {
                     setKB(data_bkkbn);
                     let newkb = {};
                     for (let i = 0; i < data_kb.length; i++) {
-                        let no_tes = 16
+                        let no_tes = 13
                         let qid = ''
 
                         if (Object.keys(data_kb[i]).length === 0) {
@@ -158,7 +158,7 @@ export default function EditForm() {
                     setPK(data_bkkbn);
                     let newpk = {};
                     for (let i = 0; i < data_pk.length; i++) {
-                        let no_tes = 16
+                        let no_tes = 13
                         let qid = ''
 
                         if (Object.keys(data_pk[i]).length === 0) {
@@ -210,7 +210,7 @@ export default function EditForm() {
     }, [params.no_kk]);
 
     useEffect(() => {
-        if (wilayah.no_kk && wilayah.jumlah_keluarga) {
+        if ( wilayah.jumlah_keluarga) {
             const jumlah_keluarga = parseInt(wilayah.jumlah_keluarga);
 
             setKeluarga(keluarga => {
@@ -233,7 +233,7 @@ export default function EditForm() {
             })
 
         }
-    }, [wilayah.jumlah_keluarga, wilayah.no_kk])
+    }, [wilayah.jumlah_keluarga])
 
     if (isFetching) {
 
