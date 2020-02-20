@@ -14,6 +14,29 @@ export const initializeFirebase = () => {
 		measurementId: "G-CPRNNER1V7"
 	};
 	firebase.initializeApp(config);
+	if ('serviceWorker' in navigator) {
+        window.addEventListener('load', async () => {
+            const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+
+            const messaging = firebase.messaging();
+            messaging.useServiceWorker(registration);
+            messaging.onMessage((payload) => {
+                console.log('[firebase-messaging-sw.js] Received background message ', payload);
+                // Customize notification here
+                const notificationTitle = payload.data.title;
+                const notificationOptions = {
+                    body: payload.data.body,
+                    icon: payload.data.icon,
+                    tag: payload.data.tag,
+                    data: payload.data.link
+                };
+
+                return registration.showNotification(notificationTitle,
+                    notificationOptions);
+            });
+
+        });
+    }
 	// navigator.serviceWorker.register("./firebase-messages-ws.js").then(registration => {
 	//     firebase.messaging().useServiceWorker(registration);
 	// });
