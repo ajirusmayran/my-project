@@ -59,7 +59,7 @@ export default function DataSyncProvider(props) {
                 // handle change
 
                 if (!didCancel) {
-                    messages = [...messages, { 'content': 'Tanggal: ' + date + ' at ' + time + ', update status ' + info.change.docs[0].status_sensus + ' pada NIK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
+                    messages = [...messages, { 'content': 'Tanggal: ' + date + ' at ' + time + ', update status ' + info.change.docs[0].status_sensus + ' pada NIK: ' + info.change.docs[0].data_nik[0].nik + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
                     count = count + 1;
                     setSyncing(isSyncing => ({ ...isSyncing, syncBkkbn: true, infoBkkbn: info, statusNotif: { count: count, message: messages } }));
                 }

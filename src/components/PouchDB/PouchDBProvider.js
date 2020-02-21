@@ -206,6 +206,7 @@ function PouchDBProvider(props) {
 
             if (localStorage.getItem('notification-token')) {
                 localStorage.removeItem('notification-token')
+                firebase.messaging().deleteToken();
             }
 
             setUser(user => ({ ...user, isLoggedIn: false }))

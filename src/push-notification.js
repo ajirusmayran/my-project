@@ -15,28 +15,28 @@ export const initializeFirebase = () => {
 	};
 	firebase.initializeApp(config);
 	if ('serviceWorker' in navigator) {
-        window.addEventListener('load', async () => {
-            const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+		window.addEventListener('load', async () => {
+			const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
 
-            const messaging = firebase.messaging();
-            messaging.useServiceWorker(registration);
-            messaging.onMessage((payload) => {
-                console.log('[firebase-messaging-sw.js] Received background message ', payload);
-                // Customize notification here
-                const notificationTitle = payload.data.title;
-                const notificationOptions = {
-                    body: payload.data.body,
-                    icon: payload.data.icon,
-                    tag: payload.data.tag,
-                    data: payload.data.link
-                };
+			const messaging = firebase.messaging();
+			messaging.useServiceWorker(registration);
+			messaging.onMessage((payload) => {
+				console.log('[firebase-messaging-sw.js] Received background message ', payload);
+				// Customize notification here
+				const notificationTitle = payload.data.title;
+				const notificationOptions = {
+					body: payload.data.body,
+					icon: payload.data.icon,
+					tag: payload.data.tag,
+					data: payload.data.link
+				};
 
-                return registration.showNotification(notificationTitle,
-                    notificationOptions);
-            });
+				return registration.showNotification(notificationTitle,
+					notificationOptions);
+			});
 
-        });
-    }
+		});
+	}
 	// navigator.serviceWorker.register("./firebase-messages-ws.js").then(registration => {
 	//     firebase.messaging().useServiceWorker(registration);
 	// });
@@ -46,13 +46,16 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 	try {
 		const messaging = firebase.messaging();
 		await messaging.requestPermission()
-		.then(() => {
-			console.log('Have Permission');
-			return messaging.getToken();
-		})
-		.then(token => {
-			console.log('FCM Token: ', token);
-			const { user: { metadata } } = pdb;
+			.then(() => {
+				console.log('Have Permission');
+				navigator.geolocation.getCurrentPosition(function (position) {
+					
+				});
+				return messaging.getToken();
+			})
+			.then(token => {
+				console.log('FCM Token: ', token);
+				const { user: { metadata } } = pdb;
 				let Id = metadata.name;
 				// let Id = 2;
 				let Token = token;
@@ -71,14 +74,14 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 						localStorage.setItem('notification-token', token);
 					})
 					.catch(e => console.error(e))
-		})
-		.catch(error => {
-			if (error.code === 'messaging/permission-blocked') {
-				console.log('Please Unblock Notification Request Manually');
-			} else {
-				console.log(error);
-			}
-		});
+			})
+			.catch(error => {
+				if (error.code === 'messaging/permission-blocked') {
+					console.log('Please Unblock Notification Request Manually');
+				} else {
+					console.log(error);
+				}
+			});
 
 	} catch (error) {
 		console.error(error);
