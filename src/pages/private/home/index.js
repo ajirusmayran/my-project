@@ -139,7 +139,7 @@ function Home({ history }) {
         <Container maxWidth="md" className={classes.container}>
 
             <Grid container spacing={3}>
-                {/* <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                     <Paper className={classes.progressKerja} elevation={0}>
                         <div className={classes.floatRightIcon}>
                             <BarChart fontSize="large" />
@@ -147,7 +147,7 @@ function Home({ history }) {
                         <Typography variant="h5" >Progress Kerja</Typography>
                         <Typography variant="subtitle1" >{totalDataKK} dari {targetkk} Keluarga</Typography>
                     </Paper>
-                </Grid> */}
+                </Grid>
                 
                 <Grid item xs={12} sm={6}>
                     <Paper className={classes.wilayahKerja} elevation={0}>
