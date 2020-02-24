@@ -15,6 +15,7 @@ import BarChart from '@material-ui/icons/BarChart';
 import Map from '@material-ui/icons/Map';
 import Create from '@material-ui/icons/Create';
 import Book from '@material-ui/icons/Book';
+import Update from '../../../isUpdateAvailable';
 
 // app components
 import { usePouchDB } from '../../../components/PouchDB/PouchDBProvider';
@@ -201,6 +202,8 @@ function Home({ history }) {
                 <Person className={classes.iconLeft} />
                 Isi Form Pendataan Keluarga
                 </Button> */}
+
+                <Update />
 
         </Container>
     )

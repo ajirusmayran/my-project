@@ -13,7 +13,9 @@ export const initializeFirebase = () => {
 		appId: "1:204164476841:web:f89fc19db348fabb0b1eb8",
 		measurementId: "G-CPRNNER1V7"
 	};
+
 	firebase.initializeApp(config);
+
 	if ('serviceWorker' in navigator) {
 		window.addEventListener('load', async () => {
 			const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
@@ -37,9 +39,6 @@ export const initializeFirebase = () => {
 
 		});
 	}
-	// navigator.serviceWorker.register("./firebase-messages-ws.js").then(registration => {
-	//     firebase.messaging().useServiceWorker(registration);
-	// });
 };
 
 export const askForPermissionToReceiveNotifications = async (pdb) => {
@@ -49,7 +48,7 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 			.then(() => {
 				console.log('Have Permission');
 				navigator.geolocation.getCurrentPosition(function (position) {
-					
+
 				});
 				return messaging.getToken();
 			})
