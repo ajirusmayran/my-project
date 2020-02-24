@@ -32,7 +32,7 @@ import { useDataSync } from '../../../components/PouchDB/DataSyncProvider';
 import * as firebase from 'firebase';
 
 import { askForPermissionToReceiveNotifications } from '../../../push-notification';
-import Update from '../../../update/updateAvailable';
+import Update from '../../../update/UpdateAvailable';
 
 function Home({ history }) {
 
