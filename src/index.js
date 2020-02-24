@@ -4,10 +4,17 @@ import './index.css';
 import App from './App';
 import { initializeFirebase } from './push-notification';
 import * as serviceWorker from './serviceWorker';
-import store from './store';
+import configureStore from './store_update';
 import { SW_INIT, SW_UPDATE } from './types';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = configureStore();
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
