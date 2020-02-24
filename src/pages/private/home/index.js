@@ -202,7 +202,6 @@ function Home({ history }) {
                 Isi Form Pendataan Keluarga
                 </Button> */}
 
-
         </Container>
     )
 }
