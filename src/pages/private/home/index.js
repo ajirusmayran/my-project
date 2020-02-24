@@ -32,7 +32,7 @@ import { useDataSync } from '../../../components/PouchDB/DataSyncProvider';
 import * as firebase from 'firebase';
 
 import { askForPermissionToReceiveNotifications } from '../../../push-notification';
-
+import Update from '../../../update/updateAvailable';
 
 function Home({ history }) {
 
@@ -201,6 +201,8 @@ function Home({ history }) {
                 <Person className={classes.iconLeft} />
                 Isi Form Pendataan Keluarga
                 </Button> */}
+                
+                <Update />
 
         </Container>
     )
