@@ -15,7 +15,6 @@ import BarChart from '@material-ui/icons/BarChart';
 import Map from '@material-ui/icons/Map';
 import Create from '@material-ui/icons/Create';
 import Book from '@material-ui/icons/Book';
-import Update from '../../../isUpdateAvailable';
 
 // app components
 import { usePouchDB } from '../../../components/PouchDB/PouchDBProvider';
@@ -139,7 +138,7 @@ function Home({ history }) {
         <Container maxWidth="md" className={classes.container}>
 
             <Grid container spacing={3}>
-                {/* <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                     <Paper className={classes.progressKerja} elevation={0}>
                         <div className={classes.floatRightIcon}>
                             <BarChart fontSize="large" />
@@ -147,7 +146,7 @@ function Home({ history }) {
                         <Typography variant="h5" >Progress Kerja</Typography>
                         <Typography variant="subtitle1" >{totalDataKK} dari {targetkk} Keluarga</Typography>
                     </Paper>
-                </Grid> */}
+                </Grid>
                 
                 <Grid item xs={12} sm={6}>
                     <Paper className={classes.wilayahKerja} elevation={0}>
@@ -203,7 +202,6 @@ function Home({ history }) {
                 Isi Form Pendataan Keluarga
                 </Button> */}
 
-                <Update />
 
         </Container>
     )
