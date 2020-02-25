@@ -18,7 +18,7 @@ export const initializeFirebase = () => {
 
 	if ('serviceWorker' in navigator) {
 		window.addEventListener('load', async () => {
-			const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+			const registration = await navigator.serviceWorker.register('/assets/firebase-messaging-sw.js');
 
 			const messaging = firebase.messaging();
 			messaging.useServiceWorker(registration);

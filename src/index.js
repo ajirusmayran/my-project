@@ -6,8 +6,8 @@ import { initializeFirebase } from './push-notification';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
-import configureStore from './update/store';
-import { SW_INIT, SW_UPDATE } from './update/types';
+import configureStore from './storeUpdate';
+import { SW_INIT, SW_UPDATE } from './types';
 
 const store = configureStore();
 
