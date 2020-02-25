@@ -41,7 +41,7 @@ function UpdateAvailable() {
     };
     return (
         <>
-            {!isServiceWorkerUpdated && (
+            {isServiceWorkerUpdated && (
                 <Dialog
                     type={SW_UPDATE}
                     open={open}

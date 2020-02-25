@@ -53,33 +53,33 @@ function Home({ history }) {
     let currentSearch = null
 
     useEffect(() => {
-        history.listen((newLocation,action) =>{
-            if(action ==="PUSH"){
-                if(
-                    newLocation.pathname !==currentPathname
-                ){
+        history.listen((newLocation, action) => {
+            if (action === "PUSH") {
+                if (
+                    newLocation.pathname !== currentPathname
+                ) {
                     // simpan new location
                     currentPathname = newLocation.pathname
                     currentSearch = newLocation.search
 
                     // clone location object and push it to history
                     history.push({
-                        pathname:newLocation.pathname,
-                        search:newLocation.search
+                        pathname: newLocation.pathname,
+                        search: newLocation.search
                     })
-                
+
                 }
-            }else{
+            } else {
                 // send user back  if they try  to navigate back
                 history.go(1)
             }
         })
-        
+
         //  if (!isSyncing.syncKK) {
         if (!localStorage.getItem('notification-token')) {
             askForPermissionToReceiveNotifications(pouchDB);
-            
-            
+
+
         }
 
         if (parseInt(metadata.tingkatwilayahid) === 5) {
@@ -147,7 +147,7 @@ function Home({ history }) {
                         <Typography variant="subtitle1" >{totalDataKK} dari {targetkk} Keluarga</Typography>
                     </Paper>
                 </Grid>
-                
+
                 <Grid item xs={12} sm={6}>
                     <Paper className={classes.wilayahKerja} elevation={0}>
                         <div className={classes.floatRightIcon}>
@@ -201,8 +201,8 @@ function Home({ history }) {
                 <Person className={classes.iconLeft} />
                 Isi Form Pendataan Keluarga
                 </Button> */}
-                
-                <Update />
+
+            <Update />
 
         </Container>
     )
