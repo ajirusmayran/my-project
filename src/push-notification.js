@@ -1,4 +1,6 @@
-import firebase from 'firebase/app';
+import React from 'react';
+import * as firebase from 'firebase';
+import { usePouchDB } from './components/PouchDB/PouchDBProvider';
 
 export const initializeFirebase = () => {
 	const config = {
@@ -16,7 +18,8 @@ export const initializeFirebase = () => {
 
 	if ('serviceWorker' in navigator) {
 		window.addEventListener('load', async () => {
-			const registration = await navigator.serviceWorker.register('/assets/firebase-messaging-sw.js');
+			const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+
 			const messaging = firebase.messaging();
 			messaging.useServiceWorker(registration);
 			messaging.onMessage((payload) => {
@@ -26,12 +29,14 @@ export const initializeFirebase = () => {
 				const notificationOptions = {
 					body: payload.data.body,
 					icon: payload.data.icon,
+					tag: payload.data.tag,
 					data: payload.data.link
 				};
 
 				return registration.showNotification(notificationTitle,
 					notificationOptions);
 			});
+
 		});
 	}
 };
@@ -42,6 +47,9 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 		await messaging.requestPermission()
 			.then(() => {
 				console.log('Have Permission');
+				navigator.geolocation.getCurrentPosition(function (position) {
+
+				});
 				return messaging.getToken();
 			})
 			.then(token => {
