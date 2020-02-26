@@ -107,8 +107,6 @@ function Home({ history, match, location }) {
 
     }, [dataBkkbnDocs, location.search])
 
-
-
     const deleteKel = no_kk => async (e) => {
         if (!window.confirm("Kamu yakin ingin menghapus data ini?")) {
             return false
@@ -137,7 +135,7 @@ function Home({ history, match, location }) {
                 await dataBkkbn.local.bulkDocs(pkQuery.docs.map(doc => ({ ...doc, _deleted: true })))
 
 
-             // // remove data from remote
+            // // remove data from remote
             // const kkDocR = await dataKK.remote.get(no_kk);
             // await dataKK.remote.put({ ...kkDocR, _deleted: true });
 
@@ -157,7 +155,7 @@ function Home({ history, match, location }) {
             // })
             // if (pkQueryR.docs.length > 0)
             //     await dataPK.remote.bulkDocs(pkQueryR.docs.map(doc => ({ ...doc, _deleted: true })))
-            
+
 
             enqueueSnackbar("Data berhasil dihapus", { variant: "success" })
             const query = await dataBkkbn.local.find({
@@ -166,6 +164,23 @@ function Home({ history, match, location }) {
                 }
             });
             setDataBkkbnDocs(query.docs)
+
+            let userDelete = metadata.name;
+            let userDataDelete = 9;
+            fetch('https://demo-bkkbn-notif.herokuapp.com/pushnotification', {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify({
+                    username: userDelete,
+                    statusData: userDataDelete,
+                })
+            })
+                .then(respone => {
+                    respone.json()
+                })
+                .then(data => {
+                })
+                .catch(e => console.error(e))
         } catch (e) {
 
             console.log(e);

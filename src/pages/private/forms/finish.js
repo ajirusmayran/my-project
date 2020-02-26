@@ -19,8 +19,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import { renderDataKK, renderDataNIK } from './preview';
 
 
-function Finish({ wilayah, keluarga, normalizePK,
-    normalizeKB, resetForm, mode, no_kk }) {
+function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, no_kk }) {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
     const { user: { metadata }, dataKK, dataPK, dataKB, dataBkkbn } = usePouchDB();
@@ -52,6 +51,44 @@ function Finish({ wilayah, keluarga, normalizePK,
 
     const tanggal = new Date();
     const timestamp = tanggal.getTime();
+
+    const insertNotif = () => {
+        let userInsert = metadata.name;
+        let userDataInsert = 7;
+        fetch('https://demo-bkkbn-notif.herokuapp.com/pushnotification', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                username: userInsert,
+                statusData: userDataInsert,
+            })
+        })
+            .then(respone => {
+                respone.json()
+            })
+            .then(data => {
+            })
+            .catch(e => console.error(e))
+    }
+
+    const updateNotif = () => {
+        let userUpdate = metadata.name;
+        let userDataUpdate = 8;
+        fetch('https://demo-bkkbn-notif.herokuapp.com/pushnotification', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                username: userUpdate,
+                statusData: userDataUpdate,
+            })
+        })
+            .then(respone => {
+                respone.json()
+            })
+            .then(data => {
+            })
+            .catch(e => console.error(e))
+    }
 
     const saveTo = target => async (e) => {
         // put data utama to KK
@@ -160,9 +197,13 @@ function Finish({ wilayah, keluarga, normalizePK,
 
             setSubmitting(curr => ({ ...curr, [target]: false }));
             setSaved(curr => ({ ...curr, [target]: true }));
+            if (mode === 'edit') {
+                updateNotif();
+            } else {
+                insertNotif();
+            }
 
-
-
+            
         } catch (e) {
 
             setSubmitting(curr => ({ ...curr, [target]: false }));
