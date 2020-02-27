@@ -125,7 +125,7 @@
             "Tidak Berlaku"
         ],
         "dependencies": [
-            "haveChildren"
+            "haveChildrenWithSingelParent"
         ],
         "unit": "",
         "lain": false
@@ -301,8 +301,8 @@
         "pertanyaan": "Sumber penerangan utama?",
         "tipe": "radio",
         "options": [
-            "Listrik Pribadi 900 Wat",
-            "Listrik Pribadi < 900 Wat",
+            "Listrik Pribadi \u2264 900 Wat",
+            "Listrik Pribadi > 900 Wat",
             "Genset/solar cell",
             "Listrik Bersama",
             "Non Listrik"
@@ -357,7 +357,9 @@
         "pertanyaan": "Orang yang tinggal dan menetap di rumah/bangunan ini?",
         "tipe": "number",
         "options": [],
-        "dependencies": [],
+        "dependencies": [
+            "PeopleInHome"
+        ],
         "unit": "Orang",
         "lain": false
     },
@@ -408,22 +410,12 @@
         "pertanyaan": "Jika ya, darimana info tersebut diperoleh (dipilih boleh lebih dari satu)?",
         "tipe": "checkbox",
         "options": [
-            "Radio",
-            "Televisi",
-            "Videotron",
-            "Koran",
-            "Majalah/Tabloid",
-            "Flipchart/Lembar Balik",
-            "Poster",
-            "Spanduk/Umbul-umbul",
-            "Banner",
-            "Billboard/Baliho",
-            "Pameran",
-            "Merchandise",
-            "Event",
-            "Mural",
-            "Internet Website/Media Sosial/Media Online",
-            "Lainnya"
+            "Koran/Majalah/Tabloid",
+            "Televisi/Radio/Videotron",
+            "Facebook/Instagram/Twitter/Whatsapp/Youtube/Blog/Website",
+            "Seminar/Pengajian/Ibadat/Workshop/Diseminasi/Pertemuan Kelompok Kegiatan/ Konseling/Pameran",
+            "Leaflet/Lembar Balik/ Poster/Spanduk/Banner/Umbul-umbul/ Billboard/ Baliho/ Mural/Souvenir",
+            "Wayang/Tarian/Pentas Budaya Lokal"
         ],
         "dependencies": [],
         "unit": "",

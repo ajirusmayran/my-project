@@ -73,12 +73,12 @@ export const id_pekerjaan = {
     "2": "Petani",
     "3": "Nelayan",
     "4": "Pedagang",
-    "5": "PNS/TNI/POLRI",
-    "6": "Pegawai Swasta",
-    "7": "Wiraswasta",
-    "8": "Pensiunan",
-    "9": "Pekerja Lepas",
-    "10": "Lainnya"
+    "5": "Pejabat Negara",
+    "6": "PNS/TNI/POLRI",
+    "7": "Pegawai Swasta",
+    "8": "Wiraswasta",
+    "9": "Pensiunan",
+    "10": "Pekerja Lepas"
 }
 
 export const keberadaan = {

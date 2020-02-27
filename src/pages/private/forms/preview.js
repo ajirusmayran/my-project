@@ -90,6 +90,27 @@ export const renderDataNIK = item => {
             <Typography> Jenis Kelamin: {options.jenis_kelamin[item.jenis_kelamin]} </Typography>
 
         </Grid>
+
+        <Grid item xs={12} md={4}>
+
+            <Typography> Tanggal Lahir: {item.tgl_lahir} </Typography>
+
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+            <Typography> Status Perkawinan: {options.sts_kawin[item.sts_kawin]} </Typography>
+
+
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+            <Typography> Usia Kawin Pertama: {item.usia_kawin} </Typography>
+
+        </Grid>
+        <Grid item xs={12} md={4}>
+            <Typography> Memiliki Akta Lahir: {options.sts_akta[item.sts_akta]} </Typography>
+
+
+
+        </Grid>
         <Grid item xs={12} md={4}>
 
             <Typography> Hubungan Dengan Kepala Keluarga: {options.sts_hubungan[item.sts_hubungan]} </Typography>
@@ -108,26 +129,14 @@ export const renderDataNIK = item => {
             <Typography> Kode Ibu Kandung: {item.kd_ibukandung} </Typography>
 
 
-        </Grid>
-        <Grid item xs={12} md={4}>
-            <Typography> Memiliki Akta Lahir: {options.sts_akta[item.sts_akta]} </Typography>
-
-
-
-        </Grid>
-
-        <Grid item xs={12} md={4}>
-
-            <Typography> Tanggal Lahir: {item.tgl_lahir} </Typography>
-
-        </Grid>
+        </Grid> 
         <Grid item xs={12} sm={6} md={4}>
-            <Typography> Status Perkawinan: {options.sts_kawin[item.sts_kawin]} </Typography>
+            <Typography> Agama: {options.id_agama[item.id_agama]} </Typography>
 
 
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
-            <Typography> Usia Kawin: {item.usia_kawin} </Typography>
+            <Typography> Pekerjaan: {options.id_pekerjaan[item.id_pekerjaan]} </Typography>
 
         </Grid>
         <Grid item xs={12} md={4}>
@@ -143,17 +152,6 @@ export const renderDataNIK = item => {
         <Grid item xs={12} md={4}>
             <Typography> Keberadaa anggota keluarga: {options.keberadaan[item.keberadaan]} </Typography>
 
-
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-            <Typography> Agama: {options.id_agama[item.id_agama]} </Typography>
-
-
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-            <Typography> Pekerjaan: {options.id_pekerjaan[item.id_pekerjaan]} </Typography>
 
         </Grid>
     </Grid>)

@@ -20,6 +20,19 @@ function haveChildren(keluarga) {
 
 }
 
+function haveChildrenWithSingelParent(keluarga) {
+
+    return keluarga.some((value) => {
+        // if (value.sts_hubungan === "3") {
+        //     if (value.sts_kawin === "3" || value.sts_kawin === "4") {
+        //         return true;
+        //     }
+        //     return false;
+        // }
+        return value.sts_hubungan === "3" && !(value.sts_kawin === "3" || value.sts_kawin === "4");
+    })
+
+}
 
 function haveWifeOrHusband(keluarga) {
     return keluarga.some((value) => {
@@ -123,6 +136,15 @@ function haveChildrenFrom0To17(keluarga) {
     })
 }
 
+function PeopleInHome(keluarga){
+    return keluarga.some((value) => {
+        if (value.keberadaan === "1") {
+
+        }
+        return false;
+    })
+}
+
 export default {
     haveChildren,
     haveWifeOrHusband,
@@ -131,7 +153,9 @@ export default {
     haveChildrenFrom10To24,
     haveFamilyMember60,
     haveMarriedMember,
-    haveChildrenFrom0To17
+    haveChildrenFrom0To17,
+    haveChildrenWithSingelParent,
+    PeopleInHome
 
 
 }

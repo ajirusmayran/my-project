@@ -38,7 +38,7 @@ import { countAge } from './pk/validation';
 
 export const formatString = "dd-MM-yyyy";
 
-function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex, mode, no_kk }) {
+function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, formIndex, mode }) {
     const classes = useStyles();
     const nextRef = useRef(null);
     const backRef = useRef(null);
@@ -52,19 +52,25 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
 
     const [isSubmitting, setSubmitting] = useState(false);
 
+    const itemHubungan = ['istri', 'anak', 'lain-lain']
+
+    const itemKeberadaan = ['Di Dalam Rumah', 'Di Luar Rumah', 'Di Luar Negeri']
+
     //reset error
     useEffect(() => {
         setError({})
     }, [id])
 
 
-    const handleChange = (e) => {
 
-        if (e.target.type === "number") {
-            if (parseInt(e.target.value) < 0)
+
+    const handleChange = (e) => {
+        const { type, name, value } = e.target
+        if (type === "number") {
+            if (parseInt(value) < 0)
                 return false;
 
-            if (e.target.name === "nik" && e.target.value.length > 16) {
+            if (name === "nik" && value.length > 16) {
                 return false;
             }
         }
@@ -73,13 +79,66 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
             ...keluarga,
             [id]: {
                 ...keluarga[id],
-                [e.target.name]: e.target.value
+                [name]: value
             }
         })
 
         setError({
             ...error,
-            [e.target.name]: ""
+            [name]: ""
+        })
+
+        setSomethingChange(true)
+    }
+
+    const handleChangeStsAkta = (e) => {
+        const { type, name, value } = e.target
+        if (type === "number") {
+            if (parseInt(value) < 0)
+                return false;
+
+            if (name === "nik" && value.length > 16) {
+                return false;
+            }
+        }
+
+        // set object Keluarga sts_hubungan == kepala keluarga
+        // kondisi ini dijalanlan saat form keluarga yang pertama atau index 0
+
+        if (id === "01") {
+            setKeluarga({
+                ...keluarga,
+                [id]: {
+                    ...keluarga[id],
+                    ["sts_hubungan"]: "1"
+                }
+            })
+
+        }
+
+        if(id === "01" && wilayah.jumlah_keluarga === "1"){
+            setKeluarga({
+                ...keluarga,
+                [id]: {
+                    ...keluarga[id],
+                    ["sts_hubungan"]: "1",
+                    ["keberadaan"]: "1"
+                }
+            })
+        }
+
+
+        setKeluarga((prevState) => ({
+            ...prevState,
+            [id]: {
+                ...prevState[id],
+                [name]: value
+            }
+        }))
+
+        setError({
+            ...error,
+            [name]: ""
         })
 
         setSomethingChange(true)
@@ -176,11 +235,11 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
         if (['2', '3', '4'].includes(selectedKeluarga.sts_kawin)) {
 
             if (!selectedKeluarga.usia_kawin) {
-                newError.usia_kawin = "Usia Kawin wajib diisi";
+                newError.usia_kawin = "Usia Kawin Pertama wajib diisi";
             } else if (parseInt(selectedKeluarga.usia_kawin) < 10) {
-                newError.usia_kawin = "Usia Kawin tidak boleh diisi < 10";
+                newError.usia_kawin = "Usia Kawin Pertama tidak boleh diisi < 10";
             } else if (selectedKeluarga.tgl_lahir && parseInt(selectedKeluarga.usia_kawin) >= countAge(selectedKeluarga.tgl_lahir)) {
-                newError.usia_kawin = "Usia Kawin tidak boleh lebih besar dari umur";
+                newError.usia_kawin = "Usia Kawin Pertama tidak boleh lebih besar dari umur";
             }
 
 
@@ -205,16 +264,23 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
             newError.id_pekerjaan = "Pekerjaan wajib diisi";
         }
 
-        if (!selectedKeluarga.keberadaan) {
-            newError.keberadaan = "Keberadaan Anggota Keluarga wajib diisi";
+        if (wilayah.jumlah_keluarga !== "1") {
+            if (!selectedKeluarga.keberadaan) {
+                newError.keberadaan = "Keberadaan Anggota Keluarga wajib diisi";
+            }
         }
 
         return newError;
 
     }
 
+    const umurnikah = countAge(selectedKeluarga.tgl_lahir) + 1;
+
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
 
 
         const findErrors = validate();
@@ -230,14 +296,7 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
             //simpan ke db local
             setSubmitting(true);
             try {
-                // const existing = await dataKK.local.get(id)
 
-                // await dataKK.local.put({
-                //     _id: id,
-                //     _rev: existing._rev,
-                //     type: 'anggota',
-                //     ...selectedKeluarga
-                // })
                 setSubmitting(false)
                 setSomethingChange(false);
                 handleNext()
@@ -294,7 +353,22 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                     <Grid item xs={12}>
                         <Divider />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={2} md={2}>
+                        <TextField
+                            disabled={isSubmitting}
+                            fullWidth
+                            variant="outlined"
+                            placeholder={`No.${id}`}
+                            name="no_anggotakel"
+                            id="no_anggotakel"
+
+                            onChange={handleChange}
+                            error={error.no_anggotakel ? true : false}
+                            helperText={error.no_anggotakel}
+                            disabled
+                        />
+                    </Grid>
+                    <Grid item xs={10} md={5}>
                         <TextField
                             disabled={isSubmitting}
                             fullWidth
@@ -309,7 +383,7 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                             helperText={error.nama_anggotakel}
                         />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={5}>
                         <TextField
                             disabled={isSubmitting}
                             fullWidth
@@ -417,7 +491,8 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                             type="number"
                             inputProps={{
 
-                                min: 0
+                                min: 0,
+                                max: umurnikah
                             }}
                             onChange={handleChange}
                             error={error.usia_kawin ? true : false}
@@ -432,7 +507,7 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                             <Select
                                 id="sts_akta"
                                 value={selectedKeluarga.sts_akta || ''}
-                                onChange={handleChange}
+                                onChange={handleChangeStsAkta}
                                 name="sts_akta"
                                 displayEmpty
                             >
@@ -446,23 +521,32 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <FormControl
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || id === "01"}
                             variant="outlined" fullWidth error={error.sts_hubungan ? true : false}>
 
                             <Select
                                 id="sts_hubungan"
-                                value={selectedKeluarga.sts_hubungan || ''}
+                                value={(selectedKeluarga.sts_hubungan || (id === "01" && "1")) || ""}
                                 onChange={handleChange}
                                 name="sts_hubungan"
                                 displayEmpty
                             >
                                 <MenuItem value="">Hubungan Dengan Kepala Keluarga</MenuItem>
+                                {
+                                    id === "01" && <MenuItem value="1">Kepala Keluarga</MenuItem>
+                                }
+                                {
+                                    id > "01" &&
+                                    itemHubungan.map((val, index) => {
+                                        return (<MenuItem value={`${index + 2}`}>{val}</MenuItem>)
+                                    })
+                                }
+
+                                {/* <MenuItem value="">Hubungan Dengan Kepala Keluarga</MenuItem>
                                 <MenuItem value="1">Kepala Keluarga</MenuItem>
                                 <MenuItem value="2">Istri</MenuItem>
                                 <MenuItem value="3">Anak</MenuItem>
-                                <MenuItem value="4">Lain-lain</MenuItem>
-
-
+                                <MenuItem value="4">Lain-lain</MenuItem> */}
                             </Select>
                             <FormHelperText>{error.sts_hubungan}</FormHelperText>
                         </FormControl>
@@ -494,19 +578,37 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                     </Grid> */}
                     <Grid item xs={12} md={4}>
                         <FormControl
-                            disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
+                            disabled={isSubmitting || selectedKeluarga.sts_hubungan == "3"}
                             variant="outlined" fullWidth error={error.kd_ibukandung ? true : false}>
 
                             <Select
-                                disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
+                                disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3" || selectedKeluarga.kd_ibukandung == "0"}
                                 id="kd_ibukandung"
-                                value={selectedKeluarga.kd_ibukandung || ''}
+                                value={selectedKeluarga.sts_hubungan == "3" ? (selectedKeluarga.kd_ibukandung || '0') : ''}
                                 onChange={handleChange}
                                 name="kd_ibukandung"
                                 displayEmpty
                             >
                                 <MenuItem value="">Kode Ibu Kandung</MenuItem>
-                                {Object.values(keluarga).map(kel => <MenuItem key={kel.no_urutnik} value={kel.no_urutnik}>{kel.no_urutnik}</MenuItem>)}
+
+                                {
+                                    Object.values(keluarga).map(kel => {
+                                        if (kel.sts_hubungan == "1" && kel.sts_kawin == "2" && kel.jenis_kelamin == "1")
+                                            return (
+                                                <MenuItem key={keluarga['02'].no_urutnik} value={keluarga['02'].no_urutnik}>{keluarga['02'].nama_anggotakel}</MenuItem>
+                                            )
+
+                                        if (kel.sts_hubungan == "1" && kel.sts_kawin !== "2" && kel.jenis_kelamin == "2")
+                                            return (
+                                                <MenuItem key={keluarga['01'].no_urutnik} value={keluarga['01'].no_urutnik}>{keluarga['01'].nama_anggotakel}</MenuItem>
+                                            )
+
+                                        if (kel.sts_hubungan == "1" && (kel.sts_kawin == "3" || kel.sts_kawin == "4") && kel.jenis_kelamin == "1")
+                                            return (
+                                                <MenuItem value="0">00</MenuItem>
+                                            )
+                                    })
+                                }
 
 
 
@@ -610,7 +712,7 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                             <Select
                                 id="jns_asuransi"
                                 value={selectedKeluarga.jns_asuransi || ''}
-                                onChange={handleChange}
+                                onChange={handleChangeStsAkta}
                                 name="jns_asuransi"
                                 displayEmpty
                             >
@@ -625,21 +727,33 @@ function Keluarga({ id, keluarga, setKeluarga, handleNext, handleBack, formIndex
                     </Grid>
 
                     <Grid item xs={12} md={4}>
-                        <FormControl
-                            disabled={isSubmitting}
+                    <FormControl
+                            disabled={isSubmitting || wilayah.jumlah_keluarga === "1"}
                             variant="outlined" fullWidth error={error.keberadaan ? true : false}>
 
                             <Select
+                                disabled={isSubmitting || wilayah.jumlah_keluarga === "1"}
                                 id="keberadaan"
-                                value={selectedKeluarga.keberadaan || ''}
+                                value={selectedKeluarga.keberadaan || (wilayah.jumlah_keluarga === "1" && "1") || ''}
                                 onChange={handleChange}
                                 name="keberadaan"
                                 displayEmpty
                             >
-                                <MenuItem value="">Keberadaan anggota keluarga</MenuItem>
+                                {/* <MenuItem value="">Keberadaan anggota keluarga</MenuItem>
                                 <MenuItem value="1">Di Dalam Rumah</MenuItem>
                                 <MenuItem value="2">Di Luar Rumah</MenuItem>
-                                <MenuItem value="3">Di Luar Negeri</MenuItem>
+                                <MenuItem value="3">Di Luar Negeri</MenuItem> */}
+
+                                <MenuItem value="">Keberadaan anggota keluarga</MenuItem>
+                                {
+                                    wilayah.jumlah_keluarga === "1" && <MenuItem value="1">Di Dalam Rumah</MenuItem>
+                                }
+                                {
+                                    wilayah.jumlah_keluarga > "1" &&
+                                    itemKeberadaan.map((val, index) => {
+                                        return (<MenuItem value={`${index + 1}`}>{val}</MenuItem>)
+                                    })
+                                }
 
 
                             </Select>
@@ -679,3 +793,4 @@ Keluarga.propTypes = {
 }
 
 export default Keluarga;
+//

@@ -51,8 +51,8 @@ const subforms = {
         component: SubForm08
     }, "0109": {
         component: SubForm09
-    // }, "0110": {
-    //     component: SubForm10
+        // }, "0110": {
+        //     component: SubForm10
     }
 };
 
@@ -187,14 +187,53 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, s
     const no = Object.keys(subforms)[subformIndex];
 
     const setValue = (e) => {
-        setKB({
-            ...kb,
-            [no]: {
-                ...kb[no],
-                [e.target.name]: e.target.value
+        if (e.target.name == "kelahiran" && e.target.value === "0") {
+            const inputan = ["kelahiran",
+                "lahir_hidup_laki_laki",
+                "lahir_hidup_perempuan",
+                "masih_hidup_laki_laki",
+                "masih_hidup_perempuan"]
+            for (let i = 0; i < inputan.length; i++) {
+
+                setKB((kb) => ({
+                    ...kb,
+                    [no]: {
+                        ...kb[no],
+                        [inputan[i]]: "0"
+                    }
+                }))
+                setSomethingChange(true)
             }
-        })
-        setSomethingChange(true)
+
+        // } else if (e.target.name == "pernah_menggunakan_kontrasepsi" && e.target.value === "2") {
+        //     const inputankb5 = ["pernah_menggunakan_kontrasepsi",
+        //         "bulan_mulai",
+        //         "tahun_mulai",
+        //         "bulan_berhenti",
+        //         "tahun_berhenti"]
+        //     for (let i = 0; i < inputankb5.length; i++) {
+
+        //         setKB((kb) => ({
+        //             ...kb,
+        //             [no]: {
+        //                 ...kb[no],
+        //                 [inputankb5[i]]: "",
+        //                 [inputankb5["pernah_menggunakan_kontrasepsi"]]: "2"
+        //             }
+        //         }))
+        //         setSomethingChange(true)
+        //     }
+        } else {
+            setKB({
+                ...kb,
+                [no]: {
+                    ...kb[no],
+                    [e.target.name]: e.target.value
+                }
+            })
+            setSomethingChange(true)
+        }
+
     }
 
     const saveValue = (normalizeValue) => {

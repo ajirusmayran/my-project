@@ -71,7 +71,7 @@ export default function Form() {
 
         }
     }, [wilayah.jumlah_keluarga])
-
+    
     const resetForm = () => {
         setSlide({
             direction: "right",
@@ -188,6 +188,7 @@ export default function Form() {
                         keluarga={keluarga}
                         setKeluarga={setKeluarga}
                         formIndex={formIndex}
+                        wilayah={wilayah}
                     />
 
                 }
@@ -256,3 +257,4 @@ export default function Form() {
         }  </Carousel>} */}
     </Container>
 }
+//

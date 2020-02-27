@@ -266,6 +266,8 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
                                             navigationMode={navigationMode}
                                             subformIndex={subformIndex}
                                             form={form}
+                                            keluarga={keluarga}
+                                            wilayah={wilayah}
                                         />
                                     }
 

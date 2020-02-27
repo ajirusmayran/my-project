@@ -26,6 +26,7 @@ function SubForm01({ id, setValue, saveValue, value, no_kk }) {
             return false;
         }
 
+        
         setValue(e)
 
         setError({
@@ -72,6 +73,10 @@ function SubForm01({ id, setValue, saveValue, value, no_kk }) {
             newError.masih_hidup_perempuan = "Jumlah Perempuan tidak valid";
         } else if (parseInt(value.masih_hidup_perempuan) > parseInt(value.lahir_hidup_perempuan)) {
             newError.masih_hidup_perempuan = " Jumlah Perempuan masih hidup tidak boleh lebih besar dari Jumlah Perempuan lahir hidup";
+        }
+
+        if (parseInt(value.lahir_hidup_laki_laki) + parseInt(value.lahir_hidup_perempuan) > parseInt(value.kelahiran) ) {
+            newError.kelahiran = " Jumlah Laki-laki lahir hidup dan Jumlah Perempuan masih hidup tidak boleh lebih dari Jumlah Kelahiran";
         }
 
         return newError;
@@ -181,7 +186,7 @@ function SubForm01({ id, setValue, saveValue, value, no_kk }) {
                             }}
                             error={error.lahir_hidup_laki_laki ? true : false}
                             helperText={error.lahir_hidup_laki_laki}
-
+                            disabled={value.kelahiran==="0"?true:false}
                         />
                     </Grid>
                     <Grid item xs={12} md={3}>
@@ -206,6 +211,7 @@ function SubForm01({ id, setValue, saveValue, value, no_kk }) {
                             }}
                             error={error.lahir_hidup_perempuan ? true : false}
                             helperText={error.lahir_hidup_perempuan}
+                            disabled={value.kelahiran==="0"?true:false}
 
                         />
                     </Grid>
@@ -234,6 +240,7 @@ function SubForm01({ id, setValue, saveValue, value, no_kk }) {
 
                             error={error.masih_hidup_laki_laki ? true : false}
                             helperText={error.masih_hidup_laki_laki}
+                            disabled={value.kelahiran==="0"?true:false}
 
                         />
                     </Grid>
@@ -260,6 +267,7 @@ function SubForm01({ id, setValue, saveValue, value, no_kk }) {
                             }}
                             error={error.masih_hidup_perempuan ? true : false}
                             helperText={error.masih_hidup_perempuan}
+                            disabled={value.kelahiran==="0"?true:false}
                         />
                     </Grid>
 
