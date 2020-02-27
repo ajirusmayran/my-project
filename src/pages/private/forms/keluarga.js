@@ -593,20 +593,22 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
 
                                 {
                                     Object.values(keluarga).map(kel => {
-                                        if (kel.sts_hubungan == "1" && kel.sts_kawin == "2" && kel.jenis_kelamin == "1")
-                                            return (
-                                                <MenuItem key={keluarga['02'].no_urutnik} value={keluarga['02'].no_urutnik}>{keluarga['02'].nama_anggotakel}</MenuItem>
-                                            )
+                                        if (Object.keys(keluarga).length > 1) {
+                                            if (kel.sts_hubungan == "1" && kel.sts_kawin == "2" && kel.jenis_kelamin == "1")
+                                                return (
+                                                    <MenuItem key={keluarga['02'].no_urutnik} value={keluarga['02'].no_urutnik}>{keluarga['02'].nama_anggotakel}</MenuItem>
+                                                )
 
-                                        if (kel.sts_hubungan == "1" && kel.sts_kawin !== "2" && kel.jenis_kelamin == "2")
-                                            return (
-                                                <MenuItem key={keluarga['01'].no_urutnik} value={keluarga['01'].no_urutnik}>{keluarga['01'].nama_anggotakel}</MenuItem>
-                                            )
+                                            if (kel.sts_hubungan == "1" && kel.sts_kawin !== "2" && kel.jenis_kelamin == "2")
+                                                return (
+                                                    <MenuItem key={keluarga['01'].no_urutnik} value={keluarga['01'].no_urutnik}>{keluarga['01'].nama_anggotakel}</MenuItem>
+                                                )
 
-                                        if (kel.sts_hubungan == "1" && (kel.sts_kawin == "3" || kel.sts_kawin == "4") && kel.jenis_kelamin == "1")
-                                            return (
-                                                <MenuItem value="0">00</MenuItem>
-                                            )
+                                            if (kel.sts_hubungan == "1" && (kel.sts_kawin == "3" || kel.sts_kawin == "4") && kel.jenis_kelamin == "1")
+                                                return (
+                                                    <MenuItem value="0">00</MenuItem>
+                                                )
+                                        }
                                     })
                                 }
 
