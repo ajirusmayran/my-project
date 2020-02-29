@@ -45,6 +45,9 @@ const useStyles = makeStyles(theme => ({
     },
     textCenter: {
         textAlign: 'center'
+    },
+    textRight: {
+        textAlign: 'right'
     }
 
 }))

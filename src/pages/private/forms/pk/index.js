@@ -23,6 +23,7 @@ import subforms from './questions.json';
 // subforms
 import SubFormRadio from './subforms/radio';
 import SubFormNumber from './subforms/number';
+import SubFormNumber26 from './subforms/number_26';
 import SubformCheckbox from './subforms/checkbox';
 import SubFormRadio2 from './subforms/subformradio';
 import SubFormRadio18 from './subforms/subformradio_18';
@@ -46,6 +47,10 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
     const [isSubmitting, setSubmitting] = useState(false);
 
     const [navigationMode, setNavigationMode] = useState('next');
+
+    // By Me
+    const [isSingle, setIsSingle] = useState(wilayah.jumlah_keluarga == "1");
+    //
 
 
 
@@ -72,6 +77,13 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
             return initialPK
         })
 
+        // By Me 
+        // Kondisi ketija satu rumah hanya terdiri 1 orang
+        if (isSingle) {
+
+            setSubFormIndex(16)
+        }
+        //
 
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -89,7 +101,17 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
         });
         setTimeout(() => {
 
-            setSubFormIndex(index => index + 1);
+            if (isSingle) {
+                if (subformIndex === 16) {
+                    setSubFormIndex(index => index + 2);
+                } else {
+                    setSubFormIndex(index => index + 1);
+                }
+            } else {
+                setSubFormIndex(index => index + 1);
+            }
+
+
             setSlide({
                 direction: "left",
                 in: true
@@ -107,6 +129,14 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
             return handleBack()
         }
 
+        // By Me
+        if (isSingle) {
+            if (subformIndex === 16) {
+                return handleBack()
+            }
+        }
+        //
+
         setNavigationMode('back')
         setSlide({
             direction: "left",
@@ -114,7 +144,16 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
         });
         setTimeout(() => {
 
-            setSubFormIndex(index => index - 1);
+            if (isSingle) {
+                if (subformIndex === 18) {
+                    setSubFormIndex(index => index - 2);
+                } else {
+                    setSubFormIndex(index => index - 1);
+                }
+            } else {
+                setSubFormIndex(index => index - 1);
+            }
+
             setSlide({
                 direction: "right",
                 in: true
@@ -204,6 +243,7 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
     // subform aktif
     const form = subforms[no];
     const value = pk[no];
+
     //console.log(form, value, pk)
     return (<>
         <Swipeable
@@ -250,12 +290,32 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
                                             subformIndex={subformIndex}
                                             form={form}
                                             keluarga={keluarga}
+                                            setIsSingle={setIsSingle}
+                                            isSingle={isSingle}
+                                            subformIndex={subformIndex}
 
                                         />
                                     }
 
                                     {form.tipe === 'number' &&
                                         <SubFormNumber
+                                            id={no}
+                                            value={value}
+                                            setValue={setValue}
+                                            saveValue={saveValue}
+                                            kb={kb}
+                                            handleNextSub={handleNextSub}
+                                            handleBackSub={handleBackSub}
+                                            navigationMode={navigationMode}
+                                            subformIndex={subformIndex}
+                                            form={form}
+                                            keluarga={keluarga}
+                                            wilayah={wilayah}
+                                        />
+                                    }
+
+                                    {form.tipe === 'number_26' &&
+                                        <SubFormNumber26
                                             id={no}
                                             value={value}
                                             setValue={setValue}

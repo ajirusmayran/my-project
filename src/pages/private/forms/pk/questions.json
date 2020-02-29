@@ -355,7 +355,7 @@
     "0226": {
         "no": "26",
         "pertanyaan": "Orang yang tinggal dan menetap di rumah/bangunan ini?",
-        "tipe": "number",
+        "tipe": "number_26",
         "options": [],
         "dependencies": [
             "PeopleInHome"

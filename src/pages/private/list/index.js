@@ -35,8 +35,9 @@ import kb from '../../../images/kb.png';
 
 //utils 
 import qs from 'query-string';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import { FormControl, Select, MenuItem } from '@material-ui/core';
 
 
 function Home({ history, match, location }) {
@@ -49,6 +50,9 @@ function Home({ history, match, location }) {
     const [kepalaKels, setKepalaKels] = useState([])
     const [status, setStatus] = useState([])
     const { enqueueSnackbar } = useSnackbar()
+    const [statusSensus, setStatusSensus] = useState('');
+    const params = useParams();
+    const [resultStatus, setResultStatus] = useState([])
 
     useEffect(() => {
         let didCancel = false;
@@ -96,6 +100,16 @@ function Home({ history, match, location }) {
                 status_sensus: kkDoc.status_sensus
             }
         })
+
+        // const statuss = async () => await dataBkkbn.local.find({
+        //     selector: {
+        //         user_name: { $eq: params.user_name }
+        //     },
+        //     fields: ['status_sensus']
+        // })
+        // const status = [... new Set(statuss.docs.map((val) => val.status_sensus))]
+        setResultStatus(status)
+
         if (queryParams.query) {
 
             kepalas = kepalas.filter(kepala => {
@@ -106,6 +120,8 @@ function Home({ history, match, location }) {
         setKepalaKels(kepalas);
 
     }, [dataBkkbnDocs, location.search])
+
+
 
     const deleteKel = no_kk => async (e) => {
         if (!window.confirm("Kamu yakin ingin menghapus data ini?")) {
@@ -196,6 +212,19 @@ function Home({ history, match, location }) {
         return <AppPageLoading />
     }
 
+    const handleSensus = async (event) => {
+        setStatusSensus(event.target.value);
+        const query = await dataBkkbn.local.find({
+            selector: {
+                user_name: { $eq: metadata.name },
+                status_sensus: event.target.value
+            }
+        });
+
+        setDataBkkbnDocs(query.docs)
+
+    }
+
 
     return (
         <Container maxWidth="md" className={classes.container}>
@@ -204,6 +233,31 @@ function Home({ history, match, location }) {
                 <Grid item xs={12} className={classes.textCenter}>
                     <Typography variant="h5" component="h1">List Keluarga</Typography>
 
+                </Grid>
+                <Grid item xs={3} className={classes.textRight}>
+                    <FormControl
+                        variant="outlined" fullWidth>
+
+                        <Select
+                            id="sts_hubungan"
+                            value={statusSensus}
+                            name="status_sensus"
+                            onChange={handleSensus}
+                            displayEmpty
+                        >
+                            <MenuItem value="">Status Sensus  </MenuItem>
+                            <MenuItem value="Valid">Valid  </MenuItem>
+                            <MenuItem value="NotValid">Not Valid  </MenuItem>
+
+                            {/* {
+                                resultStatus.map((result) => {
+                                    return (<MenuItem value={result} key={result}>
+                                        {result}
+                                    </MenuItem>)
+                                })
+                            } */}
+                        </Select>
+                    </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                     <Divider />
@@ -219,6 +273,9 @@ function Home({ history, match, location }) {
                     <List>
                         {kepalaKels.map((kepala) => {
                             return <ListItem divider key={kepala.no_kk}>
+                                 {/* {
+                                    statusSensus == "valid" &&
+                                } */}
                                 <ListItemText
                                     primary={kepala.nama_anggotakel}
                                     // secondary={`NIK.${kepala.nik}

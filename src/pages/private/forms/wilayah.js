@@ -74,6 +74,10 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
             if (e.target.name === "no_urutkel" && e.target.value.length > 3) {
                 return false;
             }
+
+            if (e.target.name === "no_rmh" && e.target.value.length > 3) {
+                return false;
+            }
         }
 
         setWilayah({
@@ -280,7 +284,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             name="no_rmh"
                             id="no_rmh"
                             // type="number"
-                            type="text"
+                            type="number"
                             inputProps={{
 
                                 min: 0,

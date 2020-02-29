@@ -16,7 +16,7 @@ import useStyles from './styles';
 import validation from '../validation';
 
 
-function SubFormRadio({ id, setValue, saveValue, value, form, keluarga }) {
+function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBackSub, navigationMode, isSingle, setIsSingle, subformIndex}) {
 
     const classes = useStyles();
     const [error, setError] = useState({});
@@ -28,6 +28,16 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga }) {
     }, [])
 
     useEffect(() => {
+
+        if(isSingle){
+            if(navigationMode === "back"){
+                if(subformIndex===15){
+                    handleBackSub()
+                    setIsSingle((prev) => !prev)
+                }
+            }
+        }
+
         //console.log('validation called');
         if (form.dependencies.length <= 0) {
             setBerlaku(true)

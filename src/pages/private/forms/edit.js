@@ -163,7 +163,11 @@ export default function EditForm() {
 
                         if (Object.keys(data_pk[i]).length === 0) {
                             let newIndex = i + 1
-                            qid = `02${newIndex}`
+                            if (newIndex > 9) {
+                                qid = `02${newIndex}`
+                            } else {
+                                qid = `020${newIndex}`
+                            }
                         } else {
                             qid = (`${data_pk[i]._id}`).slice(no_tes);
                         }
@@ -210,7 +214,7 @@ export default function EditForm() {
     }, [params.no_kk]);
 
     useEffect(() => {
-        if ( wilayah.jumlah_keluarga) {
+        if (wilayah.jumlah_keluarga) {
             const jumlah_keluarga = parseInt(wilayah.jumlah_keluarga);
 
             setKeluarga(keluarga => {
