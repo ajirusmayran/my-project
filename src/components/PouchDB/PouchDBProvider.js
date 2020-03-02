@@ -203,11 +203,8 @@ function PouchDBProvider(props) {
             await auth.logOut()
             const localsession = await dataFrontend.get('auth')
             await dataFrontend.remove(localsession);
-
-            if (localStorage.getItem('notification-token')) {
                 localStorage.removeItem('notification-token')
                 firebase.messaging().deleteToken();
-            }
 
             setUser(user => ({ ...user, isLoggedIn: false }))
         } catch (e) {
