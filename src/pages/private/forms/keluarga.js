@@ -113,7 +113,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
 
         }
 
-        if (keluarga["01"].jenis_kelamin==="1" && keluarga["01"].sts_kawin === "2" && id === "02") {
+        if (keluarga["01"].jenis_kelamin === "1" && keluarga["01"].sts_kawin === "2" && id === "02") {
             setKeluarga({
                 ...keluarga,
                 [id]: {
@@ -161,7 +161,6 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                 }
             })
         }
-
 
         setKeluarga((prevState) => ({
             ...prevState,
@@ -322,6 +321,17 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         const findErrors = validate();
 
         const errorValues = Object.values(findErrors);
+
+        //jika jumlah keluarga nya hanya 1 orang maka langsung default di dalam rumah
+        if (wilayah.jumlah_keluarga === "1") {
+            setKeluarga({
+                ...keluarga,
+                [id]: {
+                    ...keluarga[id],
+                    ["keberadaan"]: "1"
+                }
+            })
+        }
 
         if (errorValues.length > 0 && errorValues.some(err => err !== '')) {
             setError(findErrors);
@@ -575,7 +585,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
 
                                 {/* jika halaman pertamanya seorang laki2 dan berstatus kawin maka default halaman ke duanya harus istri */}
                                 {
-                                    keluarga["01"].jenis_kelamin === "1" && keluarga["01"].sts_kawin === "2" && id === "02" && 
+                                    keluarga["01"].jenis_kelamin === "1" && keluarga["01"].sts_kawin === "2" && id === "02" &&
                                     <MenuItem value="2">Istri</MenuItem>
                                 }
 
@@ -589,7 +599,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
 
                                 {/* jika halaman pertama seorang perempuan dan berstatus kawin halaman ke dua dan seterusnya harus anak dan lain2 */}
                                 {
-                                    keluarga["01"].jenis_kelamin === "2" && keluarga["01"].sts_kawin === "2" && id >= "02" && 
+                                    keluarga["01"].jenis_kelamin === "2" && keluarga["01"].sts_kawin === "2" && id >= "02" &&
                                     itemHubungan.map((val, index) => {
                                         return (<MenuItem value={`${index + 3}`}>{val}</MenuItem>)
                                     })
@@ -605,7 +615,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
 
                                 {/* jika halaman pertamanya belum kawin maka yg tampil di halaman ke dua dan seterusnya anak dan lain2 */}
                                 {
-                                    keluarga["01"].sts_kawin === "1" && id >= "02" && 
+                                    keluarga["01"].sts_kawin === "1" && id >= "02" &&
                                     itemHubungan.map((val, index) => {
                                         return (<MenuItem value={`${index + 3}`}>{val}</MenuItem>)
                                     })
@@ -641,11 +651,11 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                     </Grid> */}
                     <Grid item xs={12} md={4}>
                         <FormControl
-                            disabled={isSubmitting || selectedKeluarga.sts_hubungan === "3"}
+                            disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
                             variant="outlined" fullWidth error={error.kd_ibukandung ? true : false}>
 
                             <Select
-                                disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
+                                // disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
                                 id="kd_ibukandung"
                                 value={selectedKeluarga.sts_hubungan == "3" ? (selectedKeluarga.kd_ibukandung || '0') : ''}
                                 onChange={handleChange}
@@ -659,12 +669,12 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                                         if (Object.keys(keluarga).length > 1) {
                                             if (kel.sts_hubungan == "1" && kel.sts_kawin == "2" && kel.jenis_kelamin == "1")
                                                 return (
-                                                    <MenuItem key={keluarga['02'].no_urutnik} value={keluarga['02'].no_urutnik}>{keluarga['02'].nama_anggotakel}</MenuItem>
+                                                    <MenuItem key={keluarga['02'].no_urutnik} value={keluarga['02'].no_urutnik}>{keluarga['02'].no_urutnik} - {keluarga['02'].nama_anggotakel}</MenuItem>
                                                 )
 
                                             if (kel.sts_hubungan == "1" && kel.sts_kawin !== "2" && kel.jenis_kelamin == "2")
                                                 return (
-                                                    <MenuItem key={keluarga['01'].no_urutnik} value={keluarga['01'].no_urutnik}>{keluarga['01'].nama_anggotakel}</MenuItem>
+                                                    <MenuItem key={keluarga['01'].no_urutnik} value={keluarga['01'].no_urutnik}>{keluarga['01'].no_urutnik} - {keluarga['01'].nama_anggotakel}</MenuItem>
                                                 )
 
                                             if (kel.sts_hubungan == "1" && (kel.sts_kawin == "3" || kel.sts_kawin == "4") && kel.jenis_kelamin == "1")
@@ -792,14 +802,13 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                     </Grid>
 
                     <Grid item xs={12} md={4}>
-                        <FormControl
+                    <FormControl
                             disabled={isSubmitting || wilayah.jumlah_keluarga === "1"}
                             variant="outlined" fullWidth error={error.keberadaan ? true : false}>
 
                             <Select
-                                disabled={isSubmitting || wilayah.jumlah_keluarga === "1"}
                                 id="keberadaan"
-                                value={selectedKeluarga.keberadaan || (wilayah.jumlah_keluarga === "1" && "1") || ''}
+                                value={((wilayah.jumlah_keluarga === "1" && "1")) || selectedKeluarga.keberadaan|| ""}
                                 onChange={handleChange}
                                 name="keberadaan"
                                 displayEmpty
@@ -814,12 +823,11 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                                     wilayah.jumlah_keluarga === "1" && <MenuItem value="1">Di Dalam Rumah</MenuItem>
                                 }
                                 {
-                                    wilayah.jumlah_keluarga > "1" &&
+                                    wilayah.jumlah_keluarga !== "1" &&
                                     itemKeberadaan.map((val, index) => {
                                         return (<MenuItem value={`${index + 1}`}>{val}</MenuItem>)
                                     })
                                 }
-
 
                             </Select>
                             <FormHelperText>{error.keberadaan}</FormHelperText>

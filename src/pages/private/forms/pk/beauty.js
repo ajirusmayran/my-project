@@ -49,7 +49,7 @@ export default (qid, normalize) => {
             jawabanC: answer3.pilihanpk,
             jawabanD: answer4.pilihanpk
         }
-    } else if (subforms[qid].tipe === 'subformradio_18') {
+    }  else if (subforms[qid].tipe === 'subformradio_18') {
 
         // const answer1 = normalize.answer[0];
         // const answer2 = normalize.answer[1];

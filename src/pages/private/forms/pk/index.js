@@ -108,7 +108,7 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
                     setSubFormIndex(index => index + 1);
                 }
             } else {
-                setSubFormIndex(index => index + 1);
+            setSubFormIndex(index => index + 1);
             }
 
 
@@ -151,7 +151,7 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
                     setSubFormIndex(index => index - 1);
                 }
             } else {
-                setSubFormIndex(index => index - 1);
+            setSubFormIndex(index => index - 1);
             }
 
             setSlide({

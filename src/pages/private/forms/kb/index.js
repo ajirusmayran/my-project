@@ -223,6 +223,24 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, s
         //         }))
         //         setSomethingChange(true)
         //     }
+        } else if (e.target.name == "kelahiran" && e.target.value === "") {
+            const inputan = ["kelahiran",
+                "lahir_hidup_laki_laki",
+                "lahir_hidup_perempuan",
+                "masih_hidup_laki_laki",
+                "masih_hidup_perempuan"]
+            for (let i = 0; i < inputan.length; i++) {
+
+                setKB((kb) => ({
+                    ...kb,
+                    [no]: {
+                        ...kb[no],
+                        [inputan[i]]: ""
+                    }
+                }))
+                setSomethingChange(true)
+            }
+
         } else {
             setKB({
                 ...kb,

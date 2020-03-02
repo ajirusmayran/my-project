@@ -23,18 +23,21 @@ function haveChildren(keluarga) {
 function haveChildrenWithSingelParent(keluarga) {
 
     return keluarga.some((value) => {
-        // if (value.sts_hubungan === "3") {
-            if(value.sts_kawin === "2"){
+        if (value.sts_hubungan === "3") {
+            // if(value.sts_kawin === "2"){
+            //     return true
+            // }
+            // if (value.sts_kawin === "1" ) {
+            //     return false;
+            // }else{
+            //     return true
+            // }
+            if (value.kd_ibukandung != "2") {
+                return false
+            } else {
                 return true
             }
-            if (value.sts_kawin === "1" ) {
-                return false;
-            }else{
-                return true
-            }
-        //     return false;
-        // }
-        // return value.sts_hubungan === "3" && value.sts_hubungan === "2" && value.sts_hubungan === "1";
+        }
     })
 
 }
@@ -141,7 +144,7 @@ function haveChildrenFrom0To17(keluarga) {
     })
 }
 
-function PeopleInHome(keluarga){
+function PeopleInHome(keluarga) {
     return keluarga.some((value) => {
         if (value.keberadaan === "1") {
 

@@ -164,8 +164,8 @@ export default function EditForm() {
                         if (Object.keys(data_pk[i]).length === 0) {
                             let newIndex = i + 1
                             if (newIndex > 9) {
-                                qid = `02${newIndex}`
-                            } else {
+                            qid = `02${newIndex}`
+                        } else {
                                 qid = `020${newIndex}`
                             }
                         } else {

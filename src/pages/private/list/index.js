@@ -234,7 +234,7 @@ function Home({ history, match, location }) {
                     <Typography variant="h5" component="h1">List Keluarga</Typography>
 
                 </Grid>
-                <Grid item xs={3} className={classes.textRight}>
+                <Grid item xs={6} md={3} lg={3} className={classes.textLeft}>
                     <FormControl
                         variant="outlined" fullWidth>
 
@@ -245,7 +245,7 @@ function Home({ history, match, location }) {
                             onChange={handleSensus}
                             displayEmpty
                         >
-                            <MenuItem value="">Status Sensus  </MenuItem>
+                            <MenuItem value="">Status Sensus</MenuItem>
                             <MenuItem value="Valid">Valid  </MenuItem>
                             <MenuItem value="NotValid">Not Valid  </MenuItem>
 
@@ -273,7 +273,7 @@ function Home({ history, match, location }) {
                     <List>
                         {kepalaKels.map((kepala) => {
                             return <ListItem divider key={kepala.no_kk}>
-                                 {/* {
+                                {/* {
                                     statusSensus == "valid" &&
                                 } */}
                                 <ListItemText

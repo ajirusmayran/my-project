@@ -53,11 +53,12 @@ import { Detector } from "react-detect-offline";
 import Connected from '@material-ui/icons/Wifi';
 import Disconnected from '@material-ui/icons/WifiOff';
 import Tooltip from '@material-ui/core/Tooltip';
+import { unstable_batchedUpdates } from 'react-dom';
 
 export default function Private({ history, match, location }) {
     const classes = useStyles();
     const queryString = qs.parse(location.search)
-    const { logoutAndClearLocal, user } = usePouchDB();
+    const { logoutAndClearLocal, user, dataBkkbn } = usePouchDB();
     const { isSyncing } = useDataSync();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorElSearch, setAnchorElSearch] = React.useState(null);
@@ -87,6 +88,7 @@ export default function Private({ history, match, location }) {
 
     const [openNotification, setOpenNotification] = React.useState(null);
 
+
     const handleClickNotification = event => {
         if (openNotification && openNotification.contains(event.target)) {
             setOpenNotification(null);
@@ -104,7 +106,6 @@ export default function Private({ history, match, location }) {
     const handleClick = (e) => {
         handleCloseNotification();
         history.push("/list")
-        
     }
 
     return (
@@ -214,15 +215,28 @@ export default function Private({ history, match, location }) {
                         getContentAnchorEl={null}
                     >
                         {isSyncing.statusNotif.message.length <= 0 && <MenuItem>Belum ada notifikasi</MenuItem>}
-                        {isSyncing.statusNotif.message.length > 0 && isSyncing.statusNotif.message.map((item, index) => (
-                            <MenuItem
-                                key={item}
-                                onClick={handleClick}
-                                className={classes.notifItem}
-                            >
-                                {item.content}
-                            </MenuItem>
-                        ))}
+                        {isSyncing.statusNotif.message.length > 0 && isSyncing.statusNotif.message.map((item, index) => {
+                            let revSplit = item._rev.split("-")
+                            let rev = parseInt(revSplit[0])
+                            let pesan = ''
+                            // if (rev > 1) {
+                            //     // get couch db
+                            //     // apabila _rev ada di couchdb maka ubah kalo tidak hapus
+                                
+                                
+                            // } else {
+                            //     pesan = "Tambah Data"
+                            // }
+                            (
+                                <MenuItem
+                                    key={item}
+                                    onClick={handleClick}
+                                    className={classes.notifItem}
+                                >
+                                    {item.content}
+                                </MenuItem>
+                            )
+                        })}
                     </Menu>
 
 
