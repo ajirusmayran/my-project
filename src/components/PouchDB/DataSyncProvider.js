@@ -60,8 +60,8 @@ export default function DataSyncProvider(props) {
                 if (!didCancel) {
                     // Notif lonceng
                     let itemSplits = info.change.docs[0]._rev.split("-")
-                    let statusMessages = parseInt(itemSplits[0]) > 1 ? "Ubah Data" : "Tambah Data"
-                    messages = [...messages, { 'content': 'Tanggal: ' + date + ' at ' + time + ', ' + statusMessages + info.change.docs[0].status_sensus + ' pada NIK: ' + info.change.docs[0].data_nik[0].nik + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel + ' _rev: ' + info.change.docs[0]._rev }];
+                    let statusMessages = parseInt(itemSplits[0]) > 1 ? "Ubah Data " : "Tambah Data"
+                    messages = [...messages, { 'content': 'Tanggal: ' + date + ' at ' + time + ', ' + statusMessages + info.change.docs[0].status_sensus + ' pada NIK: ' + info.change.docs[0].data_nik[0].nik + ' a.n: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
                     count = count + 1;
                     setSyncing(isSyncing => ({ ...isSyncing, syncBkkbn: true, infoBkkbn: info, statusNotif: { count: count, message: messages } }));
                 }
