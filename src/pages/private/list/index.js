@@ -62,12 +62,13 @@ function Home({ history, match, location }) {
                 const query = await dataBkkbn.local.find({
                     selector: {
                         user_name: { $eq: metadata.name }
-                    }
+                    },
+                    fields: ['_rev']
                 });
 
 
                 if (!didCancel) {
-                    setDataBkkbnDocs(query.docs)
+                    setDataBkkbnDocs(query.docs.length)
                 }
             }
             catch (e) {

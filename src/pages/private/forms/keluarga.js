@@ -253,6 +253,9 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         if (!selectedKeluarga.tgl_lahir) {
             newError.tgl_lahir = "Tanggal Lahir wajib diisi";
         }
+        else if (selectedKeluarga.sts_hubungan === "1" && countAge(selectedKeluarga.tgl_lahir) < 10) {
+            newError.tgl_lahir = "Umur Kepala Keluarga tidak boleh < 10 Tahun"
+        }
 
         if (!selectedKeluarga.sts_kawin) {
             newError.sts_kawin = "Status Perkawinan wajib diisi";
@@ -266,6 +269,9 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         else if (selectedKeluarga.sts_hubungan === "4" && selectedKeluarga.sts_kawin !== "1") {
             newError.sts_kawin = "Anggota keluarga lainnya tidak boleh berstatus Kawin/Cerai";
         }
+        else if (selectedKeluarga.sts_hubungan !== "1" && countAge(selectedKeluarga.tgl_lahir) < 10) {
+            newError.sts_kawin = "Status Kawin, Cerai Hidup/Mati tidak boleh berusia < 10 Tahun";
+        }
 
         if (['2', '3', '4'].includes(selectedKeluarga.sts_kawin)) {
 
@@ -273,7 +279,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                 newError.usia_kawin = "Usia Kawin Pertama wajib diisi";
             } else if (parseInt(selectedKeluarga.usia_kawin) < 10) {
                 newError.usia_kawin = "Usia Kawin Pertama tidak boleh diisi < 10";
-            } else if (selectedKeluarga.tgl_lahir && parseInt(selectedKeluarga.usia_kawin) >= countAge(selectedKeluarga.tgl_lahir)+1) {
+            } else if (selectedKeluarga.tgl_lahir && parseInt(selectedKeluarga.usia_kawin) >= countAge(selectedKeluarga.tgl_lahir) + 1) {
                 newError.usia_kawin = "Usia Kawin Pertama tidak boleh lebih besar dari umur";
             }
 
@@ -297,6 +303,9 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
 
         if (!selectedKeluarga.id_pekerjaan) {
             newError.id_pekerjaan = "Pekerjaan wajib diisi";
+        }
+        else if (selectedKeluarga.id_pekerjaan !== "1" && countAge(selectedKeluarga.tgl_lahir) < 10) {
+            newError.id_pekerjaan = "Usia pekerja tidak boleh < 10 tahun";
         }
 
         if (wilayah.jumlah_keluarga !== "1") {
@@ -802,13 +811,13 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                     </Grid>
 
                     <Grid item xs={12} md={4}>
-                    <FormControl
+                        <FormControl
                             disabled={isSubmitting || wilayah.jumlah_keluarga === "1"}
                             variant="outlined" fullWidth error={error.keberadaan ? true : false}>
 
                             <Select
                                 id="keberadaan"
-                                value={((wilayah.jumlah_keluarga === "1" && "1")) || selectedKeluarga.keberadaan|| ""}
+                                value={((wilayah.jumlah_keluarga === "1" && "1")) || selectedKeluarga.keberadaan || ""}
                                 onChange={handleChange}
                                 name="keberadaan"
                                 displayEmpty
