@@ -32,11 +32,11 @@ import isInt from 'validator/lib/isInt';
 
 // redux implementation
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { setKeluarga } from "../../../actions/keluarga";
+// import { connect } from "react-redux";
+// import { setKeluarga } from "../../../actions/keluarga";
 import { compose } from "redux";
 
-function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga, history }) {
+function Wilayah({ wilayah, setWilayah, handleNext, mode, keluarga, history }) {
     const classes = useStyles();
     const nextRef = useRef(null)
     const { user: { metadata } } = usePouchDB();
@@ -151,7 +151,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
             //simpan ke db local
             setSubmitting(true);
             try {
-                setKeluarga('keluarga submit');
+                // setKeluarga('keluarga submit');
                 // const existing = await dataKK.local.get(wilayah.no_kk)
 
 
@@ -419,11 +419,13 @@ Wilayah.propTypes = {
     setWilayah: PropTypes.func.isRequired
 }
 
-export default compose(connect(
-   ({keluarga}) => ({
-       keluarga
-   }),
-   {setKeluarga}
-),withRouter)
-(Wilayah);
+// export default compose(connect(
+//    ({keluarga}) => ({
+//        keluarga
+//    }),
+//    {setKeluarga}
+// ),withRouter)
+// (Wilayah);
 //
+
+export default Wilayah;

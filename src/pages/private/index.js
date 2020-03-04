@@ -104,7 +104,7 @@ export default function Private({ history, match, location }) {
     const handleClick = (e) => {
         handleCloseNotification();
         history.push("/list")
-        
+
     }
 
     return (
@@ -222,7 +222,8 @@ export default function Private({ history, match, location }) {
                             >
                                 {item.content}
                             </MenuItem>
-                        ))}
+                        )
+                        )}
                     </Menu>
 
 

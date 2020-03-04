@@ -24,8 +24,8 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
 // the root component
-import { Provider } from "react-redux";
-import store from "./store";
+// import { Provider } from "react-redux";
+// import store from "./store";
 
 function App() {
 
@@ -36,7 +36,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Provider store={store}>
+              {/* <Provider store={store}> */}
                 <Router>
                   <ScrollToTop />
                   <Switch>
@@ -48,7 +48,7 @@ function App() {
                     <Route component={NotFound} />
                   </Switch>
                 </Router>
-              </Provider>
+              {/* </Provider> */}
             </MuiPickersUtilsProvider>
           </SnackbarProvider>
         </ThemeProvider>
