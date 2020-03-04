@@ -269,7 +269,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         else if (selectedKeluarga.sts_hubungan === "4" && selectedKeluarga.sts_kawin !== "1") {
             newError.sts_kawin = "Anggota keluarga lainnya tidak boleh berstatus Kawin/Cerai";
         }
-        else if (selectedKeluarga.sts_hubungan !== "1" && countAge(selectedKeluarga.tgl_lahir) < 10) {
+        else if (selectedKeluarga.sts_kawin !== "1" && countAge(selectedKeluarga.tgl_lahir) < 10) {
             newError.sts_kawin = "Status Kawin, Cerai Hidup/Mati tidak boleh berusia < 10 Tahun";
         }
 
@@ -622,12 +622,10 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                                     })
                                 }
 
-                                {/* jika halaman pertamanya belum kawin maka yg tampil di halaman ke dua dan seterusnya anak dan lain2 */}
+                                {/* jika halaman pertamanya belum kawin maka yg tampil di halaman ke dua dan seterusnya lain2 */}
                                 {
                                     keluarga["01"].sts_kawin === "1" && id >= "02" &&
-                                    itemHubungan.map((val, index) => {
-                                        return (<MenuItem value={`${index + 3}`}>{val}</MenuItem>)
-                                    })
+                                    <MenuItem value="4">Lain-lain</MenuItem>
                                 }
 
                             </Select>
@@ -667,6 +665,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                                 // disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
                                 id="kd_ibukandung"
                                 value={selectedKeluarga.sts_hubungan == "3" ? (selectedKeluarga.kd_ibukandung || '0') : ''}
+                                //value = {keluarga['01'].sts_kawin !== "2"&& keluarga['01'].jenis_kelamin == "1" && id !=="01" && '0'||selectedKeluarga.kd_ibukandung || ''}
                                 onChange={handleChange}
                                 name="kd_ibukandung"
                                 displayEmpty
