@@ -153,7 +153,7 @@ function Home({ history }) {
                         <div className={classes.floatRightIcon}>
                             <Map fontSize="large" />
                         </div>
-                        <Typography variant="h5">Wilayah Kerja</Typography>
+                        <Typography variant="h5" >Wilayah Kerja</Typography>
                         <Typography variant="subtitle1" >{wilayahkerja}</Typography>
                     </Paper>
                 </Grid>

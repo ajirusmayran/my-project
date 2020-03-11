@@ -29,6 +29,9 @@ import SubFormRadio2 from './subforms/subformradio';
 import SubFormRadio18 from './subforms/subformradio_18';
 import SubFormRadio5 from './subforms/subformradio_5';
 
+
+import { countAge } from '../pk/validation';
+
 function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBack, setNormalizePK, mode, no_kk }) {
 
     const classes = useStyles();
@@ -80,8 +83,10 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
         // By Me 
         // Kondisi ketija satu rumah hanya terdiri 1 orang
         if (isSingle) {
-
-            setSubFormIndex(16)
+            let tgl_lahir = keluarga['01'].tgl_lahir
+            if(countAge(tgl_lahir) >= 60){
+                setSubFormIndex(16)
+            }
         }
         //
 
@@ -102,8 +107,13 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
         setTimeout(() => {
 
             if (isSingle) {
-                if (subformIndex === 16) {
-                    setSubFormIndex(index => index + 2);
+                let tgl_lahir = keluarga['01'].tgl_lahir
+                if (countAge(tgl_lahir) >= 60) {
+                    if (subformIndex === 16) {
+                        setSubFormIndex(index => index + 2);
+                    } else {
+                        setSubFormIndex(index => index + 1);
+                    }
                 } else {
                     setSubFormIndex(index => index + 1);
                 }
@@ -131,8 +141,11 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
 
         // By Me
         if (isSingle) {
-            if (subformIndex === 16) {
-                return handleBack()
+            let tgl_lahir = keluarga['01'].tgl_lahir
+            if (countAge(tgl_lahir) >= 60) {
+                if (subformIndex === 16) {
+                    return handleBack()
+                }
             }
         }
         //
@@ -145,8 +158,13 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
         setTimeout(() => {
 
             if (isSingle) {
-                if (subformIndex === 18) {
-                    setSubFormIndex(index => index - 2);
+                let tgl_lahir = keluarga['01'].tgl_lahir
+                if (countAge(tgl_lahir) >= 60) {
+                    if (subformIndex === 18) {
+                        setSubFormIndex(index => index - 2);
+                    } else {
+                        setSubFormIndex(index => index - 1);
+                    }
                 } else {
                     setSubFormIndex(index => index - 1);
                 }

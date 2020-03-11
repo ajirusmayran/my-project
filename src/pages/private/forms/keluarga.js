@@ -178,6 +178,44 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         setSomethingChange(true)
     }
 
+    const handleChangeHubungan = (e) => {
+        const { type, name, value } = e.target
+        if (type === "number") {
+            if (parseInt(value) < 0)
+                return false;
+
+            if (name === "nik" && value.length > 16) {
+                return false;
+            }
+        }
+
+        //kondisi jika memilih sts_hubungan anak dan tidak memiliki ibu maka value default 0
+        if (keluarga['01'].sts_hubungan == "1" && (keluarga['01'].sts_kawin == "3" || keluarga['01'].sts_kawin == "4") && keluarga['01'].jenis_kelamin == "1") {
+            setKeluarga({
+                ...keluarga,
+                [id]: {
+                    ...keluarga[id],
+                    ["kd_ibukandung"]: "0"
+                }
+            })
+        }
+
+        setKeluarga((prevState) => ({
+            ...prevState,
+            [id]: {
+                ...prevState[id],
+                [name]: value
+            }
+        }))
+
+        setError({
+            ...error,
+            [name]: ""
+        })
+
+        setSomethingChange(true)
+    }
+
 
     const handleDateChange = name => newDate => {
 
@@ -266,8 +304,8 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         else if (selectedKeluarga.sts_hubungan === "3" && selectedKeluarga.sts_kawin !== "1") {
             newError.sts_kawin = "Anak tidak boleh berstatus Kawin/Cerai";
         }
-        else if (selectedKeluarga.sts_hubungan === "4" && selectedKeluarga.sts_kawin !== "1") {
-            newError.sts_kawin = "Anggota keluarga lainnya tidak boleh berstatus Kawin/Cerai";
+        else if (selectedKeluarga.sts_hubungan === "4" && selectedKeluarga.sts_kawin === "2") {
+            newError.sts_kawin = "Anggota keluarga lainnya tidak boleh berstatus Kawin";
         }
         else if (selectedKeluarga.sts_kawin !== "1" && countAge(selectedKeluarga.tgl_lahir) < 10) {
             newError.sts_kawin = "Status Kawin, Cerai Hidup/Mati tidak boleh berusia < 10 Tahun";
@@ -279,8 +317,8 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                 newError.usia_kawin = "Usia Kawin Pertama wajib diisi";
             } else if (parseInt(selectedKeluarga.usia_kawin) < 10) {
                 newError.usia_kawin = "Usia Kawin Pertama tidak boleh diisi < 10";
-            } else if (selectedKeluarga.tgl_lahir && parseInt(selectedKeluarga.usia_kawin) >= countAge(selectedKeluarga.tgl_lahir) + 1) {
-                newError.usia_kawin = "Usia Kawin Pertama tidak boleh lebih besar dari umur";
+            } else if (selectedKeluarga.tgl_lahir && parseInt(selectedKeluarga.usia_kawin) >= countAge(selectedKeluarga.tgl_lahir) + 2) {
+                newError.usia_kawin = "Usia Kawin Pertama tidak boleh lebih besar dari umur+1";
             }
 
 
@@ -582,7 +620,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                             <Select
                                 id="sts_hubungan"
                                 value={(selectedKeluarga.sts_hubungan || (id === "01" && "1")) || (keluarga["01"].jenis_kelamin === "1" && keluarga["01"].sts_kawin === "2" && id === "02" && "2") || ""}
-                                onChange={handleChange}
+                                onChange={handleChangeHubungan}
                                 name="sts_hubungan"
                                 displayEmpty
                             >
@@ -665,7 +703,6 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                                 // disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
                                 id="kd_ibukandung"
                                 value={selectedKeluarga.sts_hubungan == "3" ? (selectedKeluarga.kd_ibukandung || '0') : ''}
-                                //value = {keluarga['01'].sts_kawin !== "2"&& keluarga['01'].jenis_kelamin == "1" && id !=="01" && '0'||selectedKeluarga.kd_ibukandung || ''}
                                 onChange={handleChange}
                                 name="kd_ibukandung"
                                 displayEmpty

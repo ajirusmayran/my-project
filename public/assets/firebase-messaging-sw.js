@@ -27,8 +27,7 @@ messaging.setBackgroundMessageHandler(function (payload) {
         data: payload.data.link
     };
 
-    return self.registration.showNotification(notificationTitle,
-        notificationOptions);
+    return self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
 self.addEventListener('notificationclick', function (event) {

@@ -51,7 +51,7 @@ function haveWifeOrHusband(keluarga) {
 function haveChildrenUnder5(keluarga) {
     return keluarga.some((value) => {
 
-        if (value.sts_hubungan === "3") {
+        // if (value.sts_hubungan === "3") {
 
             // const days = differenceInCalendarDays(new Date(), new Date(value.tgl_lahir));
 
@@ -60,15 +60,15 @@ function haveChildrenUnder5(keluarga) {
             if (years <= 5) {
                 return true;
             }
-        }
+        // }
 
-        return false;
+        // return false;
     })
 }
 function haveChildrenUnder6(keluarga) {
     return keluarga.some((value) => {
 
-        if (value.sts_hubungan === "3") {
+        //if (value.sts_hubungan === "3") {
 
             // const days = differenceInCalendarDays(new Date(), new Date(value.tgl_lahir));
 
@@ -77,9 +77,9 @@ function haveChildrenUnder6(keluarga) {
             if (years <= 6) {
                 return true;
             }
-        }
+        //}
 
-        return false;
+        //return false;
     })
 }
 function haveChildrenFrom10To24(keluarga) {

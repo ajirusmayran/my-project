@@ -168,7 +168,7 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBa
                                         label={option} />
                                 })}
 
-                                {(form.lain && parseInt(value.jawaban) === form.options.length) &&
+                                {/* {(form.lain && parseInt(value.jawaban) === form.options.length) &&
 
                                     <TextField
                                         fullWidth
@@ -186,13 +186,13 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBa
                                         }}
 
                                     />
-                                }
+                                } */}
 
                             </RadioGroup>
                             <FormHelperText>{error.jawaban}</FormHelperText>
                         </FormControl>
                     </Grid>
-                    {(value.jawaban && form.kondisi) &&
+                    {/* {(value.jawaban && form.kondisi) &&
                         <>
                             <Grid item xs={12}>
                                 <Typography>Tuliskan pada kotak, angka 0 Jika Kondisi Tidak Baik atau angka 1 Jika Kondisi Baik</Typography>
@@ -218,7 +218,7 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBa
                                 />
                             </Grid>
                         </>
-                    }
+                    } */}
                 </Grid>
             </div>
         </div>

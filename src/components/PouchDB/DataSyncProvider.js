@@ -58,10 +58,22 @@ export default function DataSyncProvider(props) {
                 // handle change
 
                 if (!didCancel) {
+                    let statusOperasi = 'Tambah Data'
+                    let isDeleted = info.change.docs[0]._deleted
+                    let revSplit = parseInt(info.change.docs[0]._rev.split("-")[0])
+                    if (revSplit > 1) {
+                        if (isDeleted) {
+                            statusOperasi = 'Hapus Data'
+                        } else {
+                            statusOperasi = 'Ubah Data'
+                        }
+                    }
+                    messages = [...messages, { 'content': 'Tanggal: ' + date + ', ' + 'status :' + info.change.docs[0].status_sensus + ' isi : ' + statusOperasi + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
+
                     // Notif lonceng
-                    let itemSplits = info.change.docs[0]._rev.split("-")
-                    let statusMessages = parseInt(itemSplits[0]) > 1 ? "Ubah Data " : "Tambah Data"
-                    messages = [...messages, { 'content': 'Tanggal: ' + date + ' at ' + time + ', ' + statusMessages + info.change.docs[0].status_sensus + ' pada NIK: ' + info.change.docs[0].data_nik[0].nik + ' a.n: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
+                    // let itemSplits = info.change.docs[0]._rev.split("-")
+                    // let statusMessages = parseInt(itemSplits[0]) > 1 ? "Ubah Data " : "Tambah Data"
+                    // messages = [...messages, { 'content': 'Tanggal: ' + date + ' at ' + time + ', ' + statusMessages + info.change.docs[0].status_sensus + ' pada NIK: ' + info.change.docs[0].data_nik[0].nik + ' a.n: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
                     count = count + 1;
                     setSyncing(isSyncing => ({ ...isSyncing, syncBkkbn: true, infoBkkbn: info, statusNotif: { count: count, message: messages } }));
                 }

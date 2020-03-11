@@ -241,9 +241,9 @@
         "lain": false,
         "subform": true,
         "pertanyaanA": "a. Usaha Peningkatan Pendapatan Keluarga Sejahtera (UPPKS)",
-        "pertanyaanB": "b. Instansi pemerintah lain",
-        "pertanyaanC": "c. BUMN/BUMD",
-        "pertanyaanD": "d. Swasta"
+        "pertanyaanB": "b. PNM Mekaar BUMN",
+        "pertanyaanC": "c. Program Keluarga Harapan(PKH) Kemensos",
+        "pertanyaanD": "d. Instansi Pemerintah Lain/ Swasta/ LSM"
     },
     "0219": {
         "no": "19",
@@ -259,9 +259,7 @@
             "Lainnya"
         ],
         "dependencies": [],
-        "unit": "",
-        "lain": true,
-        "kondisi": true
+        "unit": ""
     },
     "0220": {
         "no": "20",
@@ -275,9 +273,7 @@
             "Lainnya"
         ],
         "dependencies": [],
-        "unit": "",
-        "lain": true,
-        "kondisi": true
+        "unit": ""
     },
     "0221": {
         "no": "21",
@@ -292,9 +288,7 @@
             "Lainnya"
         ],
         "dependencies": [],
-        "unit": "",
-        "lain": true,
-        "kondisi": true
+        "unit": ""
     },
     "0222": {
         "no": "22",

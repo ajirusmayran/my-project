@@ -28,11 +28,11 @@ export const renderDataKK = (metadata, wilayah) => {
                 <Divider />
             </Grid>
             <Grid item xs={12} md={4}>
-                <Typography>RW/Dusun: {wilayah.id_rw}</Typography>
+                <Typography>RW/Dusun: {wilayah.id_rw_bkkbn}</Typography>
 
             </Grid>
             <Grid item xs={12} md={4}>
-                <Typography>RT: {wilayah.id_rt}</Typography>
+                <Typography>RT: {wilayah.id_rt_bkkbn}</Typography>
 
 
             </Grid>

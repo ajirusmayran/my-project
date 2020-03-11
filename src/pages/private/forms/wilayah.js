@@ -32,11 +32,11 @@ import isInt from 'validator/lib/isInt';
 
 // redux implementation
 import { withRouter } from "react-router-dom";
-// import { connect } from "react-redux";
-// import { setKeluarga } from "../../../actions/keluarga";
+import { connect } from "react-redux";
+import { setKeluarga } from "../../../actions/keluarga";
 import { compose } from "redux";
 
-function Wilayah({ wilayah, setWilayah, handleNext, mode, keluarga, history }) {
+function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga, history }) {
     const classes = useStyles();
     const nextRef = useRef(null)
     const { user: { metadata } } = usePouchDB();
@@ -50,16 +50,18 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, keluarga, history }) {
 
     const [isSubmitting, setSubmitting] = useState(false);
 
+    // PERUBAHAN AMBIL YANG RT RW BKKBN
     useEffect(() => {
-        if(!wilayah.hasOwnProperty('no_kk')){
+        if (!wilayah.hasOwnProperty('no_kk')) {
             setWilayah({
                 ...wilayah,
-                ['no_kk'] : Date.now().toString()
+                // ['no_kk'] : Date.now().toString()
+                // ['no_kk'] : `${metadata.wil_provinsi.id_provinsi}${metadata.wil_kabupaten.id_kabupaten}${metadata.wil_kecamatan.id_kecamatan}${metadata.wil_kelurahan.id_kelurahan}`
             })
         }
-        
-    }, []);
 
+    }, []);
+    // END PERUBAHAN AMBIL YANG RT RW BKKBN
 
     const handleChange = (e) => {
 
@@ -104,15 +106,19 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, keluarga, history }) {
         }
         if (!wilayah.no_rmh) {
             newError.no_rmh = "No. Rumah wajib diisi";
-        } 
-        // else if (!isInt(wilayah.no_rmh) || parseInt(wilayah.no_rmh) <= 0) {
-        //     newError.no_rmh = "No. Rumah tidak valid";
-        // }
+        } else if (wilayah.no_rmh.length < 3) {
+            newError.no_rmh = "No. Rumah harus 3 digit"
+        }
+        else if (!isInt(wilayah.no_rmh) || parseInt(wilayah.no_rmh) <= 0) {
+            newError.no_rmh = "No. Rumah tidak valid";
+        }
 
         if (!wilayah.no_urutkel) {
             newError.no_urutkel = "No. Urut Keluarga wajib diisi";
         } else if (!isInt(wilayah.no_urutkel) || parseInt(wilayah.no_urutkel) <= 0) {
             newError.no_urutkel = "No. Urut Keluarga tidak valid";
+        } else if (wilayah.no_urutkel.length < 3) {
+            newError.no_urutkel = "No. Urut Keluarga harus 3 digit"
         }
         // if (!wilayah.no_kk) {
         //     newError.no_kk = "No. Kartu Keluarga (KK) wajib diisi";
@@ -151,7 +157,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, keluarga, history }) {
             //simpan ke db local
             setSubmitting(true);
             try {
-                // setKeluarga('keluarga submit');
+                setKeluarga('keluarga submit');
                 // const existing = await dataKK.local.get(wilayah.no_kk)
 
 
@@ -161,6 +167,19 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, keluarga, history }) {
                 //     type: 'utama',
                 //     ...wilayah
                 // })
+
+                // init rw and rt
+                let id_rw_bkkbn = metadata.wil_rw.find(rw => parseInt(rw.id_rw) === parseInt(wilayah.id_rw)).id_rw_bkkbn
+                let id_rt_bkkbn = metadata.wil_rw.find(rw => parseInt(rw.id_rw) === parseInt(wilayah.id_rw)).wil_rt.find(rt => parseInt(rt.id_rt) === parseInt(wilayah.id_rt)).id_rt_bkkbn
+
+                setWilayah({
+                    ...wilayah,
+                    ['id_rw_bkkbn'] : `${id_rw_bkkbn}`,
+                    ['id_rt_bkkbn'] : `${id_rt_bkkbn}`,
+                    ['no_kk']: `${metadata.wil_provinsi.id_provinsi_depdagri}${metadata.wil_kabupaten.id_kabupaten_depdagri}${metadata.wil_kecamatan.id_kecamatan_depdagri}${metadata.wil_kelurahan.id_kelurahan_depdagri}${id_rw_bkkbn}${id_rt_bkkbn}${wilayah.no_rmh}${wilayah.no_urutkel}`
+                })
+
+                console.log(wilayah.no_kk)
 
                 setSomethingChange(false);
                 handleNext()
@@ -190,6 +209,8 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, keluarga, history }) {
 
 
         }
+        console.log(wilayah);
+        console.log(wilayah.no_kk)
     }
 
     return (
@@ -229,7 +250,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, keluarga, history }) {
                     <Grid item xs={12} md={6}>
                         <Typography>Desa/Kel: {metadata.wil_kelurahan.nama_kelurahan}</Typography>
                     </Grid>
-                    
+
                     <Grid item xs={12}>
                         <Divider />
                     </Grid>
@@ -246,6 +267,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, keluarga, history }) {
                                 displayEmpty
                             >
                                 <MenuItem value="">Pilih RW/Dusun</MenuItem>
+
                                 {metadata.wil_rw.map(rw => <MenuItem key={rw.id_rw} value={rw.id_rw}>{rw.nama_rw}</MenuItem>)}
                             </Select>
                             <FormHelperText>{error.id_rw}</FormHelperText>
@@ -419,13 +441,11 @@ Wilayah.propTypes = {
     setWilayah: PropTypes.func.isRequired
 }
 
-// export default compose(connect(
-//    ({keluarga}) => ({
-//        keluarga
-//    }),
-//    {setKeluarga}
-// ),withRouter)
-// (Wilayah);
+export default compose(connect(
+    ({ keluarga }) => ({
+        keluarga
+    }),
+    { setKeluarga }
+), withRouter)
+    (Wilayah);
 //
-
-export default Wilayah;

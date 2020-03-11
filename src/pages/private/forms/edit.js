@@ -68,19 +68,18 @@ export default function EditForm() {
         setFetching(true);
 
         try {
-            const kkDoc = await dataBkkbn.local.get(params.no_kk);
-            const kbQuery = await dataBkkbn.local.find({
-                selector: {
-                    No_KK: { $eq: params.no_kk }
-                }
-            })
-            const pkQuery = await dataBkkbn.local.find({
-                selector: {
-                    No_KK: { $eq: params.no_kk }
-                }
-            })
+            const kkDoc = await dataBkkbn.local.get(params._id);
+            // const kbQuery = await dataBkkbn.local.find({
+            //     selector: {
+            //         No_KK: { $eq: params.no_kk }
+            //     }
+            // })
+            // const pkQuery = await dataBkkbn.local.find({
+            //     selector: {
+            //         No_KK: { $eq: params.no_kk }
+            //     }
+            // })
 
-            console.log(kkDoc)
 
             if (!didCancel) {
 
@@ -116,8 +115,6 @@ export default function EditForm() {
 
                 }
 
-
-
                 if (kkDoc) {
 
                     const { data_kb, ...data_bkkbn } = kkDoc;
@@ -125,13 +122,13 @@ export default function EditForm() {
                     setKB(data_bkkbn);
                     let newkb = {};
                     for (let i = 0; i < data_kb.length; i++) {
-                        let no_tes = 13
                         let qid = ''
 
                         if (Object.keys(data_kb[i]).length === 0) {
                             let newIndex = i + 1
                             qid = `010${newIndex}`
                         } else {
+                            let no_tes = parseInt(data_kb[i]._id.length) - 4
                             qid = (`${data_kb[i]._id}`).slice(no_tes);
                         }
 
@@ -158,7 +155,6 @@ export default function EditForm() {
                     setPK(data_bkkbn);
                     let newpk = {};
                     for (let i = 0; i < data_pk.length; i++) {
-                        let no_tes = 13
                         let qid = ''
 
                         if (Object.keys(data_pk[i]).length === 0) {
@@ -169,6 +165,7 @@ export default function EditForm() {
                                 qid = `020${newIndex}`
                             }
                         } else {
+                            let no_tes = parseInt(data_pk[i]._id.length) - 4
                             qid = (`${data_pk[i]._id}`).slice(no_tes);
                         }
 
@@ -198,7 +195,7 @@ export default function EditForm() {
     }
 
     useEffect(() => {
-        if (params.no_kk) {
+        if (params._id) {
             let didCancel = false;
 
             fillForm(didCancel);
@@ -211,7 +208,7 @@ export default function EditForm() {
 
         }
 
-    }, [params.no_kk]);
+    }, [params._id]);
 
     useEffect(() => {
         if (wilayah.jumlah_keluarga) {

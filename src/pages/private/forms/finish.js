@@ -91,21 +91,27 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
     }
 
     const saveTo = target => async (e) => {
+
         // put data utama to KK
         const dataKKUtama = {
-            _id: wilayah.no_kk,
+            // _id: wilayah.no_kk,
+            _id: `${Date.now().toString()}${metadata.name}`,
 
             user_name: metadata.name,
             id_prov: parseInt(metadata.wil_provinsi.id_provinsi),
+            id_prov_depdagri: parseInt(metadata.wil_provinsi.id_provinsi_depdagri),
             id_kab: parseInt(metadata.wil_kabupaten.id_kabupaten),
+            id_kab_depdagri: parseInt(metadata.wil_kabupaten.id_kabupaten_depdagri),
             id_kec: parseInt(metadata.wil_kecamatan.id_kecamatan),
+            id_kec_depdagri: parseInt(metadata.wil_kecamatan.id_kecamatan_depdagri),
             id_kel: parseInt(metadata.wil_kelurahan.id_kelurahan),
+            id_kel_depdagri: parseInt(metadata.wil_kelurahan.id_kelurahan_depdagri),
             ...wilayah,
-            id_rw: parseInt(wilayah.id_rw),
-            id_rt: parseInt(wilayah.id_rt),
+            id_rw: wilayah.id_rw,
+            id_rt: wilayah.id_rt,
+            id_rw_bkkbn: wilayah.id_rw_bkkbn,
+            id_rt_bkkbn: wilayah.id_rt_bkkbn,
             location: { locationUser },
-            // _id :`${metadata.wil_provinsi.id_provinsi}${metadata.wil_kabupaten.id_kabupaten}${metadata.wil_kecamatan.id_kecamatan}${metadata.wil_kelurahan.id_kelurahan}${wilayah.id_rw}${wilayah.id_rt}${timestamp}`,
-            // no_kk :`${metadata.wil_provinsi.id_provinsi}${metadata.wil_kabupaten.id_kabupaten}${metadata.wil_kecamatan.id_kecamatan}${metadata.wil_kelurahan.id_kelurahan}${wilayah.id_rw}${wilayah.id_rt}${timestamp}`
         };
         const data_nik = Object.keys(keluarga).map(_id => {
 
