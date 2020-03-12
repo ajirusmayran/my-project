@@ -14,19 +14,22 @@ function SubFormNumber({ id, setValue, saveValue, value, form, wilayah, keluarga
 
     const classes = useStyles();
     const [error, setError] = useState({});
-    const [totalKeluarga,setTotalKeluarga] = useState(0)
+    //const [totalKeluarga,setTotalKeluarga] = useState(0)
 
-    useEffect(() => {
+    // useEffect(() => {
         
-        Object.entries(keluarga).forEach(([key, value]) => {
-            let keberadaan = keluarga[key].keberadaan
-            if(keberadaan === "1"){
-                setTotalKeluarga((state) => state+1)
-            }
+    //     Object.entries(keluarga).forEach(([key, value]) => {
+    //         let keberadaan = keluarga[key].keberadaan
+    //         if(keberadaan === "1"){
+    //             setTotalKeluarga((state) => state+1)
+    //         }
         
-        });
-        setError({})
-    }, [])
+    //     });
+    //     setError({})
+    // }, [])
+    //
+    
+    const jumlahKeluarga = wilayah.jumlah_keluarga;
 
     const { pertanyaan } = form;
     const handleChange = (e) => {
@@ -54,8 +57,8 @@ function SubFormNumber({ id, setValue, saveValue, value, form, wilayah, keluarga
         } else if (!isNumeric(value.jawaban)) {
             newError.jawaban = "Jawaban tidak valid";
         }
-        if(value.jawaban<totalKeluarga){
-            newError.jawaban = "Jawaban kurang dari jumlah keluarga didalam rumah";
+        if(value.jawaban<jumlahKeluarga){
+            newError.jawaban = "Jawaban kurang dari jumlah anggota keluarga";
         }
         return newError;
     }
@@ -83,19 +86,6 @@ function SubFormNumber({ id, setValue, saveValue, value, form, wilayah, keluarga
             saveValue(normalizeValue)
         }
     }
-
-    //const jumlahKeluarga = Object.(keluarga).length;
-
-    // const cekKeberadaan=(keluarga)=>{
-    //     if(keluarga.keberadaan ==="1"){
-    //         return true
-    //     }
-    // }
-    
-
-    // const tes = jumlahKeluarga.filter(cekKeberadaan);
-
-    // const jumlahOrang = tes.length
     
     return (<form id={id} onSubmit={handleSubmit} noValidate>
         <div className={classes.card}>
@@ -121,7 +111,7 @@ function SubFormNumber({ id, setValue, saveValue, value, form, wilayah, keluarga
                             type="number"
                             inputProps={{
                                 className: classes.inputMini,
-                                min: totalKeluarga
+                                min: jumlahKeluarga
                             }}
                             error={error.jawaban ? true : false}
                             helperText={error.jawaban}

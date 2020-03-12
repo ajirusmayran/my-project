@@ -80,6 +80,10 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
             if (e.target.name === "no_rmh" && e.target.value.length > 3) {
                 return false;
             }
+
+            if (e.target.name === "no_telepon" && e.target.value.length > 13) {
+                return false;
+            }
         }
 
         setWilayah({
@@ -318,7 +322,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                         />
 
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
 
                         <TextField
                             disabled={isSubmitting}
@@ -340,28 +344,27 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                         />
 
                     </Grid>
-                    {/* <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
+
                         <TextField
-                            disabled={isSubmitting || mode === 'edit'}
+                            disabled={isSubmitting}
                             fullWidth
                             variant="outlined"
-                            placeholder="No. Kartu Keluarga (KK)"
-                            value={wilayah.no_kk || ''}
-                            name="no_kk"
-                            id="no_kk"
+                            placeholder="No. Telepon"
+                            value={wilayah.no_telepon || ''}
+                            name="no_telepon"
+                            id="no_telepon"
                             type="number"
                             inputProps={{
 
                                 min: 0,
-                                // minLength: 16,
-                                maxLength: 16
+                                maxLength: 13
                             }}
                             onChange={handleChange}
-                            error={error.no_kk ? true : false}
-                            helperText={error.no_kk}
                         />
-                    </Grid> */}
-                    <Grid item xs={12} md={6}>
+
+                    </Grid>
+                    <Grid item xs={12} md={4}>
                         <TextField
                             disabled={isSubmitting}
                             fullWidth

@@ -41,16 +41,16 @@ export const renderDataKK = (metadata, wilayah) => {
 
 
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
                 <Typography>No. Urut Keluarga: {wilayah.no_urutkel}</Typography>
 
 
             </Grid>
-            {/* <Grid item xs={12} md={6}>
-                <Typography>No. Kartu Keluarga (KK): {wilayah.no_kk}</Typography>
+            <Grid item xs={12} md={4}>
+                <Typography>No. Telephone: {wilayah.no_telepon}</Typography>
 
-            </Grid> */}
-            <Grid item xs={12} md={6}>
+            </Grid>
+            <Grid item xs={12} md={4}>
                 <Typography>Jumlah Anggota Keluarga: {wilayah.jumlah_keluarga}</Typography>
 
             </Grid>

@@ -60,7 +60,7 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
-                id: id,
+                _id: id,
                 username: userInsert,
                 statusData: userDataInsert,
             })
@@ -80,7 +80,7 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
-                id: id,
+                _id: id,
                 username: userUpdate,
                 statusData: userDataUpdate,
             })

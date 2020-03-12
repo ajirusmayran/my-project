@@ -85,7 +85,7 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, s
         const findWife = Object.values(keluarga).find(k => {
             if (k.jenis_kelamin === "2" && k.sts_kawin === "2" && k.sts_hubungan === "2") {
                 const age = countAge(k.tgl_lahir);
-                return age >= 15 && age <= 49;
+                return age >= 10 && age <= 49;
             }
             return false;
         })
