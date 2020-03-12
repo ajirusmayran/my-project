@@ -7,6 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Slide from '@material-ui/core/Slide';
+import Version from '../package.json';
 
 import { SW_INIT, SW_UPDATE } from './types';
 
@@ -52,7 +53,7 @@ function UpdateAvailable() {
                 >
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            Versi 0.1.0
+                            Versi {Version.version}
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>

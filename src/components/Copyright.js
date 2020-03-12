@@ -1,4 +1,5 @@
 import React from 'react';
+import Version from '../../package.json';
 
 import Typography from '@material-ui/core/Typography';
 
@@ -8,7 +9,8 @@ export default function Copyright() {
             {'Copyright © '}
             BKKBN{' '}
             {new Date().getFullYear()}
-            {'.'}
+            {'.'} <br/>
+            Versi {Version.version}
         </Typography>
     );
 

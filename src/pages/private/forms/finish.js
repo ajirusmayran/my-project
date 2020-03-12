@@ -52,13 +52,15 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
     const tanggal = new Date();
     const timestamp = tanggal.getTime();
 
-    const insertNotif = () => {
+    const insertNotif = (id) => {
         let userInsert = metadata.name;
         let userDataInsert = 7;
+
         fetch('https://demo-bkkbn-notif.herokuapp.com/pushnotification', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
+                id: id,
                 username: userInsert,
                 statusData: userDataInsert,
             })
@@ -71,13 +73,14 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
             .catch(e => console.error(e))
     }
 
-    const updateNotif = () => {
+    const updateNotif = (id) => {
         let userUpdate = metadata.name;
         let userDataUpdate = 8;
         fetch('https://demo-bkkbn-notif.herokuapp.com/pushnotification', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
+                id: id,
                 username: userUpdate,
                 statusData: userDataUpdate,
             })
@@ -201,12 +204,14 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
 
             // PouchDB.replicate(dataKK.local, dataKK.remote,{});
 
+            const id = wilayah._id;
+
             setSubmitting(curr => ({ ...curr, [target]: false }));
             setSaved(curr => ({ ...curr, [target]: true }));
             if (mode === 'edit') {
-                updateNotif();
+                updateNotif(id);
             } else {
-                insertNotif();
+                insertNotif(id);
             }
 
 
