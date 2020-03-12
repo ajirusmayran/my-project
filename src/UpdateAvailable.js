@@ -52,7 +52,7 @@ function UpdateAvailable() {
                 >
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            Versi terbaru... !!!
+                            Versi 1.1.1 !!!
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>
