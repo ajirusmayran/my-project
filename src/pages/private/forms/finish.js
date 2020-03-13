@@ -56,7 +56,7 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
         let userInsert = metadata.name;
         let userDataInsert = 7;
 
-        fetch('https://demo-bkkbn-notif.herokuapp.com/pushnotification', {
+        fetch('http://push-web-notification-service-bkkbn-dev.apps.openshift4.ogya-rnd.com/api/v1/pushnotification', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
@@ -76,7 +76,7 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
     const updateNotif = (id) => {
         let userUpdate = metadata.name;
         let userDataUpdate = 8;
-        fetch('https://demo-bkkbn-notif.herokuapp.com/pushnotification', {
+        fetch('http://push-web-notification-service-bkkbn-dev.apps.openshift4.ogya-rnd.com/api/v1/pushnotification', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
