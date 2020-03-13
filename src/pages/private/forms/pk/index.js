@@ -81,12 +81,12 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
         })
 
         // By Me 
-        // Kondisi ketija satu rumah hanya terdiri 1 orang
+        // Kondisi ketika satu rumah hanya terdiri 1 orang
         if (isSingle) {
-            let tgl_lahir = keluarga['01'].tgl_lahir
-            if(countAge(tgl_lahir) >= 60){
-                setSubFormIndex(16)
-            }
+            // let tgl_lahir = keluarga['01'].tgl_lahir
+            // if (countAge(tgl_lahir) >= 60) {
+            //     setSubFormIndex(16)
+            // }
         }
         //
 
@@ -106,21 +106,32 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
         });
         setTimeout(() => {
 
+            // if (isSingle) {
+            //     let tgl_lahir = keluarga['01'].tgl_lahir
+            //     if (countAge(tgl_lahir) >= 60) {
+            //         if (subformIndex === 16) {
+            //             setSubFormIndex(index => index + 2);
+            //         } else {
+            //             setSubFormIndex(index => index + 1);
+            //         }
+            //     } else {
+            //         setSubFormIndex(index => index + 1);
+            //     }
+            // } else {
+            //     setSubFormIndex(index => index + 1);
+            // }
+
+            // Sebatang Kara Mengisi PK No.1
             if (isSingle) {
-                let tgl_lahir = keluarga['01'].tgl_lahir
-                if (countAge(tgl_lahir) >= 60) {
-                    if (subformIndex === 16) {
-                        setSubFormIndex(index => index + 2);
-                    } else {
-                        setSubFormIndex(index => index + 1);
-                    }
+                if (subformIndex === 0) {
+                    setSubFormIndex(index => index + 3);
                 } else {
                     setSubFormIndex(index => index + 1);
                 }
             } else {
-            setSubFormIndex(index => index + 1);
+                setSubFormIndex(index => index + 1);
             }
-
+            // Sebatang Kara Mengisi PK No.1
 
             setSlide({
                 direction: "left",
@@ -140,14 +151,14 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
         }
 
         // By Me
-        if (isSingle) {
-            let tgl_lahir = keluarga['01'].tgl_lahir
-            if (countAge(tgl_lahir) >= 60) {
-                if (subformIndex === 16) {
-                    return handleBack()
-                }
-            }
-        }
+        // if (isSingle) {
+        //     let tgl_lahir = keluarga['01'].tgl_lahir
+        //     if (countAge(tgl_lahir) >= 60) {
+        //         if (subformIndex === 16) {
+        //             return handleBack()
+        //         }
+        //     }
+        // }
         //
 
         setNavigationMode('back')
@@ -157,20 +168,32 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
         });
         setTimeout(() => {
 
+            // if (isSingle) {
+            //     let tgl_lahir = keluarga['01'].tgl_lahir
+            //     if (countAge(tgl_lahir) >= 60) {
+            //         if (subformIndex === 18) {
+            //             setSubFormIndex(index => index - 2);
+            //         } else {
+            //             setSubFormIndex(index => index - 1);
+            //         }
+            //     } else {
+            //         setSubFormIndex(index => index - 1);
+            //     }
+            // } else {
+            //     setSubFormIndex(index => index - 1);
+            // }
+
+            // Sebatang Kara Mengisi PK No.1
             if (isSingle) {
-                let tgl_lahir = keluarga['01'].tgl_lahir
-                if (countAge(tgl_lahir) >= 60) {
-                    if (subformIndex === 18) {
-                        setSubFormIndex(index => index - 2);
-                    } else {
-                        setSubFormIndex(index => index - 1);
-                    }
+                if (subformIndex === 3) {
+                    setSubFormIndex(index => index - 3);
                 } else {
                     setSubFormIndex(index => index - 1);
                 }
             } else {
-            setSubFormIndex(index => index - 1);
+                setSubFormIndex(index => index - 1);
             }
+            // Sebatang Kara Mengisi PK No.1
 
             setSlide({
                 direction: "right",
