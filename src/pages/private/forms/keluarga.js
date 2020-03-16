@@ -582,7 +582,8 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                             fullWidth
                             variant="outlined"
                             placeholder="Usia Kawin Pertama"
-                            value={selectedKeluarga.sts_kawin=="1" ? '' : selectedKeluarga.usia_kawin}
+                            //value={selectedKeluarga.sts_kawin=="1" ? '' : selectedKeluarga.usia_kawin}
+                            value={selectedKeluarga.usia_kawin || ''}
                             name="usia_kawin"
                             id="usia_kawin"
                             type="number"
