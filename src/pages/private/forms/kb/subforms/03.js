@@ -24,7 +24,7 @@ function SubForm03({ id, setValue, saveValue, value, no_kk }) {
         setError({})
     }, [])
 
-    const pertanyaan = "Apakah Ibu/Saudari saat ini sedang hamil?";
+    const pertanyaan = "Apakah Ibu saat ini sedang hamil ?";
     const handleChange = (e) => {
 
         if (e.target.type === "number" && parseInt(e.target.value) < 0) {
@@ -189,7 +189,7 @@ function SubForm03({ id, setValue, saveValue, value, no_kk }) {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography>Jika ya, saat mulai hamil, apakah Ibu memang ingin hamil saat itu, ingin hamil nanti atau tidak ingin anak lagi?</Typography>
+                                <Typography><strong>1.1 Jika YA, saat mulai hamil, apakah Ibu memang ingin hamil saat itu, ingin hamil nanti atau tidak ingin anak lagi?</strong></Typography>
                             </Grid>
                             <Grid item xs={12} md={4}>
                                 <FormControl
@@ -217,7 +217,7 @@ function SubForm03({ id, setValue, saveValue, value, no_kk }) {
                         value.sedang_hamil === "2" &&
                         <>
                             <Grid item xs={12}>
-                                <Typography>Jika tidak, apakah Ibu menginginkan anak(lagi)?</Typography>
+                                <Typography><strong>2.1 Apakah Ibu menginginkan anak lagi?</strong></Typography>
                             </Grid>
                             <Grid item xs={12} md={4}>
                                 <FormControl

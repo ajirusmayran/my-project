@@ -81,7 +81,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                 return false;
             }
 
-            if (e.target.name === "no_telepon" && e.target.value.length > 13) {
+            if (e.target.name === "no_kontak_keluarga" && e.target.value.length > 13) {
                 return false;
             }
         }
@@ -350,10 +350,10 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             disabled={isSubmitting}
                             fullWidth
                             variant="outlined"
-                            placeholder="No. Telepon"
-                            value={wilayah.no_telepon || ''}
-                            name="no_telepon"
-                            id="no_telepon"
+                            placeholder="Nomor Kontak Keluarga"
+                            value={wilayah.no_kontak_keluarga || ''}
+                            name="no_kontak_keluarga"
+                            id="no_kontak_keluarga"
                             type="number"
                             inputProps={{
 

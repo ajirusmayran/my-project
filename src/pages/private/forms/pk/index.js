@@ -27,7 +27,6 @@ import SubFormNumber26 from './subforms/number_26';
 import SubformCheckbox from './subforms/checkbox';
 import SubFormRadio2 from './subforms/subformradio';
 import SubFormRadio18 from './subforms/subformradio_18';
-import SubFormRadio5 from './subforms/subformradio_5';
 
 
 import { countAge } from '../pk/validation';
@@ -409,23 +408,6 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
 
                                     {form.tipe === 'subformradio_18' &&
                                         <SubFormRadio18
-                                            id={no}
-                                            value={value}
-                                            setValue={setValue}
-                                            saveValue={saveValue}
-                                            kb={kb}
-                                            handleNextSub={handleNextSub}
-                                            handleBackSub={handleBackSub}
-                                            navigationMode={navigationMode}
-                                            subformIndex={subformIndex}
-                                            form={form}
-                                            keluarga={keluarga}
-
-                                        />
-                                    }
-
-                                    {form.tipe === 'subformradio_5' &&
-                                        <SubFormRadio5
                                             id={no}
                                             value={value}
                                             setValue={setValue}

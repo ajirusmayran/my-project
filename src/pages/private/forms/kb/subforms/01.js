@@ -18,7 +18,7 @@ function SubForm01({ id, setValue, saveValue, value, no_kk }) {
         setError({})
     }, [])
 
-    const pertanyaan = "Sudah berapa kali Ibu/Saudari melahirkan?";
+    const pertanyaan = "Sudah berapa kali Ibu melahirkan ?";
     const handleChange = (e) => {
 
         if (e.target.type === "number" && parseInt(e.target.value) < 0) {
@@ -163,7 +163,7 @@ function SubForm01({ id, setValue, saveValue, value, no_kk }) {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography>Berapa jumlah anak lahir hidup?</Typography>
+                        <Typography>1. Berapa jumlah anak lahir hidup</Typography>
                     </Grid>
                     <Grid item xs={12} md={3}>
                         <TextField
@@ -216,7 +216,7 @@ function SubForm01({ id, setValue, saveValue, value, no_kk }) {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography>Berapa jumlah anak masih hidup?</Typography>
+                        <Typography>2. Berapa jumlah anak masih hidup</Typography>
                     </Grid>
                     <Grid item xs={12} md={3}>
                         <TextField

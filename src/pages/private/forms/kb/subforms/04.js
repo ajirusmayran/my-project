@@ -59,7 +59,7 @@ function SubForm04({ id, setValue, saveValue, value, kb, handleNextSub, no_kk, n
         return null
     }
 
-    const pertanyaan = "Apakah saat ini Ibu atau Suami menggunakan alat/obat/cara KB (Kontrasepsi)";
+    const pertanyaan = "Apakah saat ini IBU atau SUAMI menggunakan alat/obat/cara KB (Kontrasepsi)?";
     const handleChange = (e) => {
 
         setValue(e)

@@ -18,7 +18,7 @@ function SubForm02({ id, setValue, saveValue, value, no_kk }) {
         setError({})
     }, [])
 
-    const pertanyaan = "Menurut ibu, berapa jumlah anak yang diinginkan?";
+    const pertanyaan = "Menurut ibu, berapa jumlah anak ideal yang diinginkan";
     const handleChange = (e) => {
 
 

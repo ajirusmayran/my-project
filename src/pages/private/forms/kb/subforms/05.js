@@ -57,7 +57,7 @@ function SubForm05({ id, setValue, saveValue, value, kb, handleNextSub, navigati
         return null
     }
 
-    const pertanyaan = "Apa dalam 12 bulan terakhir, Ibu atau Suami \"pernah\" menggunakan alat/obat KB (Kontrasepsi)?";
+    const pertanyaan = "Apa dalam 12 bulan terakhir, IBU atau SUAMI \"PERNAH\" menggunakan alat/obat/cara KB (Kontrasepsi)?";
     const handleChange = (e) => {
 
         setValue(e)
@@ -181,7 +181,7 @@ function SubForm05({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                     {value.pernah_menggunakan_kontrasepsi === '1' &&
                         <>
                             <Grid item xs={12}>
-                                <Typography>Kapan mulai menggunakan alat Kontrasepsi (KB) terakhir?</Typography>
+                                <Typography>Kapan mulai menggunakan Alat/obat/cara kontrasepsi terakhir?</Typography>
                             </Grid>
                             <Grid item xs={6} md={3}>
 
@@ -226,7 +226,7 @@ function SubForm05({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography>Kapan berhenti menggunakan alat Kontrasepsi (KB) terakhir?</Typography>
+                                <Typography>Kapan berhenti menggunakan Alat/obat/cara kontrasepsi terakhir?</Typography>
                             </Grid>
                             <Grid item xs={6} md={3}>
 

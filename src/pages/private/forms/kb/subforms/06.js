@@ -21,7 +21,7 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
     const [dontUseContrasep, setDontUseContrasep] = useState(false);
     useEffect(() => {
         setError({})
-        
+
         // if (kb["0104"].menggunakan_kontrasepsi !== "1" && kb["0105"].pernah_menggunakan_kontrasepsi === "2" || kb["0105"].pernah_menggunakan_kontrasepsi === "1" ) {
         //     setDontUseContrasep(true);
         // } else {
@@ -32,18 +32,18 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
         //     }
         // }
         /* cek kondisi untuk semua form */
-        if(kb["0103"].sedang_hamil==="2" && kb["0104"].menggunakan_kontrasepsi==="2" && kb["0105"].pernah_menggunakan_kontrasepsi ==="1"){
+        if (kb["0103"].sedang_hamil === "2" && kb["0104"].menggunakan_kontrasepsi === "2" && kb["0105"].pernah_menggunakan_kontrasepsi === "1") {
             setDontUseContrasep(true);
-        }else{
-            if(kb["0103"].sedang_hamil==="2"  && kb["0104"].menggunakan_kontrasepsi==="1"){
+        } else {
+            if (kb["0103"].sedang_hamil === "2" && kb["0104"].menggunakan_kontrasepsi === "1") {
                 if (navigationMode === 'back') {
                     handleBackSub();
                 } else {
                     handleNextSub()
                 }
-            
 
-            }else{
+
+            } else {
                 setDontUseContrasep(true);
             }
         }
@@ -74,7 +74,7 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
     //     return null
     // }
 
-    const pertanyaan = "Alasan utama tidak pakai KB atau putus pakai KB (PILIH HANYA SATU JAWABAN!)";
+    const pertanyaan = "Alasan utama tidak pakai KB atau putus pakai KB";
     const handleChange = (e) => {
 
         setValue(e)
@@ -94,13 +94,13 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
             newError.alasan_tidak_kb = "Wajib diisi";
         }
 
-        if (value.alasan_tidak_kb === "13") {
-            if (!value.alasan_tidak_kb_lainnya) {
-                newError.alasan_tidak_kb_lainnya = "Lainnya wajib diisi";
-            }
+        // if (value.alasan_tidak_kb === "13") {
+        //     if (!value.alasan_tidak_kb_lainnya) {
+        //         newError.alasan_tidak_kb_lainnya = "Lainnya wajib diisi";
+        //     }
 
 
-        }
+        // }
 
 
         return newError;
@@ -158,7 +158,7 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
         <div className={classes.card}>
             <div className={classes.cardHeader}>
                 <Typography margin="normal" paragraph>
-                    <span className={classes.badge}>06</span>{pertanyaan}</Typography>
+                    <span className={classes.badge}>06</span>{pertanyaan} <strong><i>(PILIH HANYA SATU JAWABAN!)</i></strong></Typography>
             </div>
             <div className={classes.cardBody}>
                 <Grid container spacing={1}>
@@ -211,8 +211,8 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                                         label="Tidak ada petugas pelayanan KB" />
                                     <FormControlLabel control={<Radio />}
                                         value="13"
-                                        label="Lainnya" />
-                                    {value.alasan_tidak_kb === "13" &&
+                                        label="Infertilitas/Menopause" />
+                                    {/* {value.alasan_tidak_kb === "13" &&
 
                                         <TextField
                                             fullWidth
@@ -229,7 +229,7 @@ function SubForm06({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                                                 className: classes.inputMini
                                             }}
 
-                                        />}
+                                        />} */}
                                 </div>
                             </RadioGroup>
 

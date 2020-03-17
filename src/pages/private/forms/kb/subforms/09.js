@@ -36,7 +36,7 @@ function SubForm01({ id, setValue, saveValue, value, kb, handleNextSub, navigati
 
         /* cek kondisi untuk semua form */
         if(kb["0103"].sedang_hamil==="2" && kb["0104"].menggunakan_kontrasepsi==="2" && kb["0105"].pernah_menggunakan_kontrasepsi ==="1"){
-            if (kb["0107"].jenis_kontrasepsi === "9" || kb["0107"].jenis_kontrasepsi === "8"){
+            if (kb["0107"].jenis_kontrasepsi === "9"){
                 // skip
                 if (navigationMode === 'back') {
                     handleBackSub();
@@ -58,7 +58,7 @@ function SubForm01({ id, setValue, saveValue, value, kb, handleNextSub, navigati
             
 
             }else{
-                if (kb["0107"].jenis_kontrasepsi === "9" || kb["0107"].jenis_kontrasepsi === "8"){
+                if (kb["0107"].jenis_kontrasepsi === "9"){
                     // skip
                     if (navigationMode === 'back') {
                         handleBackSub();
@@ -79,7 +79,7 @@ function SubForm01({ id, setValue, saveValue, value, kb, handleNextSub, navigati
         return null
     }
 
-    const pertanyaan = "Pada saat pertama kali datang ke tempat pelanan KB untuk mendapatkan alat/obat/cara Kontrasepsi yang saat ini digunakan, apakah ibu mendapatkan informasi tentang:";
+    const pertanyaan = "Pada saat pertama kali datang ke tempat pelayanan KB untuk mendapatkan alat/obat/cara Kontrasepsi terakhir, apakah Ibu atau Suami mendapatkan informasi tentang:";
     const handleChange = (e) => {
 
         setValue(e)

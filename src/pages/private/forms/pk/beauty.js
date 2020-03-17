@@ -62,13 +62,6 @@ export default (qid, normalize) => {
             jawabanC: answer3.pilihanpk,
             jawabanD: answer4.pilihanpk
         }
-    } else if (subforms[qid].tipe === 'subformradio_5') {
-
-        return {
-            jawaban: normalize.Jawab_Pilih,
-            kondisi: normalize.Jawaban_H1,
-            jawaban_lainnya: normalize.Lainnya
-        }
     }
 
     return {}

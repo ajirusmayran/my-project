@@ -1,7 +1,7 @@
 {
     "0201": {
         "no": "01",
-        "pertanyaan": "Selama 6 (enam) bulan terakhir, setiap anggota keluarga (usia 10 tahun ke atas) menjalankan ibadah sesuai dengan tuntunan agama atau kepercayaan yang dianut",
+        "pertanyaan": "Selama 6 (enam) bulan terakhir, setiap anggota keluarga (usia 10 tahun ke atas) menjalankan ibadah secara rutin sesuai dengan tuntunan agama atau kepercayaan yang dianut",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -28,7 +28,7 @@
     },
     "0203": {
         "no": "03",
-        "pertanyaan": "Selama 6 (enam) bulan terakhir, terdapat konflik diantara anggota keluarga",
+        "pertanyaan": "Selama 6 (enam) bulan terakhir, terdapat konflik diantara anggota keluarga:",
         "tipe": "subformradio",
         "options": [
            
@@ -37,8 +37,8 @@
         "unit": "",
         "lain": false,
         "subform": true,
-        "pertanyaanA": "a. Tanpa tegur sapa(selama 7 hari berturut-turut)",
-        "pertanyaanB": "b. Pisah ranjang antara suami dan istri(selama 3 hari berturut-turut)",
+        "pertanyaanA": "a. Tanpa tegur sapa(selama 3 hari berturut-turut)",
+        "pertanyaanB": "b. Pisah ranjang antara suami dan istri(selama 7 hari berturut-turut)",
         "pertanyaanC": "c. Pergi dari rumah/minggat (selama 2 hari berturut-turut)",
         "pertanyaanD": "d. Kekerasan dalam rumah tangga"
     },
@@ -57,11 +57,10 @@
     "0205": {
         "no": "05",
         "pertanyaan": "Selama 6 (enam) bulan terakhir, setiap anggota keluarga makan “makanan beragam” (makanan pokok, sayur/buah dan lauk) paling sedikit 2 (dua) kali sehari",
-        "tipe": "subformradio_5",
+        "tipe": "radio",
         "options": [
             "Ya",
-            "Tidak",
-            "Tidak Berlaku"
+            "Tidak"
         ],
         "dependencies": [],
         "unit": "",
@@ -144,7 +143,7 @@
     },
     "0212": {
         "no": "12",
-        "pertanyaan": "6 (enam) bulan terakhir, terdapat paling sedikit 1 (satu) anggota keluarga pernah ikut serta dalam kegiatan sosial/gotong royong di lingkungan RT",
+        "pertanyaan": "Selama 6 (enam) bulan terakhir, keluarga ikut serta dalam kegiatan sosial/gotong royong di lingkungan RT",
         "tipe": "radio",
         "options": [
             "Ya",
@@ -231,7 +230,7 @@
     },
     "0218": {
         "no": "18",
-        "pertanyaan": "Keluarga mengikuti kegiatan usaha ekonomi seperti : ",
+        "pertanyaan": "Keluarga mengikuti kegiatan usaha ekonomi melalui: ",
         "tipe": "subformradio_18",
         "options": [
           
@@ -243,7 +242,7 @@
         "pertanyaanA": "a. Usaha Peningkatan Pendapatan Keluarga Sejahtera (UPPKS)",
         "pertanyaanB": "b. PNM Mekaar BUMN",
         "pertanyaanC": "c. Program Keluarga Harapan(PKH) Kemensos",
-        "pertanyaanD": "d. Instansi Pemerintah Lain/ Swasta/ LSM"
+        "pertanyaanD": "d. Instansi Pemerintah Lain/Swasta/LSM"
     },
     "0219": {
         "no": "19",
@@ -295,8 +294,8 @@
         "pertanyaan": "Sumber penerangan utama?",
         "tipe": "radio",
         "options": [
-            "Listrik Pribadi \u2264 900 Wat",
-            "Listrik Pribadi > 900 Wat",
+            "Listrik Pribadi \u2264 900 Watt",
+            "Listrik Pribadi > 900 Watt",
             "Genset/solar cell",
             "Listrik Bersama",
             "Non Listrik"
@@ -329,7 +328,7 @@
         "tipe": "radio",
         "options": [
             "Ya, dengan Septic Tank",
-            "Ya, Tanpa Septic Tank",
+            "Ya, tanpa Septic Tank",
             "Tidak, Jamban Umum/Bersama",
             "Lainnya"
         ],
@@ -401,14 +400,14 @@
     },
     "0230": {
         "no": "30",
-        "pertanyaan": "Jika ya, darimana info tersebut diperoleh (dipilih boleh lebih dari satu)?",
+        "pertanyaan": "Jika ya, darimana info tersebut diperoleh (Jawaban boleh lebih dari satu):",
         "tipe": "checkbox",
         "options": [
             "Koran/Majalah/Tabloid",
             "Televisi/Radio/Videotron",
             "Facebook/Instagram/Twitter/Whatsapp/Youtube/Blog/Website",
             "Seminar/Pengajian/Ibadat/Workshop/Diseminasi/Pertemuan Kelompok Kegiatan/ Konseling/Pameran",
-            "Leaflet/Lembar Balik/ Poster/Spanduk/Banner/Umbul-umbul/ Billboard/ Baliho/ Mural/Souvenir",
+            "Leaflet/Lembar Balik/Poster/Spanduk/Banner/Umbul-umbul/ Billboard/ Baliho/ Mural/Souvenir",
             "Wayang/Tarian/Pentas Budaya Lokal"
         ],
         "dependencies": [],
@@ -441,7 +440,7 @@
     },
     "0232": {
         "no": "32",
-        "pertanyaan": "Darimana keluarga menerima informasi tersebut(dipilih boleh lebih dari satu)?",
+        "pertanyaan": "Darimana keluarga menerima informasi tersebut(Jawaban boleh lebih dari satu)?",
         "tipe": "checkbox",
         "options": [
             "Pejabat Pemerintah",

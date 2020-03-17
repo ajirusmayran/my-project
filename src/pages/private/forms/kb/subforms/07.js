@@ -76,7 +76,7 @@ function SubForm07({ id, setValue, saveValue, value, kb, handleNextSub, navigati
     //     return null
     // }
 
-    const pertanyaan = "Jenis alat/obat/cara KB (Kontrasepsi) yang dipakai saat ini atau terakhir dipakai?";
+    const pertanyaan = "Jenis alat/obat/cara KB (Kontrasepsi) yang dipakai saat ini atau terakhir dipakai";
     const handleChange = (e) => {
 
         setValue(e)
@@ -192,7 +192,7 @@ function SubForm07({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                                         label="Kondom" />
                                     <FormControlLabel control={<Radio />}
                                         value="8"
-                                        label="Asi Eksklusif/MAL" />
+                                        label="MAL" />
                                     <FormControlLabel control={<Radio />}
                                         value="9"
                                         label="Tradisional" />
