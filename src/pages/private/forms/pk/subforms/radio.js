@@ -29,15 +29,6 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBa
 
     useEffect(() => {
 
-        if(isSingle){
-            if(navigationMode === "back"){
-                if(subformIndex===15){
-                    handleBackSub()
-                    setIsSingle((prev) => !prev)
-                }
-            }
-        }
-
         //console.log('validation called');
         if (form.dependencies.length <= 0) {
             setBerlaku(true)
