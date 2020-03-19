@@ -10,7 +10,7 @@ export const remote = {
     data_kb: `${remotebase}/data_kb`,
     data_pk: `${remotebase}/data_pk`,
     //05Des2019
-    data_bkkbn: `${remotebase}/data_bkkbn`,
+    data_bkkbn_dev: `${remotebase}/data_bkkbn_dev`,
     cloudant_url: `${remotebase}`
 }
 
@@ -19,5 +19,5 @@ export const local = {
     data_kb: 'data_kb',
     data_pk: 'data_pk',
     //05Des2019
-    data_bkkbn: `data_bkkbn`
+    data_bkkbn_dev: `data_bkkbn_dev`
 }
