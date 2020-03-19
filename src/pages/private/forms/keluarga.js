@@ -233,8 +233,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         if (!selectedKeluarga.nama_anggotakel) {
             newError.nama_anggotakel = "Nama Lengkap wajib diisi";
         }
-
-        if (!selectedKeluarga.nama_anggotakel.match(/^[a-zA-Z\.\ ]+$/)) {
+        else if (!selectedKeluarga.nama_anggotakel.match(/^[a-zA-Z\.\ ]+$/)) {
             newError.nama_anggotakel = "Nama tidak boleh mengandung Angka & Symbol";
         }
 
