@@ -1,6 +1,6 @@
-
 importScripts('https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/7.8.1/firebase-messaging.js');
+
 var config = {
     apiKey: "AIzaSyCoZQsfuMIf6M8GOBqDC3aExvDtiMvhMfc",
     authDomain: "web-push-notification-7ca2b.firebaseapp.com",
@@ -11,8 +11,8 @@ var config = {
     appId: "1:204164476841:web:f89fc19db348fabb0b1eb8",
     measurementId: "G-CPRNNER1V7"
 };
-firebase.initializeApp(config);
 
+firebase.initializeApp(config);
 
 const messaging = firebase.messaging();
 
