@@ -17,8 +17,8 @@ PouchDB.plugin(PouchDBAuth);
 
 // db 05Des2019
 const dataBkkbn = {
-    local: new PouchDB(local.data_bkkbn_dev),
-    remote: new PouchDB(remote.data_bkkbn_dev)
+    local: new PouchDB(local.data_bkkbn),
+    remote: new PouchDB(remote.data_bkkbn)
 }
 
 // db 

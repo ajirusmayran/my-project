@@ -85,9 +85,9 @@ export default function EditForm() {
 
                 if (kkDoc) {
 
-                    const { data_nik, ...data_bkkbn_dev } = kkDoc;
+                    const { data_nik, ...data_bkkbn } = kkDoc;
 
-                    setWilayah(data_bkkbn_dev);
+                    setWilayah(data_bkkbn);
                     let newkeluarga = {}
                     for (let i = 0; i < data_nik.length; i++) {
 
@@ -117,9 +117,9 @@ export default function EditForm() {
 
                 if (kkDoc) {
 
-                    const { data_kb, ...data_bkkbn_dev } = kkDoc;
+                    const { data_kb, ...data_bkkbn } = kkDoc;
 
-                    setKB(data_bkkbn_dev);
+                    setKB(data_bkkbn);
                     let newkb = {};
                     for (let i = 0; i < data_kb.length; i++) {
                         let qid = ''
@@ -150,9 +150,9 @@ export default function EditForm() {
 
                 if (kkDoc) {
 
-                    const { data_pk, ...data_bkkbn_dev } = kkDoc;
+                    const { data_pk, ...data_bkkbn } = kkDoc;
 
-                    setPK(data_bkkbn_dev);
+                    setPK(data_bkkbn);
                     let newpk = {};
                     for (let i = 0; i < data_pk.length; i++) {
                         let qid = ''
