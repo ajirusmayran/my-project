@@ -68,7 +68,7 @@ export default function DataSyncProvider(props) {
                             statusOperasi = 'Ubah Data'
                         }
                     }
-                    messages = [...messages, { 'content': 'Tanggal: ' + date + ', ' + 'status: ' + ', ' + info.change.docs[0].status_sensus + 'isi: ' + statusOperasi + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
+                    messages = [...messages, { 'content': 'Tanggal: ' + date + ', ' + 'status: ' + info.change.docs[0].status_sensus + ', isi: ' + statusOperasi + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
 
                     // Notif lonceng
                     // let itemSplits = info.change.docs[0]._rev.split("-")
