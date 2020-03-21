@@ -302,7 +302,7 @@
         ],
         "dependencies": [],
         "unit": "",
-        "lain": true
+        "lain": false
     },
     "0223": {
         "no": "23",
@@ -320,7 +320,7 @@
         ],
         "dependencies": [],
         "unit": "",
-        "lain": true
+        "lain": false
     },
     "0224": {
         "no": "24",
@@ -334,7 +334,7 @@
         ],
         "dependencies": [],
         "unit": "",
-        "lain": true
+        "lain": false
     },
     "0225": {
         "no": "25",
@@ -368,7 +368,7 @@
         ],
         "dependencies": [],
         "unit": "",
-        "lain": true
+        "lain": false
     },
     "0228": {
         "no": "28",
@@ -384,7 +384,7 @@
         ],
         "dependencies": [],
         "unit": "",
-        "lain": true
+        "lain": false
     },
     "0229": {
         "no": "29",

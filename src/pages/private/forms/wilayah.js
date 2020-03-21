@@ -81,7 +81,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                 return false;
             }
 
-            if (e.target.name === "no_kontak_keluarga" && e.target.value.length > 13) {
+            if (e.target.name === "no_telepon" && e.target.value.length > 13) {
                 return false;
             }
         }
@@ -234,7 +234,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                 <Grid container spacing={3}>
 
                     <Grid item xs={12} className={classes.textCenter}>
-                        <Typography variant="h5" component="h1">{mode === 'edit' ? `Edit Form Data Kependudukan` : 'Form Data Kependudukan Mandiri'}</Typography>
+                        <Typography variant="h5" component="h1">{mode === 'edit' ? `Edit Form Data Kependudukan` : 'Form Data Kependudukan'}</Typography>
                         {/* {mode === 'edit' && <Typography>No KK: {wilayah.no_kk}</Typography>} */}
 
                     </Grid>
@@ -350,10 +350,10 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             disabled={isSubmitting}
                             fullWidth
                             variant="outlined"
-                            placeholder="Nomor Kontak Keluarga"
-                            value={wilayah.no_kontak_keluarga || ''}
-                            name="no_kontak_keluarga"
-                            id="no_kontak_keluarga"
+                            placeholder="No. Telepon/Hp"
+                            value={wilayah.no_telepon || ''}
+                            name="no_telepon"
+                            id="no_telepon"
                             type="number"
                             inputProps={{
 
