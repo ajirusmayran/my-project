@@ -183,15 +183,15 @@ function Home({ history, match, location }) {
 
             // API Service Delete
             let id = _id;
-            fetch('http://delete-postgre-service-bkkbn-dev.apps.openshift4.ogya-rnd.com/api/v1/delete?_id=' + _id, {
-                method: 'DELETE'
-            })
-                .then(respone => {
-                    respone.json()
-                })
-                .then(data => {
-                })
-                .chatch(e => console.error(e))
+            // fetch('http://delete-postgre-service-bkkbn-dev.apps.openshift4.ogya-rnd.com/api/v1/delete?_id=' + _id, {
+            //     method: 'DELETE'
+            // })
+            //     .then(respone => {
+            //         respone.json()
+            //     })
+            //     .then(data => {
+            //     })
+            //     .chatch(e => console.error(e))
 
 
             let userDelete = metadata.name;
