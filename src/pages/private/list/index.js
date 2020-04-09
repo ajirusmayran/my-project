@@ -97,7 +97,7 @@ function Home({ history, match, location }) {
                 ...findKepala,
                 // no_kk: kkDoc.no_kk,
                 status_sensus: kkDoc.status_sensus,
-                _id : kkDoc._id
+                _id: kkDoc._id
             }
         })
 
@@ -181,9 +181,21 @@ function Home({ history, match, location }) {
             });
             setDataBkkbnDocs(query.docs)
 
+            // API Service Delete
+            let id = _id;
+            fetch('http://delete-postgre-service-bkkbn-dev.apps.openshift4.ogya-rnd.com/api/v1/delete?_id=' + _id, {
+                method: 'DELETE'
+            })
+                .then(respone => {
+                    respone.json()
+                })
+                .then(data => {
+                })
+                .chatch(e => console.error(e))
+
+
             let userDelete = metadata.name;
             let userDataDelete = 9;
-            let id = _id;
             fetch('http://push-web-notification-service-bkkbn-dev.apps.openshift4.ogya-rnd.com/api/v1/pushnotification', {
                 method: 'POST',
                 headers: { 'Content-type': 'application/json' },
@@ -206,7 +218,6 @@ function Home({ history, match, location }) {
 
         }
         setDeleting(false)
-
     }
 
 
@@ -215,8 +226,8 @@ function Home({ history, match, location }) {
     }
 
     const handleSensus = async (event) => {
-        const {value} = event.target
-        setStatusSensus((oldValue) => oldValue === value ? oldValue:value);
+        const { value } = event.target
+        setStatusSensus((oldValue) => oldValue === value ? oldValue : value);
         if (value === "all") {
             const getAllDataBkkbn = async () => {
                 const query = await dataBkkbn.local.find({
@@ -236,7 +247,6 @@ function Home({ history, match, location }) {
             });
             setDataBkkbnDocs(query.docs)
         }
-
     }
 
     return (

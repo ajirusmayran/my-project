@@ -1,5 +1,8 @@
 const remotebase = "https://dev2.multisoft.co.id:36984";
-//const remotebase = "http://35.201.183.73:5984";
+// const remotebase = "http://35.201.183.73:5984";
+// const remotebase = "http://36.89.25.220:35984";
+// const remotebase = "http://localhost:5984";
+// const remotebase = "https://36.89.25.220:36984/";
 
 export const remote = {
     usermanagement: `${remotebase}/usermanagement`,

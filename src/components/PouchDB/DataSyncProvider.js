@@ -61,14 +61,25 @@ export default function DataSyncProvider(props) {
                     let statusOperasi = 'Tambah Data'
                     let isDeleted = info.change.docs[0]._deleted
                     let revSplit = parseInt(info.change.docs[0]._rev.split("-")[0])
-                    if (revSplit > 1) {
+                    if (revSplit > 3) {
                         if (isDeleted) {
                             statusOperasi = 'Hapus Data'
                         } else {
                             statusOperasi = 'Ubah Data'
                         }
                     }
-                    messages = [...messages, { 'content': 'Tanggal: ' + date + ', ' + 'status: ' + info.change.docs[0].status_sensus + ', isi: ' + statusOperasi + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
+
+                    if(revSplit % 3 == 1){
+                        messages = [...messages, { 'content': 'Tanggal: ' + date + ', isi: ' + statusOperasi + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
+                    }
+                    else if(isDeleted){
+                        messages = [...messages, { 'content': 'Tanggal: ' + date + ', isi: ' + statusOperasi + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
+                    }
+                    else {
+                        messages = [...messages, { 'content': 'Tanggal: ' + date + ', ' + 'status: ' + info.change.docs[0].status_sensus + ', isi: ' + statusOperasi + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
+                    }
+
+                    //messages = [...messages, { 'content': 'Tanggal: ' + date + ', ' + 'status: ' + info.change.docs[0].status_sensus + ', isi: ' + statusOperasi + ' pada no. KK: ' + info.change.docs[0].no_kk + ' a.n.: ' + info.change.docs[0].data_nik[0].nama_anggotakel }];
 
                     // Notif lonceng
                     // let itemSplits = info.change.docs[0]._rev.split("-")
