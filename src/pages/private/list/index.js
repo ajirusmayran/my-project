@@ -196,7 +196,7 @@ function Home({ history, match, location }) {
             let userDelete = metadata.name;
             let userDataDelete = 9;
             
-            fetch('http://push-web-notification-service-bkkbn-dev.apps.openshift4.ogya-rnd.com/api/v1/pushnotification', {
+            fetch('http://dev2.multisoft.co.id:10009/api/v1/pushnotification', {
                 method: 'POST',
                 headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify({
