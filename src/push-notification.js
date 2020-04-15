@@ -58,7 +58,7 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 				let Id = metadata.name;
 				// let Id = 2;
 				let Token = token;
-				fetch('http://dev2.multisoft.co.id:10009/api/v1/register', {
+				fetch('http://dev2.multisoft.co.id:10006/api/v1/register', {
 					method: 'POST',
 					headers: { 'Content-type': 'application/json' },
 					body: JSON.stringify({
