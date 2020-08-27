@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,KACE,yEAAsE,CACpE,qBACJ","file":"main.25665c36.chunk.css","sourcesContent":["body {\n  background: url(./images/background.jpg) no-repeat center center fixed;\n    background-size: cover;\n}\n"]}
