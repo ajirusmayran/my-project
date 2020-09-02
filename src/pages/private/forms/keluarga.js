@@ -52,7 +52,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
 
     const [isSubmitting, setSubmitting] = useState(false);
 
-    const itemHubungan = ['Anak', 'Lain-lain']
+    const itemHubungan = ['Anak', 'Lainnya']
 
     const itemKeberadaan = ['Di Dalam Rumah', 'Di Luar Rumah', 'Di Luar Negeri']
 
@@ -667,7 +667,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                                 {/* jika halaman pertamanya belum kawin maka yg tampil di halaman ke dua dan seterusnya lain2 */}
                                 {
                                     keluarga["01"].sts_kawin === "1" && id >= "02" &&
-                                    <MenuItem value="4">Lain-lain</MenuItem>
+                                    <MenuItem value="4">Lainnya</MenuItem>
                                 }
 
                             </Select>

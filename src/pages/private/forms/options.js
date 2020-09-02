@@ -9,7 +9,7 @@ export const sts_hubungan = {
     "1": "Kepala Keluarga",
     "2": "Istri/Suami",
     "3": "Anak",
-    "4": "Lain-lain"
+    "4": "Lainnya"
 }
 
 // export const sts_hubanak_ibu = {
