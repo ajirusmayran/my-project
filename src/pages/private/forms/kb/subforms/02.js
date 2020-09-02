@@ -110,7 +110,6 @@ function SubForm02({ id, setValue, saveValue, value, no_kk }) {
                             }}
                             error={error.jumlah_anak ? true : false}
                             helperText={error.jumlah_anak}
-
                         />
                     </Grid>
 
