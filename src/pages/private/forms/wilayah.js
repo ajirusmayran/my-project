@@ -88,7 +88,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
 
         setWilayah({
             ...wilayah,
-            [e.target.name]: e.target.value.toUpperCase()
+            [e.target.name]: e.target.value
         })
         setError({
             ...error,
@@ -388,6 +388,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             disabled={isSubmitting}
                             fullWidth
                             variant="outlined"
+                            style={{ textTransform: 'uppercase' }}
                             placeholder="Alamat"
                             multiline
                             rows={2}
