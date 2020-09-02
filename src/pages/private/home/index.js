@@ -162,7 +162,7 @@ function Home({ history }) {
                         <Paper className={classes.blueGreyBackground} elevation={0}>
                             <Create />
                             <Typography>
-                                Entry Here</Typography>
+                                Tambah Data</Typography>
                         </Paper>
                     </ButtonBase>
                 </Grid>
@@ -173,7 +173,7 @@ function Home({ history }) {
                         <Paper className={classes.blueGreyBackground} elevation={0}>
                             <People />
                             <Typography>
-                                List Keluarga</Typography>
+                                Daftar Keluarga</Typography>
                         </Paper>
                     </ButtonBase>
                 </Grid>

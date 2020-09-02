@@ -256,7 +256,7 @@ function Home({ history, match, location }) {
 
             <Grid container spacing={3}>
                 <Grid item xs={12} className={classes.textCenter}>
-                    <Typography variant="h5" component="h1">List Keluarga</Typography>
+                    <Typography variant="h5" component="h1">Daftar Keluarga</Typography>
 
                 </Grid>
                 <Grid item xs={6} md={3} lg={3} className={classes.textLeft}>

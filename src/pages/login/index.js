@@ -192,7 +192,7 @@ function Login(props) {
                 </Paper>
             </Grid>
             <Grid item xs={12} className={classes.textCenter}>
-                <Typography>&copy; {new Date().getFullYear()} BKKBN</Typography>
+                <Typography>Copyright &copy; {new Date().getFullYear()} BKKBN</Typography>
             </Grid>
         </Grid>
     </Container>

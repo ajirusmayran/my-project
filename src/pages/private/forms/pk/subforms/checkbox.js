@@ -191,7 +191,7 @@ function SubFormCheckbox({ id, setValue, saveValue, value, form, keluarga, pk, n
                                                 <TextField
                                                     fullWidth
 
-                                                    placeholder="Tulisakan"
+                                                    placeholder="Tuliskan"
                                                     variant="outlined"
                                                     id="jawaban_lainnya"
                                                     name="jawaban_lainnya"
