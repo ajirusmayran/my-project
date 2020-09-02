@@ -122,8 +122,12 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
 
             // Sebatang Kara Mengisi PK No.1
             if (isSingle) {
-                if (subformIndex === 1) {
-                    setSubFormIndex(index => index + 2);
+                if (subformIndex === 0) {
+                    setSubFormIndex(index => index + 3);
+                } else if (subformIndex === 7) {
+                    setSubFormIndex(index => index + 4);
+                } else if (subformIndex === 11) {
+                    setSubFormIndex(index => index + 4);
                 } else {
                     setSubFormIndex(index => index + 1);
                 }
@@ -185,7 +189,11 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
             // Sebatang Kara Mengisi PK No.1
             if (isSingle) {
                 if (subformIndex === 3) {
-                    setSubFormIndex(index => index - 2);
+                    setSubFormIndex(index => index - 3);
+                } else if (subformIndex === 11) {
+                    setSubFormIndex(index => index - 4);
+                } else if (subformIndex === 15) {
+                    setSubFormIndex(index => index - 4);
                 } else {
                     setSubFormIndex(index => index - 1);
                 }

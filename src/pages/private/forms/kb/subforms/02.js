@@ -23,7 +23,9 @@ function SubForm02({ id, setValue, saveValue, value, no_kk }) {
 
 
         if (e.target.type === "number" && parseInt(e.target.value) < 0) {
-
+            return false;
+        }
+        if (e.target.name === "jumlah_anak" && e.target.value.length > 2) {
             return false;
         }
 
@@ -103,7 +105,8 @@ function SubForm02({ id, setValue, saveValue, value, no_kk }) {
                             type="number"
                             inputProps={{
                                 className: classes.inputMini,
-                                min: 0
+                                min: 0,
+                                maxLength: 2
                             }}
                             error={error.jumlah_anak ? true : false}
                             helperText={error.jumlah_anak}

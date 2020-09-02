@@ -28,7 +28,10 @@ function SubForm03({ id, setValue, saveValue, value, no_kk }) {
     const handleChange = (e) => {
 
         if (e.target.type === "number" && parseInt(e.target.value) < 0) {
+            return false;
+        }
 
+        if (e.target.name === "usia_kehamilan" && e.target.value.length > 2) {
             return false;
         }
 
@@ -180,7 +183,8 @@ function SubForm03({ id, setValue, saveValue, value, no_kk }) {
 
                                         className: classes.inputMini,
                                         min: 0,
-                                        max: 45
+                                        max: 48,
+                                        maxLength: 2
                                     }}
                                     InputLabelProps={{ shrink: true }}
                                     error={error.usia_kehamilan ? true : false}

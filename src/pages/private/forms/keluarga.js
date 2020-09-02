@@ -76,7 +76,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
             ...keluarga,
             [id]: {
                 ...keluarga[id],
-                [name]: value
+                [name]: value.toUpperCase()
             }
         })
 
@@ -236,6 +236,9 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         else if (!selectedKeluarga.nama_anggotakel.match(/^[a-zA-Z\.\ ]+$/)) {
             newError.nama_anggotakel = "Nama tidak boleh mengandung Angka & Symbol";
         }
+        // else if (selectedKeluarga.nama_anggotakel && selectedKeluarga.nama_anggotakel.length > 3) {
+        //     newError.nama_anggotakel = "Nama Lengkap tidak boleh lebih dari 20 digit";
+        // }
 
         if (!selectedKeluarga.nik) {
             newError.nik = "NIK wajib diisi";
@@ -318,8 +321,8 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
 
             if (!selectedKeluarga.usia_kawin) {
                 newError.usia_kawin = "Usia Kawin Pertama wajib diisi";
-            } else if (parseInt(selectedKeluarga.usia_kawin) < 10) {
-                newError.usia_kawin = "Usia Kawin Pertama tidak boleh diisi < 10";
+            } else if (parseInt(selectedKeluarga.usia_kawin) < 7) {
+                newError.usia_kawin = "Usia Kawin Pertama tidak boleh diisi < 7";
             } else if (selectedKeluarga.tgl_lahir && parseInt(selectedKeluarga.usia_kawin) >= countAge(selectedKeluarga.tgl_lahir) + 2) {
                 newError.usia_kawin = "Usia Kawin Pertama tidak boleh lebih besar dari umur+1";
             }
@@ -473,7 +476,11 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                             value={selectedKeluarga.nama_anggotakel || ''}
                             name="nama_anggotakel"
                             id="nama_anggotakel"
+                            inputProps={{
 
+                                min: 0,
+                                maxLength: 20
+                            }}
                             onChange={handleChange}
                             error={error.nama_anggotakel ? true : false}
                             helperText={error.nama_anggotakel}

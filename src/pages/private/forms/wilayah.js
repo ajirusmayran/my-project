@@ -88,7 +88,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
 
         setWilayah({
             ...wilayah,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value.toUpperCase()
         })
         setError({
             ...error,
