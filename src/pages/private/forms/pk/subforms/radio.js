@@ -164,7 +164,7 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBa
                                     <TextField
                                         fullWidth
 
-                                        placeholder="Tulisakan"
+                                        placeholder="Tuliskan"
                                         variant="outlined"
                                         id="jawaban_lainnya"
                                         name="jawaban_lainnya"

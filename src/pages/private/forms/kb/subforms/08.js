@@ -210,7 +210,7 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                                         <TextField
                                             fullWidth
 
-                                            placeholder="Tulisakan"
+                                            placeholder="Tuliskan"
                                             variant="outlined"
                                             id="tempat_pelayanan_lainnya"
                                             name="tempat_pelayanan_lainnya"

@@ -266,7 +266,7 @@ export default function Private({ history, match, location }) {
                             history.push('/list')
                             handleCloseMenu()
                         }}><ListItemIcon><PeopleIcon fontSize="small" /></ListItemIcon>
-                            <ListItemText primary="List Keluarga" /></MenuItem>
+                            <ListItemText primary="Daftar Keluarga" /></MenuItem>
                         <Divider />
                         <MenuItem onClick={handleSignOut}><ListItemIcon><SignOutIcon fontSize="small" /></ListItemIcon>
                             <ListItemText primary="Logout" /></MenuItem>
