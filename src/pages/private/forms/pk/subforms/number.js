@@ -25,6 +25,9 @@ function SubFormNumber({ id, setValue, saveValue, value, form }) {
 
             return false;
         }
+        if (e.target.name === "jawaban" && e.target.value.length > 5) {
+            return false;
+        }
 
 
         setValue(e)
@@ -96,7 +99,8 @@ function SubFormNumber({ id, setValue, saveValue, value, form }) {
                             type="number"
                             inputProps={{
                                 className: classes.inputMini,
-                                min: 0
+                                min: 0,
+                                maxLength: 5
                             }}
                             error={error.jawaban ? true : false}
                             helperText={error.jawaban}
