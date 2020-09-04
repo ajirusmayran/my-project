@@ -76,6 +76,25 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
             ...keluarga,
             [id]: {
                 ...keluarga[id],
+                [name]: value
+            }
+        })
+
+        setError({
+            ...error,
+            [name]: ""
+        })
+
+        setSomethingChange(true)
+    }
+
+    const handleChangeUppercase = (e) => {
+        const { type, name, value } = e.target
+
+        setKeluarga({
+            ...keluarga,
+            [id]: {
+                ...keluarga[id],
                 [name]: value.toUpperCase()
             }
         })
@@ -482,7 +501,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                                 min: 0,
                                 maxLength: 20
                             }}
-                            onChange={handleChange}
+                            onChange={handleChangeUppercase}
                             error={error.nama_anggotakel ? true : false}
                             helperText={error.nama_anggotakel}
                         />

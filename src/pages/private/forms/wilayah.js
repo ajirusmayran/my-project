@@ -98,6 +98,20 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
         setSomethingChange(true)
     }
 
+    const handleChangeUppercase = (e) => {
+
+        setWilayah({
+            ...wilayah,
+            [e.target.name]: e.target.value.toUpperCase()
+        })
+        setError({
+            ...error,
+            [e.target.name]: ""
+        })
+
+        setSomethingChange(true)
+    }
+
     const validate = () => {
         let newError = {};
 
@@ -396,7 +410,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             name="alamat"
                             id="alamat"
 
-                            onChange={handleChange}
+                            onChange={handleChangeUppercase}
                             error={error.alamat ? true : false}
                             helperText={error.alamat}
                         />
