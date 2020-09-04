@@ -57,7 +57,7 @@ function SubForm03({ id, setValue, saveValue, value, no_kk }) {
                 newError.usia_kehamilan = "Usia kehamilan wajib diisi";
             } else if (!isNumeric(value.usia_kehamilan)) {
                 newError.usia_kehamilan = "Usia kehamilan tidak valid";
-            } else if (parseInt(value.usia_kehamilan) < 0 || parseInt(value.usia_kehamilan) > 45) {
+            } else if (parseInt(value.usia_kehamilan) <= 0 || parseInt(value.usia_kehamilan) > 45) {
                 newError.usia_kehamilan = "Usia kehamilan tidak valid";
             }
 

@@ -12,6 +12,14 @@ export function countAge(tgl_lahir) {
     return parseInt(years);
 }
 
+export function countAgeMonth(tgl_lahir) {
+
+    const days = differenceInCalendarDays(new Date(), parseDate(tgl_lahir, formatString, new Date()));
+
+    const month = days / 30;
+    return parseInt(month);
+}
+
 function haveChildren(keluarga) {
 
     return keluarga.some((value) => {
@@ -55,9 +63,9 @@ function haveChildrenUnder5(keluarga) {
 
             // const days = differenceInCalendarDays(new Date(), new Date(value.tgl_lahir));
 
-            const years = countAge(value.tgl_lahir);//days / 365;
+            const month = countAgeMonth(value.tgl_lahir);//days / 365;
 
-            if (years <= 5) {
+            if (month <= 60) {
                 return true;
             }
         // }
@@ -72,9 +80,9 @@ function haveChildrenUnder6(keluarga) {
 
             // const days = differenceInCalendarDays(new Date(), new Date(value.tgl_lahir));
 
-            const years = countAge(value.tgl_lahir);//days / 365;
+            const month = countAgeMonth(value.tgl_lahir);//days / 365;
 
-            if (years <= 6) {
+            if (month <= 72) {
                 return true;
             }
         //}
@@ -89,10 +97,10 @@ function haveChildrenFrom10To24(keluarga) {
 
             // const days = differenceInCalendarDays(new Date(), new Date(value.tgl_lahir));
 
-            const years = countAge(value.tgl_lahir);//days / 365;
+            const month = countAgeMonth(value.tgl_lahir);//days / 365;
             //console.log(years);
 
-            if (years >= 10 && years <= 24) {
+            if (month >= 120 && month <= 288) {
                 //console.log('true')
                 return true;
             }
@@ -109,9 +117,9 @@ function haveFamilyMember60(keluarga) {
 
         // const days = differenceInCalendarDays(new Date(), new Date(value.tgl_lahir));
 
-        const years = countAge(value.tgl_lahir);//days / 365;
+        const month = countAgeMonth(value.tgl_lahir);//days / 365;
 
-        if (years >= 60) {
+        if (month >= 720) {
             return true;
         }
 

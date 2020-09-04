@@ -75,9 +75,9 @@ function SubForm01({ id, setValue, saveValue, value, no_kk }) {
             newError.masih_hidup_perempuan = " Jumlah Perempuan masih hidup tidak boleh lebih besar dari Jumlah Perempuan lahir hidup";
         }
 
-        if (parseInt(value.lahir_hidup_laki_laki) + parseInt(value.lahir_hidup_perempuan) > parseInt(value.kelahiran) ) {
-            newError.kelahiran = " Jumlah Laki-laki lahir hidup dan Jumlah Perempuan masih hidup tidak boleh lebih dari Jumlah Kelahiran";
-        }
+        // if (parseInt(value.lahir_hidup_laki_laki) + parseInt(value.lahir_hidup_perempuan) > parseInt(value.kelahiran) ) {
+        //     newError.kelahiran = " Jumlah Laki-laki lahir hidup dan Jumlah Perempuan masih hidup tidak boleh lebih dari Jumlah Kelahiran";
+        // }
 
         return newError;
     }

@@ -23,9 +23,9 @@ function SubForm05({ id, setValue, saveValue, value, kb, handleNextSub, navigati
     const [dontUseContrasep, setDontUseContrasep] = useState(false);
     useEffect(() => {
         setError({})
-        
+
         // if (kb["0104"].menggunakan_kontrasepsi === "2" || kb["0103"].sedang_hamil === "1") {
-        
+
         //     setDontUseContrasep(true);
         // } else {
         //     if (navigationMode === 'back') {
@@ -35,18 +35,18 @@ function SubForm05({ id, setValue, saveValue, value, kb, handleNextSub, navigati
         //     }
         // }
         /* cek kondisi untuk semua form */
-        if(kb["0103"].sedang_hamil==="2" && kb["0104"].menggunakan_kontrasepsi==="2" && kb["0105"].pernah_menggunakan_kontrasepsi ==="1"){
+        if (kb["0103"].sedang_hamil === "2" && kb["0104"].menggunakan_kontrasepsi === "2" && kb["0105"].pernah_menggunakan_kontrasepsi === "1") {
             setDontUseContrasep(true);
-        }else{
-            if(kb["0103"].sedang_hamil==="2"  && kb["0104"].menggunakan_kontrasepsi==="1"){
+        } else {
+            if (kb["0103"].sedang_hamil === "2" && kb["0104"].menggunakan_kontrasepsi === "1") {
                 if (navigationMode === 'back') {
                     handleBackSub();
                 } else {
                     handleNextSub()
                 }
-            
 
-            }else{
+
+            } else {
                 setDontUseContrasep(true);
             }
         }
@@ -94,6 +94,16 @@ function SubForm05({ id, setValue, saveValue, value, kb, handleNextSub, navigati
 
             if (!value.tahun_berhenti) {
                 newError.tahun_berhenti = "Tahun berhenti wajib diisi";
+            }
+
+            if (value.tahun_berhenti < value.tahun_mulai) {
+                newError.tahun_berhenti = "Tahun berhenti tidak boleh lebih kecil dari tahun mulai";
+            }
+
+            if (value.tahun_berhenti == value.tahun_mulai) {
+                if (value.bulan_berhenti < value.bulan_mulai) {
+                    newError.bulan_berhenti = "Bulan berhenti tidak boleh lebih kecil dari bulan mulai";
+                }
             }
         }
 

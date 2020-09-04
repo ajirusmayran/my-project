@@ -401,7 +401,7 @@
     "0230": {
         "no": "30",
         "pertanyaan": "Jika ya, darimana info tersebut diperoleh (Jawaban boleh lebih dari satu):",
-        "tipe": "checkbox",
+        "tipe": "checkbox2",
         "options": [
             "Koran/Majalah/Tabloid",
             "Televisi/Radio/Videotron",
