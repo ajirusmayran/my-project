@@ -157,8 +157,7 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
             saveValue(normalizeValue)
         }
     }
-
-    
+ 
     const renderSwitch = (kb7) => {
         switch (kb7) {
             case '6' :
