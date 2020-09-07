@@ -32,42 +32,42 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
         //     }
         // }
 
-         /* cek kondisi untuk semua form */
-         if(kb["0103"].sedang_hamil==="2" && kb["0104"].menggunakan_kontrasepsi==="2" && kb["0105"].pernah_menggunakan_kontrasepsi ==="1"){
-            if (kb["0107"].jenis_kontrasepsi === "9"){
+        /* cek kondisi untuk semua form */
+        if (kb["0103"].sedang_hamil === "2" && kb["0104"].menggunakan_kontrasepsi === "2" && kb["0105"].pernah_menggunakan_kontrasepsi === "1") {
+            if (kb["0107"].jenis_kontrasepsi === "9") {
                 // skip
                 if (navigationMode === 'back') {
                     handleBackSub();
                 } else {
                     handleNextSub()
                 }
-            }else{
+            } else {
                 // jalan
                 setUseModernContrasep(true);
             }
-            
-        }else{
-            if(kb["0103"].sedang_hamil==="2"  && kb["0104"].menggunakan_kontrasepsi==="2" && kb["0105"].pernah_menggunakan_kontrasepsi ==="2"){
+
+        } else {
+            if (kb["0103"].sedang_hamil === "2" && kb["0104"].menggunakan_kontrasepsi === "2" && kb["0105"].pernah_menggunakan_kontrasepsi === "2") {
                 if (navigationMode === 'back') {
                     handleBackSub();
                 } else {
                     handleNextSub()
                 }
-            
 
-            }else{
-                if (kb["0107"].jenis_kontrasepsi === "9"){
+
+            } else {
+                if (kb["0107"].jenis_kontrasepsi === "9") {
                     // skip
                     if (navigationMode === 'back') {
                         handleBackSub();
                     } else {
                         handleNextSub()
                     }
-                }else{
+                } else {
                     // jalan
                     setUseModernContrasep(true);
                 }
-    
+
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -157,6 +157,80 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
             saveValue(normalizeValue)
         }
     }
+
+    const renderSwitch = (kb7) => {
+        switch (kb7) {
+            case '6' :
+                return <div className={classes.radioSection}>
+                    <FormControlLabel control={<Radio />}
+                        value="6"
+                        label="Pustu/Pusling/Bidan Desa" />
+                    <FormControlLabel control={<Radio />}
+                        value="7"
+                        label="Praktek Mandiri Bidan" />
+                    <FormControlLabel control={<Radio />}
+                        value="8"
+                        label="Mobil Pelayanan KB" />
+                    <FormControlLabel control={<Radio />}
+                        value="9"
+                        label="Toko Obat/Apotik" />
+                </div>;
+            default:
+                return <><div className={classes.radioSection}>
+                    <FormControlLabel control={<Radio />}
+                        value="1"
+                        label="RS Pemerintah/TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="2"
+                        label="RS Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="3"
+                        label="Puskesmas/Klinik TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="4"
+                        label="Klinik Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="5"
+                        label="Praktek Dokter" />
+                </div>
+                    <div className={classes.radioSection}>
+                        <FormControlLabel control={<Radio />}
+                            value="6"
+                            label="Pustu/Pusling/Bidan Desa" />
+                        <FormControlLabel control={<Radio />}
+                            value="7"
+                            label="Praktek Mandiri Bidan" />
+                        <FormControlLabel control={<Radio />}
+                            value="8"
+                            label="Mobil Pelayanan KB" />
+                        <FormControlLabel control={<Radio />}
+                            value="9"
+                            label="Toko Obat/Apotik" />
+                        <FormControlLabel control={<Radio />}
+                            value="10"
+                            label="Lainnya" />
+                        {value.tempat_pelayanan === "10" &&
+
+                            <TextField
+                                fullWidth
+
+                                placeholder="Tuliskan"
+                                variant="outlined"
+                                id="tempat_pelayanan_lainnya"
+                                name="tempat_pelayanan_lainnya"
+                                value={value.tempat_pelayanan_lainnya || ''}
+                                onChange={handleChange}
+                                error={error.tempat_pelayanan_lainnya ? true : false}
+                                helperText={error.tempat_pelayanan_lainnya}
+                                inputProps={{
+                                    className: classes.inputMini
+                                }}
+
+                            />}
+                    </div></>;
+        }
+    }
+
     return (<form id={id} onSubmit={handleSubmit} noValidate>
         <div className={classes.card}>
             <div className={classes.cardHeader}>
@@ -172,7 +246,10 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                                 aria-label="tempat_pelayanan" name="tempat_pelayanan"
                                 className={classes.radioGroup}
                             >
-                                <div className={classes.radioSection}>
+
+                                {renderSwitch(kb["0107"].jenis_kontrasepsi)}
+
+                                {/* <div className={classes.radioSection}>
                                     <FormControlLabel control={<Radio />}
                                         value="1"
                                         label="RS Pemerintah/TNI/Polri" />
@@ -223,7 +300,7 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                                             }}
 
                                         />}
-                                </div>
+                                </div> */}
                             </RadioGroup>
 
                             <FormHelperText>{error.tempat_pelayanan}</FormHelperText>
