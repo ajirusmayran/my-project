@@ -9,7 +9,7 @@ export default function Copyright() {
             {'Copyright © '}
             BKKBN{' '}
             {new Date().getFullYear()}
-            {'.'} <br/>
+            <br />
             Versi {Version.version}
         </Typography>
     );
