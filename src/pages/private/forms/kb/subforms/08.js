@@ -158,7 +158,7 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
         }
     }
  
-    const renderSwitch = (kb7) => {
+    const renderSwitchKB8 = (kb7) => {
         switch (kb7) {
             case '6' :
                 return <div className={classes.radioSection}>
@@ -247,7 +247,9 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                                 className={classes.radioGroup}
                             >
 
-                                {renderSwitch(kb["0107"].jenis_kontrasepsi)}
+                                {renderSwitchKB8(kb["0107"].jenis_kontrasepsi)}
+
+
 
                                 {/* <div className={classes.radioSection}>
                                     <FormControlLabel control={<Radio />}
