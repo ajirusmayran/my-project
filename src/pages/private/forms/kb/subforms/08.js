@@ -157,24 +157,400 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
             saveValue(normalizeValue)
         }
     }
- 
+
     const renderSwitchKB8 = (kb7) => {
         switch (kb7) {
-            case '6' :
-                return <div className={classes.radioSection}>
+            case '1':
+                return <><div className={classes.radioSection}>
                     <FormControlLabel control={<Radio />}
-                        value="6"
-                        label="Pustu/Pusling/Bidan Desa" />
+                        value="1"
+                        label="RS Pemerintah/TNI/Polri" />
                     <FormControlLabel control={<Radio />}
-                        value="7"
-                        label="Praktek Mandiri Bidan" />
+                        value="2"
+                        label="RS Swasta" />
                     <FormControlLabel control={<Radio />}
-                        value="8"
-                        label="Mobil Pelayanan KB" />
+                        value="3"
+                        label="Puskesmas/Klinik TNI/Polri" />
+                </div>
+                    <div className={classes.radioSection}>
+                        <FormControlLabel control={<Radio />}
+                            value="4"
+                            label="Klinik Swasta" />
+                        <FormControlLabel control={<Radio />}
+                            value="5"
+                            label="Praktek Dokter" />
+                        <FormControlLabel control={<Radio />}
+                            value="10"
+                            label="Lainnya" />
+                        {value.tempat_pelayanan === "10" &&
+
+                            <TextField
+                                fullWidth
+
+                                placeholder="Tuliskan"
+                                variant="outlined"
+                                id="tempat_pelayanan_lainnya"
+                                name="tempat_pelayanan_lainnya"
+                                value={value.tempat_pelayanan_lainnya || ''}
+                                onChange={handleChange}
+                                error={error.tempat_pelayanan_lainnya ? true : false}
+                                helperText={error.tempat_pelayanan_lainnya}
+                                inputProps={{
+                                    className: classes.inputMini
+                                }}
+
+                            />}
+                    </div></>;
+            case '2':
+                return <><div className={classes.radioSection}>
                     <FormControlLabel control={<Radio />}
-                        value="9"
-                        label="Toko Obat/Apotik" />
-                </div>;
+                        value="1"
+                        label="RS Pemerintah/TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="2"
+                        label="RS Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="3"
+                        label="Puskesmas/Klinik TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="4"
+                        label="Klinik Swasta" />
+                </div>
+                    <div className={classes.radioSection}>
+                        <FormControlLabel control={<Radio />}
+                            value="5"
+                            label="Praktek Dokter" />
+                        <FormControlLabel control={<Radio />}
+                            value="8"
+                            label="Mobil Pelayanan KB" />
+                        <FormControlLabel control={<Radio />}
+                            value="10"
+                            label="Lainnya" />
+                        {value.tempat_pelayanan === "10" &&
+
+                            <TextField
+                                fullWidth
+
+                                placeholder="Tuliskan"
+                                variant="outlined"
+                                id="tempat_pelayanan_lainnya"
+                                name="tempat_pelayanan_lainnya"
+                                value={value.tempat_pelayanan_lainnya || ''}
+                                onChange={handleChange}
+                                error={error.tempat_pelayanan_lainnya ? true : false}
+                                helperText={error.tempat_pelayanan_lainnya}
+                                inputProps={{
+                                    className: classes.inputMini
+                                }}
+
+                            />}
+                    </div></>;
+            case '3':
+                return <><div className={classes.radioSection}>
+                    <FormControlLabel control={<Radio />}
+                        value="1"
+                        label="RS Pemerintah/TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="2"
+                        label="RS Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="3"
+                        label="Puskesmas/Klinik TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="4"
+                        label="Klinik Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="5"
+                        label="Praktek Dokter" />
+                </div>
+                    <div className={classes.radioSection}>
+                        <FormControlLabel control={<Radio />}
+                            value="6"
+                            label="Pustu/Pusling/Bidan Desa" />
+                        <FormControlLabel control={<Radio />}
+                            value="7"
+                            label="Praktek Mandiri Bidan" />
+                        <FormControlLabel control={<Radio />}
+                            value="8"
+                            label="Mobil Pelayanan KB" />
+                        <FormControlLabel control={<Radio />}
+                            value="10"
+                            label="Lainnya" />
+                        {value.tempat_pelayanan === "10" &&
+
+                            <TextField
+                                fullWidth
+
+                                placeholder="Tuliskan"
+                                variant="outlined"
+                                id="tempat_pelayanan_lainnya"
+                                name="tempat_pelayanan_lainnya"
+                                value={value.tempat_pelayanan_lainnya || ''}
+                                onChange={handleChange}
+                                error={error.tempat_pelayanan_lainnya ? true : false}
+                                helperText={error.tempat_pelayanan_lainnya}
+                                inputProps={{
+                                    className: classes.inputMini
+                                }}
+
+                            />}
+                    </div></>;
+            case '4':
+                return <><div className={classes.radioSection}>
+                    <FormControlLabel control={<Radio />}
+                        value="1"
+                        label="RS Pemerintah/TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="2"
+                        label="RS Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="3"
+                        label="Puskesmas/Klinik TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="4"
+                        label="Klinik Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="5"
+                        label="Praktek Dokter" />
+                </div>
+                    <div className={classes.radioSection}>
+                        <FormControlLabel control={<Radio />}
+                            value="6"
+                            label="Pustu/Pusling/Bidan Desa" />
+                        <FormControlLabel control={<Radio />}
+                            value="7"
+                            label="Praktek Mandiri Bidan" />
+                        <FormControlLabel control={<Radio />}
+                            value="8"
+                            label="Mobil Pelayanan KB" />
+                        <FormControlLabel control={<Radio />}
+                            value="10"
+                            label="Lainnya" />
+                        {value.tempat_pelayanan === "10" &&
+
+                            <TextField
+                                fullWidth
+
+                                placeholder="Tuliskan"
+                                variant="outlined"
+                                id="tempat_pelayanan_lainnya"
+                                name="tempat_pelayanan_lainnya"
+                                value={value.tempat_pelayanan_lainnya || ''}
+                                onChange={handleChange}
+                                error={error.tempat_pelayanan_lainnya ? true : false}
+                                helperText={error.tempat_pelayanan_lainnya}
+                                inputProps={{
+                                    className: classes.inputMini
+                                }}
+
+                            />}
+                    </div></>;
+            case '5':
+                return <><div className={classes.radioSection}>
+                    <FormControlLabel control={<Radio />}
+                        value="1"
+                        label="RS Pemerintah/TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="2"
+                        label="RS Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="3"
+                        label="Puskesmas/Klinik TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="4"
+                        label="Klinik Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="5"
+                        label="Praktek Dokter" />
+                </div>
+                    <div className={classes.radioSection}>
+                        <FormControlLabel control={<Radio />}
+                            value="6"
+                            label="Pustu/Pusling/Bidan Desa" />
+                        <FormControlLabel control={<Radio />}
+                            value="7"
+                            label="Praktek Mandiri Bidan" />
+                        <FormControlLabel control={<Radio />}
+                            value="8"
+                            label="Mobil Pelayanan KB" />
+                        <FormControlLabel control={<Radio />}
+                            value="10"
+                            label="Lainnya" />
+                        {value.tempat_pelayanan === "10" &&
+
+                            <TextField
+                                fullWidth
+
+                                placeholder="Tuliskan"
+                                variant="outlined"
+                                id="tempat_pelayanan_lainnya"
+                                name="tempat_pelayanan_lainnya"
+                                value={value.tempat_pelayanan_lainnya || ''}
+                                onChange={handleChange}
+                                error={error.tempat_pelayanan_lainnya ? true : false}
+                                helperText={error.tempat_pelayanan_lainnya}
+                                inputProps={{
+                                    className: classes.inputMini
+                                }}
+
+                            />}
+                    </div></>;
+            case '6':
+                return <><div className={classes.radioSection}>
+                    <FormControlLabel control={<Radio />}
+                        value="1"
+                        label="RS Pemerintah/TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="2"
+                        label="RS Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="3"
+                        label="Puskesmas/Klinik TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="4"
+                        label="Klinik Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="5"
+                        label="Praktek Dokter" />
+                </div>
+                    <div className={classes.radioSection}>
+                        <FormControlLabel control={<Radio />}
+                            value="6"
+                            label="Pustu/Pusling/Bidan Desa" />
+                        <FormControlLabel control={<Radio />}
+                            value="7"
+                            label="Praktek Mandiri Bidan" />
+                        <FormControlLabel control={<Radio />}
+                            value="8"
+                            label="Mobil Pelayanan KB" />
+                        <FormControlLabel control={<Radio />}
+                            value="9"
+                            label="Toko Obat/Apotik" />
+                        <FormControlLabel control={<Radio />}
+                            value="10"
+                            label="Lainnya" />
+                        {value.tempat_pelayanan === "10" &&
+
+                            <TextField
+                                fullWidth
+
+                                placeholder="Tuliskan"
+                                variant="outlined"
+                                id="tempat_pelayanan_lainnya"
+                                name="tempat_pelayanan_lainnya"
+                                value={value.tempat_pelayanan_lainnya || ''}
+                                onChange={handleChange}
+                                error={error.tempat_pelayanan_lainnya ? true : false}
+                                helperText={error.tempat_pelayanan_lainnya}
+                                inputProps={{
+                                    className: classes.inputMini
+                                }}
+
+                            />}
+                    </div></>;
+            case '7':
+                return <><div className={classes.radioSection}>
+                    <FormControlLabel control={<Radio />}
+                        value="1"
+                        label="RS Pemerintah/TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="2"
+                        label="RS Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="3"
+                        label="Puskesmas/Klinik TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="4"
+                        label="Klinik Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="5"
+                        label="Praktek Dokter" />
+                </div>
+                    <div className={classes.radioSection}>
+                        <FormControlLabel control={<Radio />}
+                            value="6"
+                            label="Pustu/Pusling/Bidan Desa" />
+                        <FormControlLabel control={<Radio />}
+                            value="7"
+                            label="Praktek Mandiri Bidan" />
+                        <FormControlLabel control={<Radio />}
+                            value="8"
+                            label="Mobil Pelayanan KB" />
+                        <FormControlLabel control={<Radio />}
+                            value="9"
+                            label="Toko Obat/Apotik" />
+                        <FormControlLabel control={<Radio />}
+                            value="10"
+                            label="Lainnya" />
+                        {value.tempat_pelayanan === "10" &&
+
+                            <TextField
+                                fullWidth
+
+                                placeholder="Tuliskan"
+                                variant="outlined"
+                                id="tempat_pelayanan_lainnya"
+                                name="tempat_pelayanan_lainnya"
+                                value={value.tempat_pelayanan_lainnya || ''}
+                                onChange={handleChange}
+                                error={error.tempat_pelayanan_lainnya ? true : false}
+                                helperText={error.tempat_pelayanan_lainnya}
+                                inputProps={{
+                                    className: classes.inputMini
+                                }}
+
+                            />}
+                    </div></>;
+            case '8':
+                return <><div className={classes.radioSection}>
+                    <FormControlLabel control={<Radio />}
+                        value="1"
+                        label="RS Pemerintah/TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="2"
+                        label="RS Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="3"
+                        label="Puskesmas/Klinik TNI/Polri" />
+                    <FormControlLabel control={<Radio />}
+                        value="4"
+                        label="Klinik Swasta" />
+                    <FormControlLabel control={<Radio />}
+                        value="5"
+                        label="Praktek Dokter" />
+                </div>
+                    <div className={classes.radioSection}>
+                        <FormControlLabel control={<Radio />}
+                            value="6"
+                            label="Pustu/Pusling/Bidan Desa" />
+                        <FormControlLabel control={<Radio />}
+                            value="7"
+                            label="Praktek Mandiri Bidan" />
+                        <FormControlLabel control={<Radio />}
+                            value="9"
+                            label="Toko Obat/Apotik" />
+                        <FormControlLabel control={<Radio />}
+                            value="10"
+                            label="Lainnya" />
+                        {value.tempat_pelayanan === "10" &&
+
+                            <TextField
+                                fullWidth
+
+                                placeholder="Tuliskan"
+                                variant="outlined"
+                                id="tempat_pelayanan_lainnya"
+                                name="tempat_pelayanan_lainnya"
+                                value={value.tempat_pelayanan_lainnya || ''}
+                                onChange={handleChange}
+                                error={error.tempat_pelayanan_lainnya ? true : false}
+                                helperText={error.tempat_pelayanan_lainnya}
+                                inputProps={{
+                                    className: classes.inputMini
+                                }}
+
+                            />}
+                    </div></>;
             default:
                 return <><div className={classes.radioSection}>
                     <FormControlLabel control={<Radio />}

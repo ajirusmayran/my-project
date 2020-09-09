@@ -175,16 +175,19 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, no_kk })
                                         value="1"
                                         label="Ya"
                                         labelPlacement="end"
+                                        disabled={!berlaku}
                                     />
                                     <FormControlLabel control={<Radio />}
                                         value="2"
                                         label="Tidak"
                                         labelPlacement="end"
+                                        disabled={!berlaku}
                                     />
                                     <FormControlLabel control={<Radio />}
                                         value="3"
                                         label="Tidak Berlaku"
                                         labelPlacement="end"
+                                        disabled={berlaku}
                                     />
                             </RadioGroup>
                             <FormHelperText>{error.jawabanB}</FormHelperText>

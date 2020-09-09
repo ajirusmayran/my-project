@@ -33,7 +33,9 @@
         "options": [
            
         ],
-        "dependencies": [],
+        "dependencies": [
+            "haveChildren"
+        ],
         "unit": "",
         "lain": false,
         "subform": true,
