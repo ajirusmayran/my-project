@@ -34,7 +34,7 @@
            
         ],
         "dependencies": [
-            "haveChildren"
+            "haveWifeOrHusband"
         ],
         "unit": "",
         "lain": false,
