@@ -745,8 +745,8 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                                 name="kd_ibukandung"
                                 displayEmpty
                             >
-                                <MenuItem value="">Kode Ibu Kandung</MenuItem>
 
+                                <MenuItem value="">Kode Ibu Kandung</MenuItem>
                                 {
                                     Object.values(keluarga).map(kel => {
                                         if (Object.keys(keluarga).length > 1) {
