@@ -28,12 +28,23 @@ export default (qid, normalize) => {
             jawaban: 'Jawaban_H1' in normalize ? normalize.Jawaban_H1.toString() : '',
             jawaban_lainnya: normalize.Lainnya
         }
-    }else if (subforms[qid].tipe === 'checkbox') {
+    } else if (subforms[qid].tipe === 'checkbox') {
 
         return {
             jawaban: normalize.Jawab_Pilih,
             kondisi: normalize.Jawaban_H1,
             jawaban_lainnya: normalize.Lainnya
+        }
+
+    } else if (subforms[qid].tipe === 'checkbox2') {
+        if (subforms["0229"].options === "2") {
+            return {}
+        } else {
+            return {
+                jawaban: normalize.Jawab_Pilih,
+                kondisi: normalize.Jawaban_H1,
+                jawaban_lainnya: normalize.Lainnya
+            }
         }
 
     } else if (subforms[qid].tipe === 'subformradio') {
@@ -49,7 +60,7 @@ export default (qid, normalize) => {
             jawabanC: answer3.pilihanpk,
             jawabanD: answer4.pilihanpk
         }
-    }  else if (subforms[qid].tipe === 'subformradio_18') {
+    } else if (subforms[qid].tipe === 'subformradio_18') {
 
         // const answer1 = normalize.answer[0];
         // const answer2 = normalize.answer[1];

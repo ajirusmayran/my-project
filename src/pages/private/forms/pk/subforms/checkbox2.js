@@ -108,6 +108,7 @@ function SubFormCheckbox2({ id, setValue, saveValue, value, form, keluarga, pk, 
     }
 
     const handleSubmit = (e) => {
+        console.log("Handle Submit checkbox2");
         e.preventDefault()
         const findErrors = validate();
 

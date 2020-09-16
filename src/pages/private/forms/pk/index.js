@@ -215,29 +215,68 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
     const no = Object.keys(subforms)[subformIndex];
 
     const setValue = (e) => {
-        setPK({
-            ...pk,
-            [no]: {
-                ...pk[no],
-                [e.target.name]: e.target.value
-            }
-        })
+        console.log(e.target.value, 'cekradio')
+        console.log(no, 'no')
+
+        if (no === '0229' && e.target.value === '2') {
+            console.log('set30 NULL')
+            const tempNo = Object.keys(subforms)[subformIndex + 1];
+            console.log(tempNo, 'tempNo')
+            setPK({
+                ...pk,
+                [no]: {
+                    ...pk[no],
+                    [e.target.name]: e.target.value
+                },
+                [tempNo]: {
+                    ...pk[tempNo],
+                    jawaban: []
+                }
+            })
+        } else {
+            setPK({
+                ...pk,
+                [no]: {
+                    ...pk[no],
+                    [e.target.name]: e.target.value
+                }
+            })
+        }
+
+        console.log(pk, 'pk')
+
         setSomethingChange(true)
     }
 
     const saveValue = async (normalizeValue) => {
+        console.log(normalizeValue, "normalizeValue")
         const id = `${wilayah.no_kk}${no}`;
         if (!isSomethingChange) {
-            setNormalizePK(normalizePK => ({
-                ...normalizePK,
-                [no]: {
-                    ...normalizeValue,
-                    _id: id,
-                    No_KK: wilayah.no_kk,
-                    Periode_Sensus: "2020",
-                    user_name: metadata.name
-                }
-            }));
+            if (no === '0229' && normalizeValue.Jawab_Pilih === '2') {
+                const temp30 = Object.keys(subforms)[subformIndex + 1];
+                setNormalizePK(normalizePK => ({
+                    ...normalizePK,
+                    [no]: {
+                        ...normalizeValue,
+                        _id: id,
+                        No_KK: wilayah.no_kk,
+                        Periode_Sensus: "2020",
+                        user_name: metadata.name
+                    },
+                    [temp30]: {}
+                }));
+            } else {
+                setNormalizePK(normalizePK => ({
+                    ...normalizePK,
+                    [no]: {
+                        ...normalizeValue,
+                        _id: id,
+                        No_KK: wilayah.no_kk,
+                        Periode_Sensus: "2020",
+                        user_name: metadata.name
+                    }
+                }));
+            }
             return handleNextSub();
         }
         //simpan ke db local
@@ -251,18 +290,31 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
             //     _rev: existing._rev,
             //     ...normalizeValue
             // })
-
-            setNormalizePK(normalizePK => ({
-                ...normalizePK,
-                [no]: {
-                    ...normalizeValue,
-                    _id: id,
-                    No_KK: wilayah.no_kk,
-                    Periode_Sensus: "2020",
-                    user_name: metadata.name
-                }
-            }));
-
+            if (no === '0229' && normalizeValue.Jawab_Pilih === '2') {
+                const temp30 = Object.keys(subforms)[subformIndex + 1];
+                setNormalizePK(normalizePK => ({
+                    ...normalizePK,
+                    [no]: {
+                        ...normalizeValue,
+                        _id: id,
+                        No_KK: wilayah.no_kk,
+                        Periode_Sensus: "2020",
+                        user_name: metadata.name
+                    },
+                    [temp30]: {}
+                }));
+            } else {
+                setNormalizePK(normalizePK => ({
+                    ...normalizePK,
+                    [no]: {
+                        ...normalizeValue,
+                        _id: id,
+                        No_KK: wilayah.no_kk,
+                        Periode_Sensus: "2020",
+                        user_name: metadata.name
+                    }
+                }));
+            }
             setSomethingChange(false);
             setSubmitting(false);
             handleNextSub()
