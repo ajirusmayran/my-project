@@ -384,7 +384,6 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
     const umurnikah = countAge(selectedKeluarga.tgl_lahir) + 1;
 
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
