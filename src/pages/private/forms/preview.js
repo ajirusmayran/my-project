@@ -11,7 +11,7 @@ export const renderDataKK = (metadata, wilayah) => {
 
     return (
         <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
                 <Divider />
             </Grid>
             
@@ -47,7 +47,7 @@ export const renderDataKK = (metadata, wilayah) => {
                 <Typography>: {metadata.wil_kelurahan.nama_kelurahan} </Typography>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12}>
                 <Divider />
             </Grid>
 
@@ -114,7 +114,7 @@ export const renderDataKK = (metadata, wilayah) => {
 export const renderDataNIK = item => {
 
     return (<Grid container spacing={1}>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
             <Divider />
         </Grid>
         <Grid item xs={6} >
