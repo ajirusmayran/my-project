@@ -121,7 +121,7 @@ export const renderDataNIK = item => {
             <Typography variant="subtitle1" align="center" style={{ backgroundColor: "#038af680" }}>Anggota Keluarga {item.no_urutnik}</Typography>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12}>
             <Divider />
         </Grid>
 
