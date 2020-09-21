@@ -47,9 +47,9 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 		await messaging.requestPermission()
 			.then(() => {
 				console.log('Have Permission');
-				navigator.geolocation.getCurrentPosition(function (position) {
+				// navigator.geolocation.getCurrentPosition(function (position) {
 
-				});
+				// });
 				return messaging.getToken();
 			})
 			.then(token => {
