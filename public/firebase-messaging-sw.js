@@ -5,6 +5,7 @@ firebase.initializeApp({
     apiKey: "AIzaSyCoZQsfuMIf6M8GOBqDC3aExvDtiMvhMfc",
     authDomain: "web-push-notification-7ca2b.firebaseapp.com",
     databaseURL: "https://web-push-notification-7ca2b.firebaseio.com",
+    // databaseURL: "http://web-push-notification-service-bkkbn.apps.tkp.platform.lintasarta.net",
     projectId: "web-push-notification-7ca2b",
     storageBucket: "web-push-notification-7ca2b.appspot.com",
     messagingSenderId: "204164476841",
