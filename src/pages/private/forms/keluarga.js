@@ -107,6 +107,25 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         setSomethingChange(true)
     }
 
+    const handleUsiaKawin = (e) => {
+        const { type, name, value } = e.target
+
+        setKeluarga({
+            ...keluarga,
+            [id]: {
+                ...keluarga[id],
+                [name]: 0
+            }
+        })
+
+        setError({
+            ...error,
+            [name]: ""
+        })
+
+        setSomethingChange(true)
+    }
+
     const handleChangeStsAkta = (e) => {
         const { type, name, value } = e.target
         if (type === "number") {
@@ -608,7 +627,7 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                             variant="outlined"
                             placeholder="Usia Kawin Pertama"
                             //value={selectedKeluarga.sts_kawin=="1" ? '' : selectedKeluarga.usia_kawin}
-                            value={selectedKeluarga.usia_kawin || ''}
+                            value={['2', '3', '4'].includes(selectedKeluarga.sts_kawin) ? selectedKeluarga.usia_kawin : ''}
                             name="usia_kawin"
                             id="usia_kawin"
                             type="number"

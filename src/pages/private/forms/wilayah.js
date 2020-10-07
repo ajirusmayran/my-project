@@ -192,8 +192,8 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
 
                 setWilayah({
                     ...wilayah,
-                    ['id_rw_bkkbn'] : `${id_rw_bkkbn}`,
-                    ['id_rt_bkkbn'] : `${id_rt_bkkbn}`,
+                    ['id_rw_bkkbn']: `${id_rw_bkkbn}`,
+                    ['id_rt_bkkbn']: `${id_rt_bkkbn}`,
                     ['no_kk']: `${metadata.wil_provinsi.id_provinsi_depdagri}${metadata.wil_kabupaten.id_kabupaten_depdagri}${metadata.wil_kecamatan.id_kecamatan_depdagri}${metadata.wil_kelurahan.id_kelurahan_depdagri}${id_rw_bkkbn}${id_rt_bkkbn}${wilayah.no_rmh}${wilayah.no_urutkel}`
                 })
 
@@ -305,6 +305,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             >
                                 <MenuItem value="">Pilih RT</MenuItem>
                                 {wilayah.id_rw &&
+                                    // metadata.wil_rt &&
                                     metadata.wil_rw.find(rw => parseInt(rw.id_rw) === parseInt(wilayah.id_rw)).wil_rt.map(rt => <MenuItem key={rt.id_rt} value={rt.id_rt}>{rt.nama_rt}</MenuItem>)}
 
 
