@@ -168,11 +168,11 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                     <FormControlLabel control={<Radio />}
                         value="2"
                         label="RS Swasta" />
-                    <FormControlLabel control={<Radio />}
+                    {/* <FormControlLabel control={<Radio />}
                         value="3"
-                        label="Puskesmas/Klinik TNI/Polri" />
+                        label="Puskesmas/Klinik TNI/Polri" /> */}
                 </div>
-                    <div className={classes.radioSection}>
+                    {/* <div className={classes.radioSection}>
                         <FormControlLabel control={<Radio />}
                             value="4"
                             label="Klinik Swasta" />
@@ -200,7 +200,8 @@ function SubForm08({ id, setValue, saveValue, value, kb, handleNextSub, navigati
                                 }}
 
                             />}
-                    </div></>;
+                    </div> */}
+                    </>;
             case '2':
                 return <><div className={classes.radioSection}>
                     <FormControlLabel control={<Radio />}

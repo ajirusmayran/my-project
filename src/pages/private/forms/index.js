@@ -14,17 +14,37 @@ import Container from '@material-ui/core/Container';
 
 import useStyles from './styles/index';
 
-export default function Form() {
+import { useParams, useHistory } from 'react-router-dom';
+import { usePouchDB } from '../../../components/PouchDB/PouchDBProvider';
+import { useSnackbar } from 'notistack';
+import lodashGet from 'lodash/get';
+import { countAge } from './pk/validation';
+
+export default function Form(mode) {
 
     const classes = useStyles();
+    const history = useHistory();
     const [forms, setForms] = useState([{ type: 'wilayah' }]);
     const [formIndex, setFormIndex] = useState(0);
+    const { user: { metadata }, dataKK, dataPK, dataKB, dataBkkbn } = usePouchDB();
     const [done, setDone] = useState(false);
     const [slide, setSlide] = useState({
         direction: "left",
         in: true,
         navigationMode: "next"
     });
+
+    const [isSaved, setSaved] = useState({
+        local: false,
+        remote: false
+    })
+
+    const [isSubmitting, setSubmitting] = useState({
+        local: false,
+        remote: false
+    });
+
+    const { enqueueSnackbar } = useSnackbar();
 
     const [wilayah, setWilayah] = useState({
 
@@ -40,6 +60,8 @@ export default function Form() {
 
     const [normalizeKB, setNormalizeKB] = useState({});
 
+    const [locationUser, setLocationUser] = useState([]);
+
     const [pk, setPK] = useState({
 
     })
@@ -47,7 +69,7 @@ export default function Form() {
     const [normalizePK, setNormalizePK] = useState({});
 
     useEffect(() => {
-        if ( wilayah.jumlah_keluarga) {
+        if (wilayah.jumlah_keluarga) {
             const jumlah_keluarga = parseInt(wilayah.jumlah_keluarga);
 
             setKeluarga(keluarga => {
@@ -71,7 +93,7 @@ export default function Form() {
 
         }
     }, [wilayah.jumlah_keluarga])
-    
+
     const resetForm = () => {
         setSlide({
             direction: "right",
@@ -96,8 +118,8 @@ export default function Form() {
             setDone(false);
         }, 300)
     }
-    const handleNext = () => {
 
+    const handleNext = () => {
         setSlide({
             direction: "right",
             in: false,
@@ -119,7 +141,6 @@ export default function Form() {
         }, 300)
 
     }
-
 
     const handleBack = () => {
         setSlide({
@@ -161,6 +182,99 @@ export default function Form() {
     //console.log(slide, formIndex, wilayah, keluarga, kb, pk)
     // console.log(normalizeKB);
     // console.log(normalizePK)
+
+    const handleDraft = target => async (e) => {
+
+        console.log("nik kepala keluarga : ", keluarga["01"].nik)
+        if (keluarga["01"].nik && keluarga["01"].nik.length === 16) {
+            var alert = window.confirm("Apakah anda yakin untuk menyimpan data sementara ke Draft ?\nAnda akan diarahkan ke Daftar Draft");
+            if (alert == true) {
+                console.log('Ok')
+
+                console.log('Masuk Draft', target)
+
+
+                // put data utama to KK
+                const dataKKUtama = {
+                    // _id: wilayah.no_kk,
+                    _id: `${Date.now().toString()}${metadata.name}`,
+                    user_name: metadata.name,
+                    id_prov: parseInt(metadata.wil_provinsi.id_provinsi),
+                    id_prov_depdagri: parseInt(metadata.wil_provinsi.id_provinsi_depdagri),
+                    id_kab: parseInt(metadata.wil_kabupaten.id_kabupaten),
+                    id_kab_depdagri: parseInt(metadata.wil_kabupaten.id_kabupaten_depdagri),
+                    id_kec: parseInt(metadata.wil_kecamatan.id_kecamatan),
+                    id_kec_depdagri: parseInt(metadata.wil_kecamatan.id_kecamatan_depdagri),
+                    id_kel: parseInt(metadata.wil_kelurahan.id_kelurahan),
+                    id_kel_depdagri: parseInt(metadata.wil_kelurahan.id_kelurahan_depdagri),
+                    ...wilayah,
+                    id_rw: wilayah.id_rw,
+                    id_rt: wilayah.id_rt,
+                    id_rw_bkkbn: wilayah.id_rw_bkkbn,
+                    id_rt_bkkbn: wilayah.id_rt_bkkbn,
+                    location: { locationUser },
+                };
+                const data_nik = Object.keys(keluarga).map(_id => {
+
+                    return {
+                        ...keluarga[_id],
+                        sts_hubungan: parseInt(keluarga[_id].sts_hubungan),
+                        sts_kawin: parseInt(keluarga[_id].sts_kawin),
+                        jns_pendidikan: parseInt(keluarga[_id].jns_pendidikan),
+                        jns_asuransi: parseInt(keluarga[_id].jns_asuransi),
+                        id_agama: parseInt(keluarga[_id].id_agama),
+                        id_pekerjaan: parseInt(keluarga[_id].id_pekerjaan),
+                        usia_kawin: parseInt(keluarga[_id].sts_kawin) === 1 ? 0 : parseInt(lodashGet(keluarga[_id], 'usia_kawin', 0)),
+                        // sts_hubanak_ibu: parseInt(lodashGet(keluarga[_id], 'sts_hubanak_ibu', 0)),
+                        kd_ibukandung: parseInt(lodashGet(keluarga[_id], 'kd_ibukandung', 0)),
+                        umur: countAge(keluarga[_id].tgl_lahir),
+                        keberadaan: parseInt(lodashGet(keluarga[_id], 'keberadaan', 0)),
+                    }
+                })
+                //simpan ke db local
+                setSubmitting(curr => ({ ...curr, [target]: true }));
+                try {
+                    const data_kb = Object.values(normalizeKB);
+                    const data_pk = Object.values(normalizePK);
+                    const status_draft = '1';
+
+                    const dataBkkbnAll = {
+                        ...dataKKUtama,
+                        periode_sensus: 2020,
+                        status_sensus: "",
+                        data_nik, data_kb, data_pk, status_draft,
+                    }
+
+                    await dataBkkbn[target].put(dataBkkbnAll);
+
+                    let message = mode === 'edit' ? `Data berhasil diperbarui` : `Data berhasil disimpan ke ${target} DB`
+                    enqueueSnackbar(message, { variant: "success" })
+
+                    const id = wilayah._id;
+
+                    // setSubmitting(curr => ({ ...curr, [target]: false }));
+                    setSaved(curr => ({ ...curr, [target]: true }));
+
+                    console.log('Tambah list draft')
+                    history.push('/list-draft');
+
+                } catch (e) {
+                    // setSubmitting(curr => ({ ...curr, [target]: false }));
+                    enqueueSnackbar(e.message, { variant: 'error' })
+                    if (e.message.includes("The database connection is closing")) {
+                        window.location.href = "/login"
+                    }
+                }
+
+            } else {
+                console.log('Not Ok')
+            }
+        } else {
+            window.confirm("NIK harus dimasukkan terlebih dahulu")
+        }
+    }
+
+
     return <Container maxWidth="md" className={classes.container}>
         <Slide direction={slide.direction} in={slide.in}>
             <div>
@@ -172,6 +286,7 @@ export default function Form() {
                         setWilayah={setWilayah}
                         setFormIndex={setFormIndex}
                         handleNext={handleNext}
+                        handleDraft={handleDraft}
 
                     />
 
@@ -189,6 +304,7 @@ export default function Form() {
                         setKeluarga={setKeluarga}
                         formIndex={formIndex}
                         wilayah={wilayah}
+                        handleDraft={handleDraft}
                     />
 
                 }
@@ -204,6 +320,7 @@ export default function Form() {
                         kb={kb}
                         setKB={setKB}
                         setNormalizeKB={setNormalizeKB}
+                        handleDraft={handleDraft}
                     />
 
                 }
@@ -221,6 +338,7 @@ export default function Form() {
                         pk={pk}
                         setPK={setPK}
                         setNormalizePK={setNormalizePK}
+                        handleDraft={handleDraft}
                     />
                 }
             </div>

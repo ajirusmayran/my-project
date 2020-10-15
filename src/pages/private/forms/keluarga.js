@@ -15,10 +15,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { DatePicker } from "@material-ui/pickers";
 
 
+import { usePouchDB } from '../../../components/PouchDB/PouchDBProvider';
+import lodashGet from 'lodash/get';
 import { Swipeable } from 'react-swipeable';
+
 //icons
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import SaveIcon from '@material-ui/icons/Save';
 
 //styles
 import useStyles from './styles/keluarga';
@@ -38,7 +42,7 @@ import { countAge } from './pk/validation';
 
 export const formatString = "dd-MM-yyyy";
 
-function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, formIndex, mode }) {
+function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, handleDraft, formIndex, mode, normalizePK, normalizeKB, }) {
     const classes = useStyles();
     const nextRef = useRef(null);
     const backRef = useRef(null);
@@ -48,9 +52,19 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
 
     })
 
+    const { user: { metadata }, dataKK, dataPK, dataKB, dataBkkbn } = usePouchDB();
+    const [locationUser, setLocationUser] = useState([]);
+
     const [isSomethingChange, setSomethingChange] = useState(false);
 
     const [isSubmitting, setSubmitting] = useState(false);
+
+    const [qtyKeberadaan, setQtyKeberadaan] = useState([{ diDalamRumah: 0, diLuarRumah: 0, diLuarNegeri: 0 }])
+
+    const [isSaved, setSaved] = useState({
+        local: false,
+        remote: false
+    })
 
     const itemHubungan = ['Anak', 'Lainnya']
 
@@ -61,6 +75,8 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         setError({})
     }, [id])
 
+    // const qtyKeberadaan = [{ diDalamRumah: 0, diLuarRumah: 0, diLuarNegeri: 0 }]
+
     const handleChange = (e) => {
         const { type, name, value } = e.target
         if (type === "number") {
@@ -69,6 +85,14 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
 
             if (name === "nik" && value.length > 16) {
                 return false;
+            }
+        }
+
+        if (name === "keberadaan") {
+            if (selectedKeluarga.keberadaan === "1") {
+                qtyKeberadaan.diDalamRumah = qtyKeberadaan.diDalamRumah + 1
+            } else if (selectedKeluarga.keberadaan === "2") {
+                qtyKeberadaan.diLuarRumah = qtyKeberadaan.diLuarRumah + 1
             }
         }
 
@@ -88,14 +112,47 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         setSomethingChange(true)
     }
 
+    // console.log("qtyKeberadaan : ", qtyKeberadaan)
+
     const handleChangeUppercase = (e) => {
+        const { type, name, value } = e.target
+
+        if (keluarga["01"].jenis_kelamin === "1" && keluarga["01"].sts_kawin === "2" && id === "02") {
+            setKeluarga({
+                ...keluarga,
+                [id]: {
+                    ...keluarga[id],
+                    ["jenis_kelamin"]: "2",
+                    ["sts_kawin"]: "2"
+                }
+            })
+
+        }
+
+        setKeluarga((prevState) => ({
+            ...prevState,
+            [id]: {
+                ...prevState[id],
+                [name]: value.toUpperCase()
+            }
+        }))
+
+        setError({
+            ...error,
+            [name]: ""
+        })
+
+        setSomethingChange(true)
+    }
+
+    const handleUsiaKawin = (e) => {
         const { type, name, value } = e.target
 
         setKeluarga({
             ...keluarga,
             [id]: {
                 ...keluarga[id],
-                [name]: value.toUpperCase()
+                [name]: 0
             }
         })
 
@@ -208,6 +265,17 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
             }
         }
 
+        //kondisi jika memilih sts_hubungan anak memiliki ibu
+        if (keluarga['01'].sts_hubungan == "1" && keluarga['01'].sts_kawin == "2" && keluarga['01'].jenis_kelamin == "1") {
+            setKeluarga({
+                ...keluarga,
+                [id]: {
+                    ...keluarga[id],
+                    ["kd_ibukandung"]: "2"
+                }
+            })
+        }
+
         //kondisi jika memilih sts_hubungan anak dan tidak memiliki ibu maka value default 0
         if (keluarga['01'].sts_hubungan == "1" && (keluarga['01'].sts_kawin == "3" || keluarga['01'].sts_kawin == "4") && keluarga['01'].jenis_kelamin == "1") {
             setKeluarga({
@@ -245,6 +313,8 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
 
 
     const selectedKeluarga = keluarga[id];
+
+    const lastKeluarga = ('0' + wilayah.jumlah_keluarga).slice(-2);
 
     const validate = () => {
         let newError = {};
@@ -342,8 +412,8 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                 newError.usia_kawin = "Usia Kawin Pertama wajib diisi";
             } else if (parseInt(selectedKeluarga.usia_kawin) < 7) {
                 newError.usia_kawin = "Usia Kawin Pertama tidak boleh diisi < 7";
-            } else if (selectedKeluarga.tgl_lahir && parseInt(selectedKeluarga.usia_kawin) >= countAge(selectedKeluarga.tgl_lahir) + 2) {
-                newError.usia_kawin = "Usia Kawin Pertama tidak boleh lebih besar dari umur+1";
+            } else if (selectedKeluarga.tgl_lahir && parseInt(selectedKeluarga.usia_kawin) >= countAge(selectedKeluarga.tgl_lahir)) {
+                newError.usia_kawin = "Usia Kawin Pertama tidak boleh lebih besar dari umur";
             }
 
 
@@ -374,6 +444,21 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
         if (wilayah.jumlah_keluarga !== "1") {
             if (!selectedKeluarga.keberadaan) {
                 newError.keberadaan = "Keberadaan Anggota Keluarga wajib diisi";
+            }
+        }
+
+        if (id === lastKeluarga) {
+            let x = 0;
+
+            Object.keys(keluarga).forEach(function (key) {
+                console.log("keluarga key :", keluarga[key]);
+                if (keluarga[key].keberadaan === "1") {
+                    x++
+                }
+            });
+
+            if (x === 0) {
+                newError.keberadaan = "Minimal terdapat 1 individu berada di dalam rumah";
             }
         }
 
@@ -417,6 +502,8 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                 setSubmitting(false)
                 setSomethingChange(false);
                 handleNext()
+                console.log("Keluarga : ", keluarga)
+                console.log("Jumlah Keluarga : ", wilayah.jumlah_keluarga)
             } catch (e) {
                 setSubmitting(false);
                 if (e.name === 'not_found') {
@@ -526,12 +613,12 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <FormControl
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || (keluarga["01"].jenis_kelamin === "1" && keluarga["01"].sts_kawin === "2" && id === "02")}
                             variant="outlined" fullWidth error={error.jenis_kelamin ? true : false}>
 
                             <Select
                                 id="jenis_kelamin"
-                                value={selectedKeluarga.jenis_kelamin || ''}
+                                value={selectedKeluarga.jenis_kelamin || (keluarga["01"].jenis_kelamin === "1" && keluarga["01"].sts_kawin === "2" && id === "02" && "2") || ""}
                                 onChange={handleChange}
                                 name="jenis_kelamin"
                                 displayEmpty
@@ -579,19 +666,22 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                     </Grid>
                     <Grid item xs={12} sm={6} md={4}>
                         <FormControl
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || (keluarga["01"].jenis_kelamin === "1" && keluarga["01"].sts_kawin === "2" && id === "02")}
                             variant="outlined" fullWidth error={error.sts_kawin ? true : false}>
 
                             <Select
                                 id="sts_kawin"
-                                value={selectedKeluarga.sts_kawin || ''}
+                                // value={selectedKeluarga.sts_kawin || '' }
+                                value={selectedKeluarga.sts_kawin || (keluarga["01"].jenis_kelamin === "1" && keluarga["01"].sts_kawin === "2" && id === "02" && "2") || ""}
                                 onChange={handleChange}
                                 name="sts_kawin"
                                 displayEmpty
                             >
                                 <MenuItem value="">Status Perkawinan</MenuItem>
                                 <MenuItem value="1">Belum Kawin</MenuItem>
-                                <MenuItem value="2">Kawin</MenuItem>
+                                {
+                                    (selectedKeluarga.jenis_kelamin === "1" || id !== "01") && <MenuItem value="2">Kawin</MenuItem>
+                                }
                                 <MenuItem value="3">Cerai Hidup</MenuItem>
                                 <MenuItem value="4">Cerai Mati</MenuItem>
 
@@ -603,12 +693,12 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                     </Grid>
                     <Grid item xs={12} sm={6} md={4}>
                         <TextField
-                            disabled={isSubmitting || !['2', '3', '4'].includes(selectedKeluarga.sts_kawin)}
+                            disabled={isSubmitting || !['2', '3', '4'].includes(selectedKeluarga.sts_kawin) || (keluarga["01"].jenis_kelamin === "1" && keluarga["01"].sts_kawin === "2" && id !== "01" && id !== "02")}
                             fullWidth
                             variant="outlined"
                             placeholder="Usia Kawin Pertama"
                             //value={selectedKeluarga.sts_kawin=="1" ? '' : selectedKeluarga.usia_kawin}
-                            value={selectedKeluarga.usia_kawin || ''}
+                            value={['2', '3', '4'].includes(selectedKeluarga.sts_kawin) ? selectedKeluarga.usia_kawin : ''}
                             name="usia_kawin"
                             id="usia_kawin"
                             type="number"
@@ -700,30 +790,6 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                             <FormHelperText>{error.sts_hubungan}</FormHelperText>
                         </FormControl>
                     </Grid>
-                    {/* <Grid item xs={12} md={4}>
-                        <FormControl
-                            disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
-                            variant="outlined" fullWidth error={error.sts_hubanak_ibu ? true : false}>
-
-                            <Select
-                                id="sts_hubanak_ibu"
-                                value={selectedKeluarga.sts_hubanak_ibu || ''}
-                                onChange={handleChange}
-                                name="sts_hubanak_ibu"
-                                displayEmpty
-                            >
-                                <MenuItem value="">Hubungan Anak Dengan Ibu</MenuItem>
-                                <MenuItem value="1">Ibu Kandung</MenuItem>
-                                <MenuItem value="2">Ibu Angkat</MenuItem>
-                                <MenuItem value="3">Ibu Tiri</MenuItem>
-                                <MenuItem value="4">Lainnya</MenuItem>
-
-
-                            </Select>
-                            <FormHelperText>{error.sts_hubanak_ibu}</FormHelperText>
-                        </FormControl>
-
-                    </Grid> */}
                     <Grid item xs={12} md={4}>
                         <FormControl
                             disabled={isSubmitting || selectedKeluarga.sts_hubungan !== "3"}
@@ -760,9 +826,10 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                                                 )
 
                                             if (kel.sts_hubungan == "1" && (kel.sts_kawin == "3" || kel.sts_kawin == "4") && kel.jenis_kelamin == "1")
-                                                return (
-                                                    <MenuItem value="0">00</MenuItem>
-                                                )
+                                                // return (
+                                                //     <MenuItem value="0">00</MenuItem>
+                                                // )
+                                                return null
                                         }
                                     })
                                 }
@@ -925,8 +992,32 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                             onClick={() => {
                                 handleBack()
                             }}><ChevronLeft className={classes.iconLeft} /> Sebelumnya </Button>
-
                     </Grid>
+
+                    <Grid item xs>
+                        {
+                            mode === "edit" && wilayah.status_draft && wilayah.status_draft === '1' ?
+                                <> <Button
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={handleDraft('local')}
+                                    disabled={isSubmitting.local || isSaved.local}
+                                >
+                                    <SaveIcon className={classes.iconLeft} /> Save as Draft </Button> </> : <></>
+                        }
+
+                        {
+                            mode !== "edit" ?
+                                <> <Button
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={handleDraft('local')}
+                                    disabled={isSubmitting.local || isSaved.local}
+                                >
+                                    <SaveIcon className={classes.iconLeft} /> Save as Draft </Button> </> : <></>
+                        }
+                    </Grid>
+
                     <Grid item>
                         {isSubmitting && <CircularProgress size={14} />}
                         <Button

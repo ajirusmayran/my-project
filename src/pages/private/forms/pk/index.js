@@ -10,6 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 //icons
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import SaveIcon from '@material-ui/icons/Save';
 
 import useStyles from './styles';
 
@@ -32,7 +33,7 @@ import SubFormRadio18 from './subforms/subformradio_18';
 
 import { countAge } from '../pk/validation';
 
-function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBack, setNormalizePK, mode, no_kk }) {
+function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBack, handleDraft, setNormalizePK, mode, no_kk }) {
 
     const classes = useStyles();
     const nextRef = useRef(null);
@@ -48,6 +49,11 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
     const [isSomethingChange, setSomethingChange] = useState(false);
 
     const [isSubmitting, setSubmitting] = useState(false);
+
+    const [isSaved, setSaved] = useState({
+        local: false,
+        remote: false
+    })
 
     const [navigationMode, setNavigationMode] = useState('next');
 
@@ -513,9 +519,33 @@ function PK({ wilayah, keluarga, kb, pk, mainSlide, setPK, handleNext, handleBac
                         ref={backRef}
                         // disabled={!isSomethingChange || isSubmitting}
                         onClick={handleBackSub}><ChevronLeft className={classes.iconLeft} /> Sebelumnya </Button>
-
                 </Grid>
-                <Grid item >
+
+                <Grid item xs>
+                    {
+                        mode === "edit" && wilayah.status_draft && wilayah.status_draft === '1' ?
+                            <> <Button
+                                color="primary"
+                                variant="contained"
+                                onClick={handleDraft('local')}
+                                disabled={isSubmitting.local || isSaved.local}
+                            >
+                                <SaveIcon className={classes.iconLeft} /> Save as Draft </Button> </> : <></>
+                    }
+
+                    {
+                        mode !== "edit" ?
+                            <> <Button
+                                color="primary"
+                                variant="contained"
+                                onClick={handleDraft('local')}
+                                disabled={isSubmitting.local || isSaved.local}
+                            >
+                                <SaveIcon className={classes.iconLeft} /> Save as Draft </Button> </> : <></>
+                    }
+                </Grid>
+
+                <Grid item>
                     {isSubmitting && <CircularProgress size={14} />}
                     <Button
                         ref={nextRef}

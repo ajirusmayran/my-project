@@ -43,6 +43,7 @@ function App() {
                     <PrivateRoute path="/" exact component={Private} />
                     <PrivateRoute path="/form" component={Private} />
                     <PrivateRoute path="/list" component={Private} />
+                    <PrivateRoute path="/list-draft" component={Private} />
                     <PrivateRoute path="/definisi-operasional" component={Private} />
                     <Route path="/login" component={Login} />
                     <Route component={NotFound} />

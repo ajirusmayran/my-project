@@ -58,6 +58,7 @@ export const askForPermissionToReceiveNotifications = async (pdb) => {
 				let Id = metadata.name;
 				// let Id = 2;
 				let Token = token;
+				// fetch('https://demo-bkkbn-notif.herokuapp.com/api/v1/register', {
 				fetch('http://web-push-notification-service-bkkbn.apps.tkp.platform.lintasarta.net/api/v1/register', {
 					method: 'POST',
 					headers: { 'Content-type': 'application/json' },

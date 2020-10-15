@@ -15,6 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 //icons
 import ChevronRight from '@material-ui/icons/ChevronRight';
+import SaveIcon from '@material-ui/icons/Save';
 
 //styles
 import useStyles from './styles/wilayah';
@@ -30,25 +31,33 @@ import { Swipeable } from 'react-swipeable';
 
 import isInt from 'validator/lib/isInt';
 
+
 // redux implementation
 import { withRouter } from "react-router-dom";
 // import { connect } from "react-redux";
 // import { setKeluarga } from "../../../actions/keluarga";
 import { compose } from "redux";
 
-function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga, history }) {
+function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga, history, normalizePK, normalizeKB, }) {
     const classes = useStyles();
     const nextRef = useRef(null)
-    const { user: { metadata } } = usePouchDB();
+    // const { user: { metadata, dataBkkbn } } = usePouchDB();
+    const { user: { metadata }, dataKK, dataKB, dataPK, dataBkkbn } = usePouchDB();
     //console.log(user)
     const { enqueueSnackbar } = useSnackbar();
     const [error, setError] = useState({
 
     })
 
+
     const [isSomethingChange, setSomethingChange] = useState(false);
 
     const [isSubmitting, setSubmitting] = useState(false);
+
+    const [isSaved, setSaved] = useState({
+        local: false,
+        remote: false
+    })
 
     // PERUBAHAN AMBIL YANG RT RW BKKBN
     useEffect(() => {
@@ -168,68 +177,86 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
         if (errorValues.length > 0 && errorValues.some(err => err !== '')) {
             setError(findErrors);
         } else {
-            if (!isSomethingChange) {
-                return handleNext()
-            }
+            let id_rw_bkkbn = metadata.wil_rw.find(rw => parseInt(rw.id_rw) === parseInt(wilayah.id_rw)).id_rw_bkkbn
+            let id_rt_bkkbn = metadata.wil_rw.find(rw => parseInt(rw.id_rw) === parseInt(wilayah.id_rw)).wil_rt.find(rt => parseInt(rt.id_rt) === parseInt(wilayah.id_rt)).id_rt_bkkbn
+            const no_kk = `${metadata.wil_provinsi.id_provinsi_depdagri}${metadata.wil_kabupaten.id_kabupaten_depdagri}${metadata.wil_kecamatan.id_kecamatan_depdagri}${metadata.wil_kelurahan.id_kelurahan_depdagri}${id_rw_bkkbn}${id_rt_bkkbn}${wilayah.no_rmh}${wilayah.no_urutkel}`
+            const query = await dataBkkbn.local.find({
+                selector: {
+                    no_kk: {
+                        "$eq": no_kk
+                    }
+                }
+            });
 
-            //simpan ke db local
-            setSubmitting(true);
-            try {
-                // setKeluarga('keluarga submit');
-                // const existing = await dataKK.local.get(wilayah.no_kk)
+            console.log("no_kk nya : ", no_kk)
+            console.log("query nya : ", query)
+
+            if (query.docs.length === 0) {
+                if (!isSomethingChange) {
+                    return handleNext()
+                }
+
+                //simpan ke db local
+                setSubmitting(true);
+                try {
+                    // setKeluarga('keluarga submit');
+                    // const existing = await dataKK.local.get(wilayah.no_kk)
 
 
-                // await dataKK.local.put({
-                //     _id: wilayah.no_kk,
-                //     _rev: existing._rev,
-                //     type: 'utama',
-                //     ...wilayah
-                // })
+                    // await dataKK.local.put({
+                    //     _id: wilayah.no_kk,
+                    //     _rev: existing._rev,
+                    //     type: 'utama',
+                    //     ...wilayah
+                    // })
 
-                // init rw and rt
-                let id_rw_bkkbn = metadata.wil_rw.find(rw => parseInt(rw.id_rw) === parseInt(wilayah.id_rw)).id_rw_bkkbn
-                let id_rt_bkkbn = metadata.wil_rw.find(rw => parseInt(rw.id_rw) === parseInt(wilayah.id_rw)).wil_rt.find(rt => parseInt(rt.id_rt) === parseInt(wilayah.id_rt)).id_rt_bkkbn
+                    // init rw and rt
+                    // let id_rw_bkkbn = metadata.wil_rw.find(rw => parseInt(rw.id_rw) === parseInt(wilayah.id_rw)).id_rw_bkkbn
+                    // let id_rt_bkkbn = metadata.wil_rw.find(rw => parseInt(rw.id_rw) === parseInt(wilayah.id_rw)).wil_rt.find(rt => parseInt(rt.id_rt) === parseInt(wilayah.id_rt)).id_rt_bkkbn
 
-                setWilayah({
-                    ...wilayah,
-                    ['id_rw_bkkbn'] : `${id_rw_bkkbn}`,
-                    ['id_rt_bkkbn'] : `${id_rt_bkkbn}`,
-                    ['no_kk']: `${metadata.wil_provinsi.id_provinsi_depdagri}${metadata.wil_kabupaten.id_kabupaten_depdagri}${metadata.wil_kecamatan.id_kecamatan_depdagri}${metadata.wil_kelurahan.id_kelurahan_depdagri}${id_rw_bkkbn}${id_rt_bkkbn}${wilayah.no_rmh}${wilayah.no_urutkel}`
-                })
+                    setWilayah({
+                        ...wilayah,
+                        ['id_rw_bkkbn']: id_rw_bkkbn,
+                        ['id_rt_bkkbn']: id_rt_bkkbn,
+                        ['no_kk']: no_kk
+                    })
 
-                console.log(wilayah.no_kk)
+                    console.log(wilayah.no_kk)
 
-                setSomethingChange(false);
-                handleNext()
+                    setSomethingChange(false);
+                    handleNext()
 
-            } catch (e) {
+                } catch (e) {
 
-                setSubmitting(false);
-                if (e.name === 'not_found') {
-                    try {
-                        // await dataKK.local.put({
-                        //     _id: wilayah.no_kk,
-                        //     type: 'utama',
-                        //     ...wilayah
-                        // })
+                    setSubmitting(false);
+                    if (e.name === 'not_found') {
+                        try {
+                            // await dataKK.local.put({
+                            //     _id: wilayah.no_kk,
+                            //     type: 'utama',
+                            //     ...wilayah
+                            // })
 
-                        setSomethingChange(false);
-                        handleNext()
-                    } catch (e) {
+                            setSomethingChange(false);
+                            handleNext()
+                        } catch (e) {
+                            enqueueSnackbar(e.message, { variant: 'error' })
+                        }
+
+
+                    } else {
                         enqueueSnackbar(e.message, { variant: 'error' })
                     }
-
-
-                } else {
-                    enqueueSnackbar(e.message, { variant: 'error' })
                 }
+            } else {
+                window.confirm("Data Sudah Tersedia")
             }
-
-
         }
         console.log(wilayah);
         console.log(wilayah.no_kk)
     }
+
+
 
     return (
         <Swipeable
@@ -305,6 +332,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             >
                                 <MenuItem value="">Pilih RT</MenuItem>
                                 {wilayah.id_rw &&
+                                    // metadata.wil_rt &&
                                     metadata.wil_rw.find(rw => parseInt(rw.id_rw) === parseInt(wilayah.id_rw)).wil_rt.map(rt => <MenuItem key={rt.id_rt} value={rt.id_rt}>{rt.nama_rt}</MenuItem>)}
 
 
@@ -433,11 +461,8 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             helperText={error.alamat_2}
                         />
                     </Grid> */}
-                    <Grid item xs>
 
-
-                    </Grid>
-                    <Grid item >
+                    <Grid item>
                         {isSubmitting && <CircularProgress size={14} />}
                         <Button
                             ref={nextRef}

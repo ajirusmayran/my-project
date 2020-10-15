@@ -10,6 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 //icons
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import SaveIcon from '@material-ui/icons/Save';
 
 import useStyles from './styles';
 
@@ -56,7 +57,7 @@ const subforms = {
     }
 };
 
-function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, setNormalizeKB, mode, no_kk }) {
+function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, handleDraft, setNormalizeKB, mode, no_kk }) {
 
     const classes = useStyles();
     const nextRef = useRef(null);
@@ -72,9 +73,15 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, s
         direction: "left",
         in: true
     });
+
     const [isSomethingChange, setSomethingChange] = useState(false);
 
     const [isSubmitting, setSubmitting] = useState(false);
+
+    const [isSaved, setSaved] = useState({
+        local: false,
+        remote: false
+    })
 
     const [navigationMode, setNavigationMode] = useState('next');
 
@@ -205,24 +212,24 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, s
                 setSomethingChange(true)
             }
 
-        // } else if (e.target.name == "pernah_menggunakan_kontrasepsi" && e.target.value === "2") {
-        //     const inputankb5 = ["pernah_menggunakan_kontrasepsi",
-        //         "bulan_mulai",
-        //         "tahun_mulai",
-        //         "bulan_berhenti",
-        //         "tahun_berhenti"]
-        //     for (let i = 0; i < inputankb5.length; i++) {
+            // } else if (e.target.name == "pernah_menggunakan_kontrasepsi" && e.target.value === "2") {
+            //     const inputankb5 = ["pernah_menggunakan_kontrasepsi",
+            //         "bulan_mulai",
+            //         "tahun_mulai",
+            //         "bulan_berhenti",
+            //         "tahun_berhenti"]
+            //     for (let i = 0; i < inputankb5.length; i++) {
 
-        //         setKB((kb) => ({
-        //             ...kb,
-        //             [no]: {
-        //                 ...kb[no],
-        //                 [inputankb5[i]]: "",
-        //                 [inputankb5["pernah_menggunakan_kontrasepsi"]]: "2"
-        //             }
-        //         }))
-        //         setSomethingChange(true)
-        //     }
+            //         setKB((kb) => ({
+            //             ...kb,
+            //             [no]: {
+            //                 ...kb[no],
+            //                 [inputankb5[i]]: "",
+            //                 [inputankb5["pernah_menggunakan_kontrasepsi"]]: "2"
+            //             }
+            //         }))
+            //         setSomethingChange(true)
+            //     }
         } else if (e.target.name == "kelahiran" && e.target.value === "") {
             const inputan = ["kelahiran",
                 "lahir_hidup_laki_laki",
@@ -363,9 +370,33 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, s
                         ref={backRef}
                         // disabled={!isSomethingChange || isSubmitting}
                         onClick={handleBackSub}><ChevronLeft className={classes.iconLeft} /> Sebelumnya </Button>
-
                 </Grid>
-                <Grid item >
+
+                <Grid item xs>
+                    {
+                        mode === "edit" && wilayah.status_draft && wilayah.status_draft === '1' ?
+                            <> <Button
+                                color="primary"
+                                variant="contained"
+                                onClick={handleDraft('local')}
+                                disabled={isSubmitting.local || isSaved.local}
+                            >
+                                <SaveIcon className={classes.iconLeft} /> Save as Draft </Button> </> : <></>
+                    }
+
+                    {
+                        mode !== "edit" ?
+                            <> <Button
+                                color="primary"
+                                variant="contained"
+                                onClick={handleDraft('local')}
+                                disabled={isSubmitting.local || isSaved.local}
+                            >
+                                <SaveIcon className={classes.iconLeft} /> Save as Draft </Button> </> : <></>
+                    }
+                </Grid>
+
+                <Grid item>
                     {isSubmitting && <CircularProgress size={14} />}
                     <Button
                         ref={nextRef}

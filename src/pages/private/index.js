@@ -27,6 +27,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import SearchIcon from '@material-ui/icons/Search';
+import SaveIcon from '@material-ui/icons/Save';
 
 //styles
 import useStyles from './styles';
@@ -37,6 +38,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 // komponen halaman private
 import Home from './home';
 import List from './list';
+import Draft from './list-draft';
 import Form from './forms/index';
 import EditForm from './forms/edit';
 import DefOP from './definisi-op/index'
@@ -104,7 +106,10 @@ export default function Private({ history, match, location }) {
     const handleClick = (e) => {
         handleCloseNotification();
         history.push("/list")
-        
+    }
+
+    const handleClickDraft = (e) => {
+        history.push("/list-draft")
     }
 
     return (
@@ -267,6 +272,11 @@ export default function Private({ history, match, location }) {
                             handleCloseMenu()
                         }}><ListItemIcon><PeopleIcon fontSize="small" /></ListItemIcon>
                             <ListItemText primary="Daftar Keluarga" /></MenuItem>
+                        <MenuItem onClick={() => {
+                            history.push('/list-draft')
+                            handleCloseMenu()
+                        }}><ListItemIcon><SaveIcon fontSize="small" /></ListItemIcon>
+                            <ListItemText primary="Daftar Draft" /></MenuItem>
                         <Divider />
                         <MenuItem onClick={handleSignOut}><ListItemIcon><SignOutIcon fontSize="small" /></ListItemIcon>
                             <ListItemText primary="Logout" /></MenuItem>
@@ -283,6 +293,7 @@ export default function Private({ history, match, location }) {
                         <Route exact path="/form" component={Form} />
                         <Route path="/form/edit/:_id" component={EditForm} />
                         <Route path="/list" component={List} />
+                        <Route path="/list-draft/" component={Draft} />
                         <Route path="/definisi-operasional" component={DefOP} />
                         <Route component={Home} />
                     </Switch>

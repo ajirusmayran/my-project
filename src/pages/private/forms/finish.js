@@ -25,14 +25,17 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
     const { user: { metadata }, dataKK, dataPK, dataKB, dataBkkbn } = usePouchDB();
     const [locationUser, setLocationUser] = useState([]);
     const [expanded, setExpanded] = useState('panel1a');
+    
     const [isSubmitting, setSubmitting] = useState({
         local: false,
         remote: false
     });
+
     const [isSaved, setSaved] = useState({
         local: false,
         remote: false
     })
+
     const handleChange = panel => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
@@ -76,7 +79,8 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
     const updateNotif = (id) => {
         let userUpdate = metadata.name;
         let userDataUpdate = 8;
-        fetch('https://demo-bkkbn-notif.herokuapp.com/api/v1/pushnotification', {
+        // fetch('https://demo-bkkbn-notif.herokuapp.com/api/v1/pushnotification', {
+        fetch('http://web-push-notification-service-bkkbn.apps.tkp.platform.lintasarta.net/api/v1/pushnotification', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
@@ -94,12 +98,10 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
     }
 
     const saveTo = target => async (e) => {
-
         // put data utama to KK
         const dataKKUtama = {
             // _id: wilayah.no_kk,
             _id: `${Date.now().toString()}${metadata.name}`,
-
             user_name: metadata.name,
             id_prov: parseInt(metadata.wil_provinsi.id_provinsi),
             id_prov_depdagri: parseInt(metadata.wil_provinsi.id_provinsi_depdagri),
@@ -126,7 +128,7 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
                 jns_asuransi: parseInt(keluarga[_id].jns_asuransi),
                 id_agama: parseInt(keluarga[_id].id_agama),
                 id_pekerjaan: parseInt(keluarga[_id].id_pekerjaan),
-                usia_kawin: parseInt(lodashGet(keluarga[_id], 'usia_kawin', 0)),
+                usia_kawin: parseInt(keluarga[_id].sts_kawin) === 1 ? 0 : parseInt(lodashGet(keluarga[_id], 'usia_kawin', 0)),
                 // sts_hubanak_ibu: parseInt(lodashGet(keluarga[_id], 'sts_hubanak_ibu', 0)),
                 kd_ibukandung: parseInt(lodashGet(keluarga[_id], 'kd_ibukandung', 0)),
                 umur: countAge(keluarga[_id].tgl_lahir),
@@ -157,6 +159,7 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
 
             const data_kb = Object.values(normalizeKB);
             const data_pk = Object.values(normalizePK);
+            const status_draft = '2';
 
             //05Des2019
 
@@ -164,8 +167,7 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
                 ...dataKKUtama,
                 periode_sensus: 2020,
                 status_sensus: "",
-                data_nik, data_kb, data_pk,
-
+                data_nik, data_kb, data_pk, status_draft,
             }
 
             await dataBkkbn[target].put(dataBkkbnAll);
@@ -213,18 +215,15 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
             } else {
                 insertNotif(id);
             }
-
-
         } catch (e) {
-
             setSubmitting(curr => ({ ...curr, [target]: false }));
             enqueueSnackbar(e.message, { variant: 'error' })
             if (e.message.includes("The database connection is closing")) {
                 window.location.href = "/login"
             }
         }
-
     }
+
 
     return <Grid container spacing={2}>
         <Grid item xs={12} className={classes.textCenter}>
@@ -271,21 +270,26 @@ function Finish({ wilayah, keluarga, normalizePK, normalizeKB, resetForm, mode, 
         </Grid>
 
         <Grid item >
-
             <div className={classes.btnWrap}>
                 <Button
-
                     disabled={isSubmitting.local || isSaved.local}
                     size="large" variant="contained" color="primary" onClick={saveTo('local')}> <SaveIcon className={classes.iconLeft} /> {mode === 'edit' ? 'Perbarui' : 'Simpan'} Data</Button>
                 {isSubmitting.local && <CircularProgress size={24} className={classes.buttonProgress} />}
             </div>
         </Grid>
 
-        <Grid item>
-
+        {/* <Grid item>
             <div className={classes.btnWrap}>
                 <Button
+                    onClick={saveTo('local')}
+                    disabled={isSubmitting.local || !isSaved.local}
+                    size="large" variant="contained"  ><SaveIcon className={classes.iconLeft} />Save as Draft</Button>
+            </div>
+        </Grid> */}
 
+        <Grid item>
+            <div className={classes.btnWrap}>
+                <Button
                     onClick={resetForm}
                     disabled={isSubmitting.local || !isSaved.local}
                     size="large" variant="contained"  ><UserIcon className={classes.iconLeft} />Isi Data Baru</Button>

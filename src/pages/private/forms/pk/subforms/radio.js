@@ -16,7 +16,7 @@ import useStyles from './styles';
 import validation from '../validation';
 
 
-function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBackSub, navigationMode, isSingle, setIsSingle, subformIndex}) {
+function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBackSub, navigationMode, isSingle, setIsSingle, subformIndex }) {
 
     const classes = useStyles();
     const [error, setError] = useState({});
@@ -25,6 +25,20 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBa
 
     useEffect(() => {
         setError({})
+
+        // if (form.dependencies.length >= 0) {
+        //     const valuesKel = Object.values(keluarga);
+        //     const cekberlaku = form.dependencies.some(dep => {
+        //         return validation[dep](valuesKel)
+        //     });
+
+        //     if (!cekberlaku) {
+        //         setValue({ target: { name: 'jawaban', value: '3' } })
+        //         handleSubmit(null);
+        //     }
+        //     setBerlaku(cekberlaku)
+        // }
+
     }, [])
 
     useEffect(() => {
@@ -38,8 +52,11 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBa
                 return validation[dep](valuesKel)
             });
 
-            if (!cekberlaku) {
+            console.log("cekberlaku : ", cekberlaku)
+            if (cekberlaku === false) {
                 setValue({ target: { name: 'jawaban', value: '3' } })
+                handleSubmit(null)
+                console.log("submit")
             }
             setBerlaku(cekberlaku)
         }
@@ -98,7 +115,12 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBa
         return newError;
     }
     const handleSubmit = (e) => {
-        e.preventDefault()
+
+        if (e !== null) {
+            e.preventDefault()
+        }
+        
+
         const findErrors = validate();
 
         const errorValues = Object.values(findErrors);

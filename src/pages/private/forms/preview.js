@@ -170,7 +170,7 @@ export const renderDataNIK = item => {
         </Grid>
 
         <Grid item xs={6} md={6}>
-            <Typography> : {item.usia_kawin} </Typography>
+            <Typography> : {item.sts_kawin === "1" ? 0 : item.usia_kawin} </Typography>
         </Grid>
 
         <Grid item xs={6} md={6}>

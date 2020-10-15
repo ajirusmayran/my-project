@@ -17,19 +17,28 @@ function SubFormNumber({ id, setValue, saveValue, value, form, wilayah, keluarga
     //const [totalKeluarga,setTotalKeluarga] = useState(0)
 
     // useEffect(() => {
-        
+
     //     Object.entries(keluarga).forEach(([key, value]) => {
     //         let keberadaan = keluarga[key].keberadaan
     //         if(keberadaan === "1"){
     //             setTotalKeluarga((state) => state+1)
     //         }
-        
+
     //     });
     //     setError({})
     // }, [])
     //
-    
-    const jumlahKeluarga = wilayah.jumlah_keluarga;
+
+    // const jumlahKeluarga = wilayah.jumlah_keluarga;
+
+    let jumlahKeluarga = 0;
+
+    Object.keys(keluarga).forEach(function (key) {
+        console.log("keluarga key :", keluarga[key]);
+        if (keluarga[key].keberadaan === "1") {
+            jumlahKeluarga++
+        }
+    });
 
     const { pertanyaan } = form;
     const handleChange = (e) => {
@@ -57,9 +66,11 @@ function SubFormNumber({ id, setValue, saveValue, value, form, wilayah, keluarga
         } else if (!isNumeric(value.jawaban)) {
             newError.jawaban = "Jawaban tidak valid";
         }
-        if(value.jawaban<jumlahKeluarga){
-            newError.jawaban = "Jawaban kurang dari jumlah anggota keluarga";
+        if (value.jawaban < jumlahKeluarga) {
+            newError.jawaban = "Jawaban kurang dari jumlah anggota keluarga keberadaan didalam rumah";
         }
+        console.log("jumlahKeluarga : ", jumlahKeluarga)
+        console.log("value jawaban : ", value.jawaban)
         return newError;
     }
     const handleSubmit = (e) => {
@@ -86,7 +97,7 @@ function SubFormNumber({ id, setValue, saveValue, value, form, wilayah, keluarga
             saveValue(normalizeValue)
         }
     }
-    
+
     return (<form id={id} onSubmit={handleSubmit} noValidate>
         <div className={classes.card}>
             <div className={classes.cardHeader}>
