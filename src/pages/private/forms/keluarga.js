@@ -42,7 +42,7 @@ import { countAge } from './pk/validation';
 
 export const formatString = "dd-MM-yyyy";
 
-function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, handleDraft, formIndex, mode, normalizePK, normalizeKB, }) {
+function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, handleDraft, handleSegmen, formIndex, mode, normalizePK, normalizeKB, }) {
     const classes = useStyles();
     const nextRef = useRef(null);
     const backRef = useRef(null);
@@ -76,6 +76,28 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
     }, [id])
 
     // const qtyKeberadaan = [{ diDalamRumah: 0, diLuarRumah: 0, diLuarNegeri: 0 }]
+
+    const handleCheckSegmen = async (event) => {
+        const { value } = event.target;
+        console.log(wilayah.status_draft, "status_draft")
+        // const x = Object.keys(keluarga).length;
+        const x = parseInt(wilayah.jumlah_keluarga);
+        console.log(x, 'jml kel')
+        if (value) {
+            let val = parseInt(value);
+            console.log(val, 'val parseint')
+            if(x>1){
+                (val>1) ? val = val+x-1 : val = val
+            }
+            if(x == 1 && val == 2){
+                console.log("masuk if 1 2")
+                alert("Data KB tidak tersedia");
+            }else{
+                console.log("masuk jmlklg"+x+"val"+val)
+                handleSegmen(event, val)
+            }
+        }
+    }
 
     const handleChange = (e) => {
         const { type, name, value } = e.target
@@ -1004,6 +1026,28 @@ function Keluarga({ wilayah, id, keluarga, setKeluarga, handleNext, handleBack, 
                                     disabled={isSubmitting.local || isSaved.local}
                                 >
                                     <SaveIcon className={classes.iconLeft} /> Save as Draft </Button> </> : <></>
+                        }
+
+                        {
+                            mode == "edit" && (wilayah.status_draft == undefined || wilayah.status_draft == '2') ?
+                                <>
+                                    <FormControl
+                                        variant="outlined">
+                                        <Select
+                                            id=""
+                                            value=""
+                                            name="segmen"
+                                            onChange={handleCheckSegmen}
+                                            displayEmpty
+                                        >
+                                            <MenuItem value=""> Segmen </MenuItem>
+                                            <MenuItem value="0"> Wilayah </MenuItem>
+                                            <MenuItem value="1"> Keluarga </MenuItem>
+                                            <MenuItem value="2"> KB </MenuItem>
+                                            <MenuItem value="3"> PK </MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </> : <></>
                         }
 
                         {

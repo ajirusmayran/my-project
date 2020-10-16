@@ -166,6 +166,15 @@ function Home({ history }) {
                         </Paper>
                     </ButtonBase>
                 </Grid>
+                <Grid item xs={12}>
+                    <ButtonBase className={classes.fullWidth} onClick={createForm}>
+                        <Paper className={classes.blueGreyBackground} elevation={0}>
+                            <Create />
+                            <Typography>
+                                Rekap RT</Typography>
+                        </Paper>
+                    </ButtonBase>
+                </Grid>
                 <Grid item xs={12} sm={6}>
                     <ButtonBase className={classes.fullWidth} onClick={() => {
                         history.push('/list')

@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -57,7 +60,7 @@ const subforms = {
     }
 };
 
-function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, handleDraft, setNormalizeKB, mode, no_kk }) {
+function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, handleDraft, handleSegmen, setNormalizeKB, mode, no_kk }) {
 
     const classes = useStyles();
     const nextRef = useRef(null);
@@ -143,6 +146,28 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, h
 
     if (!wifeExists) {
         return null;
+    }
+
+    const handleCheckSegmen = async (event) => {
+        const { value } = event.target;
+        console.log(wilayah.status_draft, "status_draft")
+        // const x = Object.keys(keluarga).length;
+        const x = parseInt(wilayah.jumlah_keluarga);
+        console.log(x, 'jml kel')
+        if (value) {
+            let val = parseInt(value);
+            console.log(val, 'val parseint')
+            if(x>1){
+                (val>1) ? val = val+x-1 : val = val
+            }
+            if(x == 1 && val == 2){
+                console.log("masuk if 1 2")
+                alert("Data KB tidak tersedia");
+            }else{
+                console.log("masuk jmlklg"+x+"val"+val)
+                handleSegmen(event, val)
+            }
+        }
     }
 
     const handleNextSub = () => {
@@ -382,6 +407,28 @@ function KB({ wilayah, keluarga, kb, mainSlide, setKB, handleNext, handleBack, h
                                 disabled={isSubmitting.local || isSaved.local}
                             >
                                 <SaveIcon className={classes.iconLeft} /> Save as Draft </Button> </> : <></>
+                    }
+
+                    {
+                        mode == "edit" && (wilayah.status_draft == undefined || wilayah.status_draft == '2') ?
+                            <>
+                                <FormControl
+                                    variant="outlined">
+                                    <Select
+                                        id=""
+                                        value=""
+                                        name="segmen"
+                                        onChange={handleCheckSegmen}
+                                        displayEmpty
+                                    >
+                                        <MenuItem value=""> Segmen </MenuItem>
+                                        <MenuItem value="0"> Wilayah </MenuItem>
+                                        <MenuItem value="1"> Keluarga </MenuItem>
+                                        <MenuItem value="2"> KB </MenuItem>
+                                        <MenuItem value="3"> PK </MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </> : <></>
                     }
 
                     {

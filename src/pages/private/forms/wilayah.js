@@ -38,7 +38,7 @@ import { withRouter } from "react-router-dom";
 // import { setKeluarga } from "../../../actions/keluarga";
 import { compose } from "redux";
 
-function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga, history, normalizePK, normalizeKB, }) {
+function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, history, normalizePK, normalizeKB, handleSegmen }) {
     const classes = useStyles();
     const nextRef = useRef(null)
     // const { user: { metadata, dataBkkbn } } = usePouchDB();
@@ -73,7 +73,6 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
     // END PERUBAHAN AMBIL YANG RT RW BKKBN
 
     const handleChange = (e) => {
-
         if (e.target.type === "number") {
             if (parseInt(e.target.value) < 0)
                 return false;
@@ -191,7 +190,7 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
             console.log("no_kk nya : ", no_kk)
             console.log("query nya : ", query)
 
-            if (query.docs.length === 0) {
+            if (query.docs.length === 0 || mode === 'edit') {
                 if (!isSomethingChange) {
                     return handleNext()
                 }
@@ -256,7 +255,27 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
         console.log(wilayah.no_kk)
     }
 
-
+    const handleCheckSegmen = async (event) => {
+        const { value } = event.target;
+        console.log(wilayah.status_draft, "status_draft")
+        // const x = Object.keys(keluarga).length;
+        const x = parseInt(wilayah.jumlah_keluarga);
+        console.log(x, 'jml kel')
+        if (value) {
+            let val = parseInt(value);
+            console.log(val, 'val parseint')
+            if(x>1){
+                (val>1) ? val = val+x-1 : val = val
+            }
+            if(x == 1 && val == 2){
+                console.log("masuk if 1 2")
+                alert("Data KB tidak tersedia");
+            }else{
+                console.log("masuk jmlklg"+x+"val"+val)
+                handleSegmen(event, val)
+            }
+        }
+    }
 
     return (
         <Swipeable
@@ -398,7 +417,6 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             id="no_telepon"
                             type="number"
                             inputProps={{
-
                                 min: 0,
                                 maxLength: 13
                             }}
@@ -443,24 +461,30 @@ function Wilayah({ wilayah, setWilayah, handleNext, mode, setKeluarga, keluarga,
                             helperText={error.alamat}
                         />
                     </Grid>
-                    {/* <Grid item xs={12} md={6}>
-                        <TextField
-                            disabled={isSubmitting}
-                            fullWidth
-                            variant="outlined"
-                            placeholder="Alamat 2"
-                            multiline
-                            rows={2}
-                            rowsMax={2}
-                            value={wilayah.alamat_2 || ''}
-                            name="alamat_2"
-                            id="alamat_2"
 
-                            onChange={handleChange}
-                            error={error.alamat_2 ? true : false}
-                            helperText={error.alamat_2}
-                        />
-                    </Grid> */}
+                    <Grid item xs className={classes.textLeft}>
+                        {
+                            mode == "edit" && (wilayah.status_draft == undefined || wilayah.status_draft == '2') ?
+                                <>
+                                    <FormControl
+                                        variant="outlined">
+                                        <Select
+                                            id=""
+                                            value=""
+                                            name="segmen"
+                                            onChange={handleCheckSegmen}
+                                            displayEmpty
+                                        >
+                                            <MenuItem value=""> Segmen </MenuItem>
+                                            <MenuItem value="0"> Wilayah </MenuItem>
+                                            <MenuItem value="1"> Keluarga </MenuItem>
+                                            <MenuItem value="2"> KB </MenuItem>
+                                            <MenuItem value="3"> PK </MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </> : <></>
+                        }
+                    </Grid>
 
                     <Grid item>
                         {isSubmitting && <CircularProgress size={14} />}

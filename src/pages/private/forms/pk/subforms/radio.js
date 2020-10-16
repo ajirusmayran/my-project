@@ -16,50 +16,71 @@ import useStyles from './styles';
 import validation from '../validation';
 
 
-function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBackSub, navigationMode, isSingle, setIsSingle, subformIndex }) {
+function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBackSub, navigationMode, isSingle, setIsSingle, subformIndex, direction, backRadio }) {
 
     const classes = useStyles();
     const [error, setError] = useState({});
 
     const [berlaku, setBerlaku] = useState(false);
 
+
     useEffect(() => {
         setError({})
-
-        // if (form.dependencies.length >= 0) {
-        //     const valuesKel = Object.values(keluarga);
-        //     const cekberlaku = form.dependencies.some(dep => {
-        //         return validation[dep](valuesKel)
-        //     });
-
-        //     if (!cekberlaku) {
-        //         setValue({ target: { name: 'jawaban', value: '3' } })
-        //         handleSubmit(null);
-        //     }
-        //     setBerlaku(cekberlaku)
-        // }
-
     }, [])
 
     useEffect(() => {
 
         //console.log('validation called');
         if (form.dependencies.length <= 0) {
+
             setBerlaku(true)
+
         } else {
+
             const valuesKel = Object.values(keluarga);
             const cekberlaku = form.dependencies.some(dep => {
                 return validation[dep](valuesKel)
             });
 
-            console.log("cekberlaku : ", cekberlaku)
-            if (cekberlaku === false) {
+            let normalizeValue;
+            console.log("normalizeValue1111 : ", normalizeValue)
+
+            if (!cekberlaku) {
                 setValue({ target: { name: 'jawaban', value: '3' } })
-                handleSubmit(null)
-                console.log("submit")
+
+                console.log(value.jawaban, 'Aaaaaaaahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+
+                if (direction.direction == "right" && value.jawaban == undefined) {
+
+                    console.log(value.jawaban, 'Uuuuuuuuuuuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+                    normalizeValue = {
+                        Pertanyaan: pertanyaan,
+                        Jawab_Pilih: 3,
+                        Jawaban_H1: value.kondisi || 0,
+                        Jawaban_H2: 0,
+                        No_Pertanyaan: parseInt(form.no),
+                        Lainnya: value.jawaban_lainnya || ''
+                    }
+
+                    if (value._rev) {
+                        normalizeValue._rev = value._rev
+                    }
+                    saveValue(normalizeValue)
+                    console.log("right : ", direction)
+                }
+
+                if (direction.direction == "left" || value.jawaban != undefined) {
+                    setBerlaku(cekberlaku)
+                    backRadio(cekberlaku)
+                    console.log(value.jawaban, 'Oooooooooooohhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+                    console.log("left : ", direction)
+                }
             }
+
             setBerlaku(cekberlaku)
+            console.log("keluarga : ", keluarga)
         }
+        console.log("direction : ", direction)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, form])
 
@@ -110,16 +131,15 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBa
         }
 
 
-
-
         return newError;
     }
+
+
     const handleSubmit = (e) => {
 
-        if (e !== null) {
-            e.preventDefault()
-        }
-        
+        // if (e !== null) {
+        e.preventDefault()
+        // }
 
         const findErrors = validate();
 
@@ -161,6 +181,7 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBa
                 <Grid container spacing={1}>
                     <Grid item xs={12} >
                         <FormControl error={error.jawaban ? true : false} component="fieldset">
+                            {value.jawaban} jawaban
                             <RadioGroup value={value.jawaban || ''}
                                 onChange={handleChange}
                                 aria-label="jawaban" name="jawaban">
@@ -193,7 +214,8 @@ function SubFormRadio({ id, setValue, saveValue, value, form, keluarga, handleBa
                                         value={value.jawaban_lainnya || ''}
                                         onChange={handleChange}
                                         error={error.jawaban_lainnya ? true : false}
-                                        helperText={error.jawaban_lainnya}
+                                        helperText={error.jawa
+                console.log("Value : ", value)ban_lainnya}
                                         inputProps={{
                                             className: classes.inputMini
                                         }}

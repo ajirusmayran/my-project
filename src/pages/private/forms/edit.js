@@ -342,6 +342,65 @@ export default function EditForm(mode) {
 
     const f = forms[formIndex];
 
+    const handleNextSegmen = (param) => {
+
+        setSlide({
+            direction: "right",
+            in: false,
+            navigationMode: "next"
+        });
+        setTimeout(() => {
+
+            if (formIndex >= (forms.length - 1)) {
+                setDone(true);
+            } else {
+                setFormIndex(index => param);
+            }
+            setSlide({
+                direction: "left",
+                in: true,
+                navigationMode: "next"
+            })
+
+        }, 300)
+
+    }
+
+
+    const handleBackSegmen = (param) => {
+        setSlide({
+            direction: "left",
+            in: false,
+            navigationMode: "back"
+        });
+        setTimeout(() => {
+
+            setFormIndex(index => param);
+            setSlide({
+                direction: "right",
+                in: true,
+                navigationMode: "back"
+            })
+
+        }, 300)
+    }
+
+    const handleSegmen = (e, index) => {
+        console.log(forms, 'FormS')
+        e.preventDefault();
+
+        console.log(formIndex, 'current index');
+        console.log(index, 'segmen')
+
+        if(index !== formIndex){
+            if(index < formIndex){
+                handleBackSegmen(index)
+            }else{
+                handleNextSegmen(index)
+            }
+        }
+    }
+
     // console.log(wilayah, keluarga, kb, pk)
     // console.log(normalizeKB);
     // console.log(normalizePK)
@@ -443,7 +502,7 @@ export default function EditForm(mode) {
                         setFormIndex={setFormIndex}
                         handleNext={handleNext}
                         handleDraft={handleDraft}
-
+                        handleSegmen={handleSegmen}
                     />
 
                 }
@@ -463,6 +522,7 @@ export default function EditForm(mode) {
                         no_kk={params.no_kk}
                         wilayah={wilayah}
                         handleDraft={handleDraft}
+                        handleSegmen={handleSegmen}
                     />
 
                 }
@@ -481,6 +541,7 @@ export default function EditForm(mode) {
                         mode="edit"
                         no_kk={params.no_kk}
                         handleDraft={handleDraft}
+                        handleSegmen={handleSegmen}
                     />
 
                 }
@@ -501,6 +562,7 @@ export default function EditForm(mode) {
                         mode="edit"
                         no_kk={params.no_kk}
                         handleDraft={handleDraft}
+                        handleSegmen={handleSegmen}
                     />
                 }
             </div>
